@@ -295,11 +295,14 @@ if(!function_exists('related_post_settings_content_elements')) {
 
 
         $elements = isset($related_post_settings['elements']) ? $related_post_settings['elements'] : array();
+        $elements_index = isset($related_post_settings['elements_index']) ? $related_post_settings['elements_index'] : array();
+
+
 
         //$layout_items= $related_post_settings['layout_items'];
 
 
-        //echo '<pre>'.var_export($display_auto, true).'</pre>';
+        //echo '<pre>'.var_export($related_post_settings, true).'</pre>';
 
         ?>
         <div class="section">
@@ -311,16 +314,29 @@ if(!function_exists('related_post_settings_content_elements')) {
             $get_intermediate_image_sizes = array_merge($get_intermediate_image_sizes,array('full'));
 
             $args = array(
-                'id'		=> 'elements',
-                'title'		=> __('Elements settings','job-board-manager'),
-                'details'	=> __('Customize elements.','job-board-manager'),
-                'type'		=> 'option_group_accordion',
-                'value'		=> $elements,
+                'id'		    => 'elements',
+                'title'		    => __('Elements settings','job-board-manager'),
+                'details'	    => __('Customize elements.','job-board-manager'),
+                'type'		    => 'option_group_accordion',
+                'value'		    => $elements,
+                'sortable'		=> true,
                 'default'		=> array(),
-                'args'		=> array(
-                    array(
-                        'title'=>'Post title',
-                        'options'=>array(
+                'args_index'	=> $elements_index,
+                'args_index_default'    => array('post_title', 'post_thumb', 'post_excerpt'),
+                'args'          => array(
+                    'post_title'    => array(
+                        'title'     =>'Post title',
+                        'options'   =>array(
+                            array(
+                                'id'		    => 'post_title',
+                                'parent'		=> 'related_post_settings[elements_index]',
+                                'title'		    => __('','text-domain'),
+                                'details'	    => __('','text-domain'),
+                                'type'		    => 'hidden',
+                                'value'		=> 'post_title',
+                                'default'		=> 'post_title',
+                            ),
+
                             array(
                                 'id'		    => 'font_size',
                                 'parent'		=> 'related_post_settings[elements][post_title]',
@@ -387,16 +403,20 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'default'		=> '',
                                 'placeholder'   => '',
                             ),
-
-
-
-
-
                         ),
                     ),
-                    array(
+                    'post_thumb' => array(
                         'title'=>'Post thumbnail',
                         'options'=>array(
+                            array(
+                                'id'		    => 'post_thumb',
+                                'parent'		=> 'related_post_settings[elements_index]',
+                                'title'		    => __('','text-domain'),
+                                'details'	    => __('','text-domain'),
+                                'type'		    => 'hidden',
+                                'value'		=> 'post_thumb',
+                                'default'		=> 'post_thumb',
+                            ),
                             array(
                                 'id'		    => 'thumb_size',
                                 'parent'		=> 'related_post_settings[elements][post_thumb]',
@@ -447,9 +467,18 @@ if(!function_exists('related_post_settings_content_elements')) {
 
                         ),
                     ),
-                    array(
+                    'post_excerpt' => array(
                         'title'=>'Post excerpt',
                         'options'=>array(
+                            array(
+                                'id'		    => 'post_excerpt',
+                                'parent'		=> 'related_post_settings[elements_index]',
+                                'title'		    => __('','text-domain'),
+                                'details'	    => __('','text-domain'),
+                                'type'		    => 'hidden',
+                                'value'		=> 'post_excerpt',
+                                'default'		=> 'post_excerpt',
+                            ),
                             array(
                                 'id'		    => 'font_size',
 

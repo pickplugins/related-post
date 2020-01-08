@@ -185,6 +185,8 @@ class RelatedPost{
         wp_enqueue_script( 'jquery-ui-core' );
         wp_enqueue_script('jquery-ui-accordion');
 
+        wp_enqueue_style('jquery-ui');
+        wp_enqueue_style( 'wp-jquery-ui' );
 		// Color Picker
 		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_script('wp-color-picker');
