@@ -93,6 +93,7 @@ class settings_tabs_field{
 
         $args_index 	= isset( $option['args_index'] ) ? $option['args_index'] : array();
         $args_index_default 	= isset( $option['args_index_default'] ) ? $option['args_index_default'] : array();
+        $args_index_hide 	= isset( $option['args_index_hide'] ) ? $option['args_index_hide'] : array();
 
         $args_index = !empty($args_index) ? $args_index : $args_index_default;
 
@@ -122,14 +123,22 @@ class settings_tabs_field{
 
                     //foreach( $args as $key => $value ):
 
-                        $group_title = isset($args[$index]['title']) ? $args[$index]['title'] : '';
+                    $group_title = isset($args[$index]['title']) ? $args[$index]['title'] : '';
+                    $is_hide = isset($args_index_hide[$index]) ? $args_index_hide[$index] : false;
+
+
                         //$link = $value['link'];
                         $options = isset($args[$index]['options']) ? $args[$index]['options'] : array();
 
                         ?>
                         <div class="group">
                             <h3 class="accordion-title">
-                                <span class="sort"><i class="fas fa-sort"></i></span>
+
+
+                                <?php if($sortable): ?>
+                                    <span class="sort"><i class="fas fa-sort"></i></span>
+                                <?php endif; ?>
+
                                 <span class="title-text"><?php echo $group_title; ?></span>
                             </h3>
                             <div class="accordion-content">

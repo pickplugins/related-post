@@ -8,7 +8,7 @@ $related_post_settings_tab[] = array(
     'id' => 'general',
     'title' => sprintf(__('%s General','job-board-manager'),'<i class="fas fa-list-ul"></i>'),
     'priority' => 1,
-    'active' => false,
+    'active' => true,
 );
 
 $related_post_settings_tab[] = array(
@@ -29,7 +29,7 @@ $related_post_settings_tab[] = array(
     'id' => 'elements',
     'title' => sprintf(__('%s Elements','job-board-manager'),'<i class="fab fa-buffer"></i>'),
     'priority' => 4,
-    'active' => true,
+    'active' => false,
 );
 
 

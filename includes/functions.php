@@ -66,16 +66,71 @@ function related_post_display_auto($content) {
 	$related_post_settings = get_option( 'related_post_settings' );		
     $post_types = !empty($related_post_settings['post_types']) ? $related_post_settings['post_types'] : array();
     $display_auto = !empty($related_post_settings['display_auto']) ? $related_post_settings['display_auto'] : '';
+    $content_positions = !empty($related_post_settings['content_positions']) ? $related_post_settings['content_positions'] : array();
+    $paragraph_positions = !empty($related_post_settings['paragraph_positions']) ? $related_post_settings['paragraph_positions'] : array();
+
+    $paragraph_positions = explode(',', $paragraph_positions);
+
+    $related_post_html  = do_shortcode('[related_post]');
 
 		
 	$html = '';
-	$html .= $content;
+
+    if($display_auto=='yes' && in_array($post_type, $post_types) && in_array('before', $content_positions)){
+
+        $html .= do_shortcode('[related_post]');
+
+    }
+
+
+    if(!empty($paragraph_positions)){
+
+
+        $paragraphs = explode('<p', $content);
+        //$paragraphs = array_filter($paragraphs);
+        $paragraphs_count = count($paragraphs);
+
+
+        if(!empty($paragraph_positions))
+        foreach ($paragraph_positions as $position){
+           // echo '<pre>'.var_export($paragraphs_count, true).'</pre>';
+
+
+            if(strpos($position, 'N') !== false){
+
+                $position = str_replace('N', $paragraphs_count, $position );
+                $position = eval('return '.$position.';');
+
+                $position = ($paragraphs_count == $position ) ? $position -1 : $position;
+
+                $paragraphs[$position] = $paragraphs[$position].$related_post_html;
+            }else{
+                $paragraphs[$position] = $paragraphs[$position].$related_post_html;
+            }
+
+
+
+
+        }
+
+
+
+       // echo '<pre>'.var_export($paragraphs, true).'</pre>';
+
+        $html .= implode('<p', $paragraphs);
+
+
+    }else{
+        $html .= $content;
+    }
+
+
 		
-	if($display_auto=='yes' && array_key_exists($post_type, $post_types)){
-		
-		$html .= do_shortcode('[related_post]');
-		
-		}
+	if($display_auto=='yes' && in_array($post_type, $post_types) && in_array('after', $content_positions)){
+
+            $html .= do_shortcode('[related_post]');
+
+	}
 		
 		
 

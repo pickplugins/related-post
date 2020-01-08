@@ -83,17 +83,17 @@ if(!empty($post_types)){
 								}
 						
 						
-							echo '<div class="item">';
-							
-							if(!empty($layout_items))
-							foreach($layout_items as $item_key=>$item){
-							
-								if(empty($item['options']['hide']))
-								include( related_post_plugin_dir . 'templates/'.$item_key.'.php');
-								
-								}
-							
-							echo '</div> <!-- .item -->';
+//							echo '<div class="item">';
+//
+//							if(!empty($layout_items))
+//							foreach($layout_items as $item_key=>$item){
+//
+//								if(empty($item['options']['hide']))
+//								include( related_post_plugin_dir . 'templates/'.$item_key.'.php');
+//
+//								}
+//
+//							echo '</div> <!-- .item -->';
 						
 						endwhile; 
 						//wp_reset_query(); 

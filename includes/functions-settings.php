@@ -16,6 +16,8 @@ if(!function_exists('related_post_settings_content_general')) {
         $display_auto = isset($related_post_settings['display_auto']) ? $related_post_settings['display_auto'] : 'yes';
         $post_types = isset($related_post_settings['post_types']) ? $related_post_settings['post_types'] : array('post');
         $headline_text = isset($related_post_settings['headline_text']) ? $related_post_settings['headline_text'] : __('Related Post','');
+        $content_positions = isset($related_post_settings['content_positions']) ? $related_post_settings['content_positions'] : array();
+        $paragraph_positions = isset($related_post_settings['paragraph_positions']) ? $related_post_settings['paragraph_positions'] : array();
 
         //echo '<pre>'.var_export($display_auto, true).'</pre>';
 
@@ -64,6 +66,38 @@ if(!function_exists('related_post_settings_content_general')) {
             );
 
             $settings_tabs_field->generate_field($args);
+
+
+            $args = array(
+                'id'		=> 'content_positions',
+                'parent'		=> 'related_post_settings',
+                'title'		=> __('Content positions','job-board-manager'),
+                'details'	=> __('Display before or after content.','job-board-manager'),
+                'type'		=> 'checkbox',
+                'value'		=> $content_positions,
+                'default'		=> array(),
+                'style'		=> array('inline' => false),
+                'args'		=> array('before' => 'Before', 'after'=> 'After'),
+
+            );
+
+            $settings_tabs_field->generate_field($args);
+
+
+
+            $args = array(
+                'id'		=> 'paragraph_positions',
+                'parent'		=> 'related_post_settings',
+                'title'		=> __('Paragraph positions','job-board-manager'),
+                'details'	=> __('Display related post after n\'th paragraph. N is total paragraph count, use comma to separate.','job-board-manager'),
+                'type'		=> 'text',
+                'value'		=> $paragraph_positions,
+                'default'		=> '',
+                'placeholder'   => '1,2,N-1',
+            );
+
+            $settings_tabs_field->generate_field($args);
+
 
 
             $args = array(
@@ -323,6 +357,8 @@ if(!function_exists('related_post_settings_content_elements')) {
                 'default'		=> array(),
                 'args_index'	=> $elements_index,
                 'args_index_default'    => array('post_title', 'post_thumb', 'post_excerpt'),
+                'args_index_hide'	=> array('post_title' => false, 'post_thumb' => false , 'post_excerpt' => false),
+
                 'args'          => array(
                     'post_title'    => array(
                         'title'     =>'Post title',
@@ -403,6 +439,28 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'default'		=> '',
                                 'placeholder'   => '',
                             ),
+                            array(
+                                'id'		    => 'custom_css',
+                                'parent'		=> 'related_post_settings[elements][post_title]',
+                                'title'		    => __('Custom CSS','text-domain'),
+                                'details'	    => __('Write custom CSS, do not write &lt;style>&lt;/style> tag','text-domain'),
+                                'type'		    => 'textarea',
+                                'value'		=> '',
+                                'placeholder'   => '',
+                            ),
+
+                            array(
+                                'id'		    => 'after_html',
+                                'parent'		=> 'related_post_settings[elements][post_title]',
+                                'title'		    => __('After HTML','text-domain'),
+                                'details'	    => __('Write custom HTML after post title, you can also use 3rd party shortcodes','text-domain'),
+                                'type'		    => 'textarea',
+                                'value'		=> '',
+                                'placeholder'   => '',
+                            ),
+
+
+
                         ),
                     ),
                     'post_thumb' => array(
@@ -463,8 +521,24 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'default'		=> '',
                                 'placeholder'   => '10px',
                             ),
-
-
+                            array(
+                                'id'		    => 'custom_css',
+                                'parent'		=> 'related_post_settings[elements][post_thumb]',
+                                'title'		    => __('Custom CSS','text-domain'),
+                                'details'	    => __('Write custom CSS, do not write &lt;style>&lt;/style> tag','text-domain'),
+                                'type'		    => 'textarea',
+                                'value'		=> '',
+                                'placeholder'   => '',
+                            ),
+                            array(
+                                'id'		    => 'after_html',
+                                'parent'		=> 'related_post_settings[elements][post_thumb]',
+                                'title'		    => __('After HTML','text-domain'),
+                                'details'	    => __('Write custom HTML after post thumbnail, you can also use 3rd party shortcodes','text-domain'),
+                                'type'		    => 'textarea',
+                                'value'		=> '',
+                                'placeholder'   => '',
+                            ),
                         ),
                     ),
                     'post_excerpt' => array(
@@ -479,9 +553,30 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'value'		=> 'post_excerpt',
                                 'default'		=> 'post_excerpt',
                             ),
+
+                            array(
+                                'id'		    => 'word_count',
+                                'parent'		=> 'related_post_settings[elements][post_excerpt]',
+                                'title'		    => __('Excerpt word count','text-domain'),
+                                'details'	    => __('Set custom number of word count for excerpt.','text-domain'),
+                                'type'		    => 'text',
+                                'default'		=> '20',
+                                'placeholder'   => '20',
+                            ),
+
+                            array(
+                                'id'		    => 'read_more_text',
+                                'parent'		=> 'related_post_settings[elements][post_excerpt]',
+                                'title'		    => __('Read more text','text-domain'),
+                                'details'	    => __('Set custom raed more text for excerpt.','text-domain'),
+                                'type'		    => 'text',
+                                'default'		=> 'Read more',
+                                'placeholder'   => 'Read more',
+                            ),
+
+
                             array(
                                 'id'		    => 'font_size',
-
                                 'parent'		=> 'related_post_settings[elements][post_excerpt]',
                                 'title'		    => __('Font size','text-domain'),
                                 'details'	    => __('Set custom font size.','text-domain'),
@@ -528,6 +623,26 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'default'		=> '',
                                 'placeholder'   => '10px',
                             ),
+                            array(
+                                'id'		    => 'custom_css',
+                                'parent'		=> 'related_post_settings[elements][post_excerpt]',
+                                'title'		    => __('Custom CSS','text-domain'),
+                                'details'	    => __('Write custom CSS, do not write &lt;style>&lt;/style> tag','text-domain'),
+                                'type'		    => 'textarea',
+                                'value'		=> '',
+                                'placeholder'   => '',
+                            ),
+                            array(
+                                'id'		    => 'after_html',
+                                'parent'		=> 'related_post_settings[elements][post_excerpt]',
+                                'title'		    => __('After HTML','text-domain'),
+                                'details'	    => __('Write custom HTML after post title, you can also use 3rd party shortcodes','text-domain'),
+                                'type'		    => 'textarea',
+                                'value'		=> '',
+                                'placeholder'   => '',
+                            ),
+
+
                         ),
                     ),
                 ),
@@ -562,6 +677,11 @@ if(!function_exists('related_post_settings_content_slider')) {
         $slider_column_number_desktop = isset($related_post_settings['slider']['column_desktop']) ? $related_post_settings['slider']['column_desktop'] : 3;
         $slider_column_number_tablet = isset($related_post_settings['slider']['column_tablet']) ? $related_post_settings['slider']['column_tablet'] : 2;
         $slider_column_number_mobile = isset($related_post_settings['slider']['column_mobile']) ? $related_post_settings['slider']['column_mobile'] : 1;
+
+        $slider_slide_speed = isset($related_post_settings['slider']['slide_speed']) ? $related_post_settings['slider']['slide_speed'] : 1000;
+        $slider_pagination_speed = isset($related_post_settings['slider']['pagination_speed']) ? $related_post_settings['slider']['pagination_speed'] : 1200;
+
+
         $slider_auto_play = isset($related_post_settings['slider']['auto_play']) ? $related_post_settings['slider']['auto_play'] : 'true';
         $slider_rewind = isset($related_post_settings['slider']['rewind']) ? $related_post_settings['slider']['rewind'] : 'true';
         $slider_loop = isset($related_post_settings['slider']['loop']) ? $related_post_settings['slider']['loop'] : 'true';
@@ -614,17 +734,39 @@ if(!function_exists('related_post_settings_content_slider')) {
                         'value'		=> $slider_column_number_mobile,
                         'default'		=> 1,
                     ),
-
-
-
-
-
-
                 ),
 
             );
 
             $settings_tabs_field->generate_field($args);
+
+
+
+
+            $args = array(
+                'id'		=> 'slide_speed',
+                'parent'		=> 'related_post_settings[slider]',
+                'title'		=> __('Navigation slide speed','job-board-manager'),
+                'details'	=> __('Set slide speed','job-board-manager'),
+                'type'		=> 'text',
+                'value'		=> $slider_slide_speed,
+                'default'		=> 1,
+            );
+
+            $settings_tabs_field->generate_field($args);
+
+            $args = array(
+                'id'		=> 'pagination_speed',
+                'parent'		=> 'related_post_settings[slider]',
+                'title'		=> __('Dots slide speed','job-board-manager'),
+                'details'	=> __('Set dots slide speed','job-board-manager'),
+                'type'		=> 'text',
+                'value'		=> $slider_pagination_speed,
+                'default'		=> 1,
+            );
+
+            $settings_tabs_field->generate_field($args);
+
 
 
             $args = array(
@@ -711,6 +853,21 @@ if(!function_exists('related_post_settings_content_slider')) {
             $settings_tabs_field->generate_field($args);
 
             $args = array(
+                'id'		=> 'navigation_position',
+                'parent'		=> 'related_post_settings[slider]',
+                'title'		=> __('Slider navigation position','job-board-manager'),
+                'details'	=> __('Choose slider navigation position.','job-board-manager'),
+                'type'		=> 'select',
+                'value'		=> $slider_navigation,
+                'default'		=> 'topright',
+                'args'		=> array('topright'=>__('Top-right','related-post'), 'middle'=>__('Middle','related-post') , 'middle-fixed'=>__('Middle-fixed','related-post') ),
+            );
+
+            $settings_tabs_field->generate_field($args);
+
+
+
+            $args = array(
                 'id'		=> 'pagination',
                 'parent'		=> 'related_post_settings[slider]',
                 'title'		=> __('Slider pagination','job-board-manager'),
@@ -749,6 +906,9 @@ if(!function_exists('related_post_settings_content_slider')) {
             );
 
             $settings_tabs_field->generate_field($args);
+
+
+
 
             ?>
 
