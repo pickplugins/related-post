@@ -71,9 +71,14 @@ function related_post_display_auto($content) {
 
     $paragraph_positions = explode(',', $paragraph_positions);
 
+
+
+
     $related_post_html  = do_shortcode('[related_post]');
 
-		
+    //echo '<pre>'.var_export($paragraph_positions, true).'</pre>';
+
+
 	$html = '';
 
     if($display_auto=='yes' && in_array($post_type, $post_types) && in_array('before', $content_positions)){
@@ -84,40 +89,64 @@ function related_post_display_auto($content) {
 
 
     if(!empty($paragraph_positions)){
+        $split_by = "\n";
+        $content_blocks = explode( $split_by, $content);
+        $content_blocks = array_filter($content_blocks);
+        $content_blocks_count = count($content_blocks);
 
+        //echo '<pre>'.var_export($content_blocks_count, true).'</pre>';
 
-        $paragraphs = explode('<p', $content);
-        //$paragraphs = array_filter($paragraphs);
-        $paragraphs_count = count($paragraphs);
-
-
-        if(!empty($paragraph_positions))
+        $positions = array();
         foreach ($paragraph_positions as $position){
-           // echo '<pre>'.var_export($paragraphs_count, true).'</pre>';
-
-
             if(strpos($position, 'N') !== false){
 
-                $position = str_replace('N', $paragraphs_count, $position );
-                $position = eval('return '.$position.';');
+                $position = str_replace('N', $content_blocks_count, $position );
+                $position = eval("return ($position);");
+                $position = ($content_blocks_count == $position ) ? $position -1 : $position;
 
-                $position = ($paragraphs_count == $position ) ? $position -1 : $position;
-
-                $paragraphs[$position] = $paragraphs[$position].$related_post_html;
+                $positions[] = $position;
             }else{
-                $paragraphs[$position] = $paragraphs[$position].$related_post_html;
+                $positions[] = $position;
+            }
+        }
+
+
+
+        $content_html = '';
+
+
+//        foreach ($paragraph_positions as $position){
+//            if(strpos($position, 'N') !== false){
+//
+//                $position = str_replace('N', $content_blocks_count, $position );
+//                $position = eval("return ($position);");
+//                $position = ($content_blocks_count == $position ) ? $position -1 : $position;
+//
+//                $paragraphs[$position] = $paragraphs[$position];
+//            }
+//        }
+
+
+        $i = 1;
+        foreach ($content_blocks as $content_block){
+
+
+
+
+            if(in_array($i, $positions)){
+                $content_html .= $content_block.$related_post_html;
+            }else{
+                $content_html .= $content_block;
             }
 
 
 
 
+            $i++;
         }
 
 
-
-       // echo '<pre>'.var_export($paragraphs, true).'</pre>';
-
-        $html .= implode('<p', $paragraphs);
+        $html .= $content_html;
 
 
     }else{
