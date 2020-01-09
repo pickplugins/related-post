@@ -9,15 +9,36 @@ if ( ! defined('ABSPATH')) exit; // if direct access
 add_shortcode('related_post', 'related_post_display');
 
 function related_post_display($atts,$content = null) {
-	
-		ob_start();
-		//var_dump('hhhelo');
-		include( related_post_plugin_dir . 'templates/related-post.php');
 
-		return ob_get_clean();
-	
-	
-	}
+    $atts = shortcode_atts(
+        array(
+            'post_id' => "",
+        ), $atts);
+
+    $post_id = $atts['post_id'];
+    $post_id = !empty($post_id) ? $post_id : get_the_ID();
+    $post_type = get_post_type( $post_id );
+
+
+    include( related_post_plugin_dir . 'templates/variables.php');
+    include( related_post_plugin_dir . 'templates/related-post-hook.php');
+
+
+    ob_start();
+
+    ?>
+    <div class="related-post">
+        <?php
+
+        do_action('related_post_main', $post_id);
+
+        ?>
+    </div>
+    <?php
+    include( related_post_plugin_dir . 'templates/css.php');
+    return ob_get_clean();
+
+}
 
 
 

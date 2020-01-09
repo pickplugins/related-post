@@ -219,58 +219,58 @@ function related_post_ajax_get_post_ids()
 
 
 
-function get_post_ids_by_taxonomy_terms()
-	{
-		$post_type = get_post_type( get_the_ID() );	
-		$taxonomy_terms = related_post_get_taxonomy_terms();
+function get_post_ids_by_taxonomy_terms($post_id=0){
+
+    $post_id = !empty($post_id) ? $post_id : get_the_ID();
+
+    $post_type = get_post_type( $post_id );
+    $taxonomy_terms = related_post_get_taxonomy_terms();
 		
-		if(!empty($taxonomy_terms))
-			{
-				foreach($taxonomy_terms as $taxonomy => $term_ids)
-					{
-						foreach($term_ids as $term_id)
-							{
-								$wp_query = new WP_Query(
-									array (
-										'post_type' => $post_type,
-										'post_status' => 'publish',							
-										
-										'tax_query' => array(
-											array(
-												   'taxonomy' => $taxonomy,
-												   'field' => 'id',
-												   'terms' => $term_id,
-											)
-										)
-										
-										) );
-										
-										
-										
-						if ( $wp_query->have_posts() ) :
-						$i = 0;
-						while ( $wp_query->have_posts() ) : $wp_query->the_post();
-								$post_ids[$i] = get_the_ID();
-								
-								$i++;	
-						endwhile;
-						
-						wp_reset_query();
-						endif;			
-										
-								
-							}
-					}
-				
-				//remove current post id
-				
-				$current_post_id = array(get_the_ID());
-				$post_ids = array_diff($post_ids, $current_post_id);
-			}
-		else
-			{
-				$post_ids = array();
-			}
+    if(!empty($taxonomy_terms)) {
+        foreach($taxonomy_terms as $taxonomy => $term_ids){
+            foreach($term_ids as $term_id){
+
+                $wp_query = new WP_Query(
+                    array(
+                        'post_type' => $post_type,
+                        'post_status' => 'publish',
+
+                        'tax_query' => array(
+                            array(
+                               'taxonomy' => $taxonomy,
+                               'field' => 'id',
+                               'terms' => $term_id,
+                            )
+                        )
+                    )
+                );
+
+
+
+            if ( $wp_query->have_posts() ) :
+            $i = 0;
+            while ( $wp_query->have_posts() ) : $wp_query->the_post();
+                $post_ids[$i] = get_the_ID();
+
+                $i++;
+            endwhile;
+
+            wp_reset_query();
+            endif;
+
+
+                }
+            }
+
+            //remove current post id
+
+            $current_post_id = array(get_the_ID());
+            $post_ids = array_diff($post_ids, $current_post_id);
+        }
+    else
+        {
+            $post_ids = array();
+        }
 			
 
 		
