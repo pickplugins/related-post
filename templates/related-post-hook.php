@@ -100,3 +100,50 @@ function related_post_loop_item_element_post_title($loop_post_id, $elementData){
     </div>
     <?php
 }
+
+add_action('related_post_loop_item_element_post_thumb', 'related_post_loop_item_element_post_thumb', 10, 2);
+function related_post_loop_item_element_post_thumb($loop_post_id, $elementData){
+
+    $thumb_size = 'full';
+
+    $post_thumb = wp_get_attachment_image_src( get_post_thumbnail_id($loop_post_id), $thumb_size );
+    $thumb_url = $post_thumb['0'];
+    $post_link = get_permalink($loop_post_id);
+
+    ?>
+    <div class="thumb">
+        <a href="<?php echo $post_link; ?>"><?php echo $thumb_url; ?></a>
+    </div>
+    <?php
+}
+
+
+add_action('related_post_loop_item_element_post_excerpt', 'related_post_loop_item_element_post_excerpt', 10, 2);
+function related_post_loop_item_element_post_excerpt($loop_post_id, $elementData){
+
+    $post = get_post($loop_post_id);
+    $excerpt_word_count = 10;
+    $excerpt_read_more_text= 'Read more';
+    $post_excerpt = $post->post_excerpt;
+
+//var_dump($post_excerpt);
+
+
+    $excerpt_text = wp_trim_words( $post_excerpt , $excerpt_word_count, ' <a class="read-more" href="'.get_permalink(get_the_ID()).'"> '.$excerpt_read_more_text.'</a>' );
+
+    ?>
+    <div class="excerpt">
+        <?php echo $post_excerpt; ?>
+    </div>
+    <?php
+}
+
+
+
+
+
+
+
+
+
+
