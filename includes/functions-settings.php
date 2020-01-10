@@ -17,9 +17,26 @@ if(!function_exists('related_post_settings_content_general')) {
         $post_types = isset($related_post_settings['post_types']) ? $related_post_settings['post_types'] : array('post');
         $headline_text = isset($related_post_settings['headline_text']) ? $related_post_settings['headline_text'] : __('Related Post','');
         $content_positions = isset($related_post_settings['content_positions']) ? $related_post_settings['content_positions'] : array();
+        $excerpt_positions = isset($related_post_settings['excerpt_positions']) ? $related_post_settings['excerpt_positions'] : array();
+
         $paragraph_positions = isset($related_post_settings['paragraph_positions']) ? $related_post_settings['paragraph_positions'] : array();
 
-        //echo '<pre>'.var_export($display_auto, true).'</pre>';
+        $archives = isset($related_post_settings['archives']) ? $related_post_settings['archives'] : array();
+
+        $archives_array = array('front_page'=>'Front page', 'home' => 'Home', 'blog' => 'Blog', 'author' => 'Author', 'search' => 'Search', 'year' => 'Year', 'month' => 'Month', 'date' => 'Date');
+        $all_post_types = get_post_types();
+        $taxonomies = get_object_taxonomies( $all_post_types );
+
+
+        foreach ($taxonomies as $taxonomy){
+            $the_taxonomy = get_taxonomy($taxonomy);
+
+            $archives_array[$taxonomy] = $the_taxonomy->labels->name;
+
+        }
+
+
+        //echo '<pre>'.var_export($archives_array, true).'</pre>';
 
         ?>
         <div class="section">
@@ -67,6 +84,22 @@ if(!function_exists('related_post_settings_content_general')) {
 
             $settings_tabs_field->generate_field($args);
 
+            $args = array(
+                'id'		=> 'archives',
+                'parent'		=> 'related_post_settings',
+                'title'		=> __('Choose archive','job-board-manager'),
+                'details'	=> __('Display related post automatically following archive page.','job-board-manager'),
+                'type'		=> 'checkbox',
+                'value'		=> $archives,
+                'default'		=> array(),
+                'style'		=> array('inline' => false),
+                'args'		=> $archives_array,
+            );
+
+            $settings_tabs_field->generate_field($args);
+
+
+
 
             $args = array(
                 'id'		=> 'content_positions',
@@ -83,7 +116,20 @@ if(!function_exists('related_post_settings_content_general')) {
 
             $settings_tabs_field->generate_field($args);
 
+            $args = array(
+                'id'		=> 'excerpt_positions',
+                'parent'		=> 'related_post_settings',
+                'title'		=> __('Excerpt positions','job-board-manager'),
+                'details'	=> __('Display before or after excerpt.','job-board-manager'),
+                'type'		=> 'checkbox',
+                'value'		=> $excerpt_positions,
+                'default'		=> array(),
+                'style'		=> array('inline' => false),
+                'args'		=> array('before' => 'Before', 'after'=> 'After'),
 
+            );
+
+            $settings_tabs_field->generate_field($args);
 
             $args = array(
                 'id'		=> 'paragraph_positions',

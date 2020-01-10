@@ -51,9 +51,81 @@ function related_post_count_stats() {
 
 
 
+function related_post_is_archive_display($archives){
+
+
+    if(is_front_page() && is_home()){
+
+        if(in_array('front_page', $archives)){
+            return true;
+        }
+
+    }elseif( is_front_page()){
+        if(in_array('home', $archives)){
+            return true;
+        }
+
+    }elseif( is_home()){
+        if(in_array('blog', $archives)){
+            return true;
+        }
+    }else if( is_tax()){
+
+    }else if(is_author()){
+        if(in_array('author', $archives)){
+            return true;
+        }
+    }else if(is_search()){
+        if(in_array('search', $archives)){
+            return true;
+        }
+    }else if(is_year()){
+        if(in_array('year', $archives)){
+            return true;
+        }
+    }else if(is_month()){
+        if(in_array('month', $archives)){
+            return true;
+        }
+    }else if(is_date()){
+        if(in_array('date', $archives)){
+            return true;
+        }
+    }else{
+        return false;
+    }
 
 
 
+
+
+}
+
+add_filter('the_excerpt','related_post_excerpt_display_auto');
+
+
+function related_post_excerpt_display_auto($excerpt) {
+    $post_id = get_the_ID();
+    $post_type = get_post_type( $post_id );
+    $related_post_settings = get_option( 'related_post_settings' );
+    $display_auto = !empty($related_post_settings['display_auto']) ? $related_post_settings['display_auto'] : '';
+    $post_types = !empty($related_post_settings['post_types']) ? $related_post_settings['post_types'] : array();
+    $excerpt_positions = !empty($related_post_settings['excerpt_positions']) ? $related_post_settings['excerpt_positions'] : array();
+
+    $html = '';
+
+    if($display_auto=='yes' && in_array($post_type, $post_types) && in_array('before', $excerpt_positions)){
+        $html .= do_shortcode('[related_post post_id="'.$post_id.'"]');
+    }
+
+    $html .= $excerpt;
+
+    if($display_auto=='yes' && in_array($post_type, $post_types) && in_array('after', $excerpt_positions)){
+        $html .= do_shortcode('[related_post post_id="'.$post_id.'"]');
+    }
+
+    return $html;
+}
 
 add_filter('the_content','related_post_display_auto');
 
@@ -67,13 +139,21 @@ function related_post_display_auto($content) {
 	$post_type = get_post_type( $post_id );
 	$related_post_settings = get_option( 'related_post_settings' );		
     $post_types = !empty($related_post_settings['post_types']) ? $related_post_settings['post_types'] : array();
+    $archives = !empty($related_post_settings['archives']) ? $related_post_settings['archives'] : array();
+
     $display_auto = !empty($related_post_settings['display_auto']) ? $related_post_settings['display_auto'] : '';
     $content_positions = !empty($related_post_settings['content_positions']) ? $related_post_settings['content_positions'] : array();
     $paragraph_positions = !empty($related_post_settings['paragraph_positions']) ? $related_post_settings['paragraph_positions'] : array();
     $paragraph_positions = !empty($paragraph_positions) ? explode(',', $paragraph_positions) : array();
     $related_post_html  = do_shortcode('[related_post]');
 
-    //echo '<pre>'.var_export($paragraph_positions, true).'</pre>';
+    $is_archive_display = related_post_is_archive_display($archives);
+
+
+    //echo '<pre>'.var_export($archives, true).'</pre>';
+   // echo '<pre>'.var_export($is_archive_display, true).'</pre>';
+
+
 	$html = '';
 
     if($display_auto=='yes' && in_array($post_type, $post_types) && in_array('before', $content_positions)){
