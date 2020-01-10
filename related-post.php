@@ -169,10 +169,10 @@ class RelatedPost{
         wp_register_style('font-awesome-5', related_post_plugin_url.'assets/front/css/font-awesome-5.css');
 
 
-        wp_enqueue_script('owl.carousel.min', related_post_plugin_url.'/assets/front/js/owl.carousel.min.js' , array( 'jquery' ));
-		wp_enqueue_style('owl.carousel', related_post_plugin_url.'assets/front/css/owl.carousel.css');
+        wp_register_script('owl.carousel', related_post_plugin_url.'/assets/front/js/owl.carousel.min.js' , array( 'jquery' ));
+        wp_register_style('owl.carousel', related_post_plugin_url.'assets/front/css/owl.carousel.min.css');
 
-		
+
 
 		
 	}

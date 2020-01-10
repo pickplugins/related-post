@@ -133,12 +133,15 @@ if(!function_exists('related_post_settings_content_style')) {
         $related_post_settings = get_option( 'related_post_settings' );
 
         $layout_type = isset($related_post_settings['layout_type']) ? $related_post_settings['layout_type'] : 'grid';
-        $grid_item_width = isset($related_post_settings['grid_item_width']) ? $related_post_settings['grid_item_width'] : '45%';
         $grid_item_margin = isset($related_post_settings['grid_item_margin']) ? $related_post_settings['grid_item_margin'] : '10px';
         $grid_item_padding = isset($related_post_settings['grid_item_padding']) ? $related_post_settings['grid_item_padding'] : '10px';
         $grid_item_align = isset($related_post_settings['grid_item_align']) ? $related_post_settings['grid_item_align'] : 'left';
 
-        //echo '<pre>'.var_export($display_auto, true).'</pre>';
+        $item_width_large = isset($related_post_settings['item_width']['large']) ? $related_post_settings['item_width']['large'] : '45%';
+        $item_width_medium = isset($related_post_settings['item_width']['medium']) ? $related_post_settings['item_width']['medium'] : '90%';
+        $item_width_small = isset($related_post_settings['item_width']['small']) ? $related_post_settings['item_width']['small'] : '90%';
+
+        //echo '<pre>'.var_export($related_post_settings, true).'</pre>';
 
         ?>
         <div class="section">
@@ -162,17 +165,54 @@ if(!function_exists('related_post_settings_content_style')) {
 
 
 
+
+
             $args = array(
-                'id'		=> 'grid_item_width',
-                'parent'		=> 'related_post_settings',
+                'id'		=> 'item_width',
                 'title'		=> __('Item width','job-board-manager'),
                 'details'	=> __('Set item width.','job-board-manager'),
-                'type'		=> 'text',
-                'value'		=> $grid_item_width,
-                'default'		=> '45%',
+                'type'		=> 'option_group',
+                'options'		=> array(
+                    array(
+                        'id'		=> 'large',
+                        'parent'		=> 'related_post_settings[item_width]',
+                        'title'		=> __('In desktop','job-board-manager'),
+                        'details'	=> __('min-width: 1200px','job-board-manager'),
+                        'type'		=> 'text',
+                        'value'		=> $item_width_large,
+                        'default'		=> '45%',
+                    ),
+                    array(
+                        'id'		=> 'medium',
+                        'parent'		=> 'related_post_settings[item_width]',
+                        'title'		=> __('In tablet & small desktop','job-board-manager'),
+                        'details'	=> __('min-width: 992px','job-board-manager'),
+                        'type'		=> 'text',
+                        'value'		=> $item_width_medium,
+                        'default'		=> '90%',
+                    ),
+                    array(
+                        'id'		=> 'small',
+                        'parent'		=> 'related_post_settings[item_width]',
+                        'title'		=> __('In mobile','job-board-manager'),
+                        'details'	=> __('max-width: 768px','job-board-manager'),
+                        'type'		=> 'text',
+                        'value'		=> $item_width_small,
+                        'default'		=> '90%',
+                    ),
+                ),
+
             );
 
             $settings_tabs_field->generate_field($args);
+
+
+
+
+
+
+
+
 
             $args = array(
                 'id'		=> 'grid_item_margin',
@@ -336,7 +376,7 @@ if(!function_exists('related_post_settings_content_elements')) {
         //$layout_items= $related_post_settings['layout_items'];
 
 
-        //echo '<pre>'.var_export($related_post_settings, true).'</pre>';
+        //echo '<pre>'.var_export($elements, true).'</pre>';
 
         ?>
         <div class="section">
@@ -372,6 +412,20 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'value'		=> 'post_title',
                                 'default'		=> 'post_title',
                             ),
+                            array(
+                                'id'		=> 'hide',
+                                'parent'		=> 'related_post_settings[elements][post_title]',
+                                'title'		=> __('Hide','job-board-manager'),
+                                'details'	=> __('You can hide this element.','job-board-manager'),
+                                'type'		=> 'select',
+                                'value'		=> isset($elements['post_title']['hide']) ? $elements['post_title']['hide'] : 'no',
+                                //'multiple'		=> true,
+                                'default'		=> 'no',
+                                'args'		=> array(
+                                    'no'=>__('No','related-post'),
+                                    'yes'=>__('Yes','related-post'),
+                                ),
+                            ),
 
                             array(
                                 'id'		    => 'font_size',
@@ -379,6 +433,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'title'		    => __('Font size','text-domain'),
                                 'details'	    => __('Set custom font size.','text-domain'),
                                 'type'		    => 'text',
+                                'value'		=> isset($elements['post_title']['font_size']) ? $elements['post_title']['font_size'] : '',
                                 'default'		=> '',
                                 'placeholder'   => '14px',
                             ),
@@ -389,6 +444,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'title'		    => __('Font color','text-domain'),
                                 'details'	    => __('Choose font color.','text-domain'),
                                 'type'		    => 'colorpicker',
+                                'value'		=> isset($elements['post_title']['font_color']) ? $elements['post_title']['font_color'] : '',
                                 'default'		=> '',
                                 'placeholder'   => '14px',
                             ),
@@ -398,6 +454,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'title'		    => __('Line height','text-domain'),
                                 'details'	    => __('Set line height.','text-domain'),
                                 'type'		    => 'text',
+                                'value'		=> isset($elements['post_title']['line_height']) ? $elements['post_title']['line_height'] : '',
                                 'default'		=> '',
                                 'placeholder'   => 'normal',
                             ),
@@ -408,6 +465,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'title'		    => __('Margin','text-domain'),
                                 'details'	    => __('Set margin.','text-domain'),
                                 'type'		    => 'text',
+                                'value'		=> isset($elements['post_title']['margin']) ? $elements['post_title']['margin'] : '',
                                 'default'		=> '',
                                 'placeholder'   => '10px',
                             ),
@@ -418,6 +476,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'title'		    => __('Padding','text-domain'),
                                 'details'	    => __('Set padding.','text-domain'),
                                 'type'		    => 'text',
+                                'value'		=> isset($elements['post_title']['padding']) ? $elements['post_title']['padding'] : '',
                                 'default'		=> '',
                                 'placeholder'   => '10px',
                             ),
@@ -427,6 +486,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'title'		    => __('Icon','text-domain'),
                                 'details'	    => __('Set icon.','text-domain'),
                                 'type'		    => 'text',
+                                'value'		=> isset($elements['post_title']['icon']) ? $elements['post_title']['icon'] : '',
                                 'default'		=> '',
                                 'placeholder'   => '',
                             ),
@@ -436,6 +496,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'title'		    => __('Icon font size','text-domain'),
                                 'details'	    => __('Set icon font size.','text-domain'),
                                 'type'		    => 'text',
+                                'value'		=> isset($elements['post_title']['icon_font_size']) ? $elements['post_title']['icon_font_size'] : '',
                                 'default'		=> '',
                                 'placeholder'   => '',
                             ),
@@ -445,7 +506,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'title'		    => __('Custom CSS','text-domain'),
                                 'details'	    => __('Write custom CSS, do not write &lt;style>&lt;/style> tag','text-domain'),
                                 'type'		    => 'textarea',
-                                'value'		=> '',
+                                'value'		=> isset($elements['post_title']['custom_css']) ? $elements['post_title']['custom_css'] : '',
                                 'placeholder'   => '',
                             ),
 
@@ -455,7 +516,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'title'		    => __('After HTML','text-domain'),
                                 'details'	    => __('Write custom HTML after post title, you can also use 3rd party shortcodes','text-domain'),
                                 'type'		    => 'textarea',
-                                'value'		=> '',
+                                'value'		=> isset($elements['post_title']['after_html']) ? $elements['post_title']['after_html'] : '',
                                 'placeholder'   => '',
                             ),
 
@@ -476,11 +537,27 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'default'		=> 'post_thumb',
                             ),
                             array(
+                                'id'		=> 'hide',
+                                'parent'		=> 'related_post_settings[elements][post_thumb]',
+                                'title'		=> __('Hide','job-board-manager'),
+                                'details'	=> __('You can hide this element.','job-board-manager'),
+                                'type'		=> 'select',
+                                'value'		=> isset($elements['post_thumb']['hide']) ? $elements['post_thumb']['hide'] : 'no',
+                                //'multiple'		=> true,
+                                'default'		=> 'no',
+                                'args'		=> array(
+                                    'no'=>__('No','related-post'),
+                                    'yes'=>__('Yes','related-post'),
+                                ),
+                            ),
+
+                            array(
                                 'id'		    => 'thumb_size',
                                 'parent'		=> 'related_post_settings[elements][post_thumb]',
                                 'title'		    => __('Thumbnail size','text-domain'),
                                 'details'	    => __('Choose thumbnail size','text-domain'),
                                 'type'		    => 'select',
+                                'value'		=> isset($elements['post_thumb']['thumb_size']) ? $elements['post_thumb']['thumb_size'] : '',
                                 'default'		=> '',
                                 'args'   => $get_intermediate_image_sizes,
                             ),
@@ -490,6 +567,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'title'		    => __('Default thumbnail','text-domain'),
                                 'details'	    => __('Set default thumbnail','text-domain'),
                                 'type'		    => 'media_url',
+                                'value'		=> isset($elements['post_thumb']['default_img']) ? $elements['post_thumb']['default_img'] : '',
                                 'default'		=> '',
                             ),
 
@@ -499,6 +577,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'title'		    => __('Max height','text-domain'),
                                 'details'	    => __('Set max height','text-domain'),
                                 'type'		    => 'text',
+                                'value'		=> isset($elements['post_thumb']['max_height']) ? $elements['post_thumb']['max_height'] : '',
                                 'default'		=> '',
                                 'placeholder'   => '200px',
                             ),
@@ -508,6 +587,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'title'		    => __('Margin','text-domain'),
                                 'details'	    => __('Set margin.','text-domain'),
                                 'type'		    => 'text',
+                                'value'		=> isset($elements['post_thumb']['margin']) ? $elements['post_thumb']['margin'] : '',
                                 'default'		=> '',
                                 'placeholder'   => '10px',
                             ),
@@ -518,6 +598,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'title'		    => __('Padding','text-domain'),
                                 'details'	    => __('Set padding.','text-domain'),
                                 'type'		    => 'text',
+                                'value'		=> isset($elements['post_thumb']['padding']) ? $elements['post_thumb']['padding'] : '',
                                 'default'		=> '',
                                 'placeholder'   => '10px',
                             ),
@@ -527,7 +608,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'title'		    => __('Custom CSS','text-domain'),
                                 'details'	    => __('Write custom CSS, do not write &lt;style>&lt;/style> tag','text-domain'),
                                 'type'		    => 'textarea',
-                                'value'		=> '',
+                                'value'		=> isset($elements['post_thumb']['custom_css']) ? $elements['post_thumb']['custom_css'] : '',
                                 'placeholder'   => '',
                             ),
                             array(
@@ -536,7 +617,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'title'		    => __('After HTML','text-domain'),
                                 'details'	    => __('Write custom HTML after post thumbnail, you can also use 3rd party shortcodes','text-domain'),
                                 'type'		    => 'textarea',
-                                'value'		=> '',
+                                'value'		=> isset($elements['post_thumb']['after_html']) ? $elements['post_thumb']['after_html'] : '',
                                 'placeholder'   => '',
                             ),
                         ),
@@ -553,13 +634,27 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'value'		=> 'post_excerpt',
                                 'default'		=> 'post_excerpt',
                             ),
-
+                            array(
+                                'id'		=> 'hide',
+                                'parent'		=> 'related_post_settings[elements][post_excerpt]',
+                                'title'		=> __('Hide','job-board-manager'),
+                                'details'	=> __('You can hide this element.','job-board-manager'),
+                                'type'		=> 'select',
+                                'value'		=> isset($elements['post_excerpt']['hide']) ? $elements['post_excerpt']['hide'] : 'no',
+                                //'multiple'		=> true,
+                                'default'		=> 'no',
+                                'args'		=> array(
+                                    'no'=>__('No','related-post'),
+                                    'yes'=>__('Yes','related-post'),
+                                ),
+                            ),
                             array(
                                 'id'		    => 'word_count',
                                 'parent'		=> 'related_post_settings[elements][post_excerpt]',
                                 'title'		    => __('Excerpt word count','text-domain'),
                                 'details'	    => __('Set custom number of word count for excerpt.','text-domain'),
                                 'type'		    => 'text',
+                                'value'		=> isset($elements['post_excerpt']['word_count']) ? $elements['post_excerpt']['word_count'] : '',
                                 'default'		=> '20',
                                 'placeholder'   => '20',
                             ),
@@ -570,6 +665,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'title'		    => __('Read more text','text-domain'),
                                 'details'	    => __('Set custom raed more text for excerpt.','text-domain'),
                                 'type'		    => 'text',
+                                'value'		=> isset($elements['post_excerpt']['read_more_text']) ? $elements['post_excerpt']['read_more_text'] : '',
                                 'default'		=> 'Read more',
                                 'placeholder'   => 'Read more',
                             ),
@@ -581,6 +677,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'title'		    => __('Font size','text-domain'),
                                 'details'	    => __('Set custom font size.','text-domain'),
                                 'type'		    => 'text',
+                                'value'		=> isset($elements['post_excerpt']['font_size']) ? $elements['post_excerpt']['font_size'] : '',
                                 'default'		=> '',
                                 'placeholder'   => '14px',
                             ),
@@ -591,6 +688,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'title'		    => __('Font color','text-domain'),
                                 'details'	    => __('Choose font color.','text-domain'),
                                 'type'		    => 'colorpicker',
+                                'value'		=> isset($elements['post_excerpt']['font_color']) ? $elements['post_excerpt']['font_color'] : '',
                                 'default'		=> '',
                                 'placeholder'   => '14px',
                             ),
@@ -600,6 +698,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'title'		    => __('Line height','text-domain'),
                                 'details'	    => __('Set line height.','text-domain'),
                                 'type'		    => 'text',
+                                'value'		=> isset($elements['post_excerpt']['line_height']) ? $elements['post_excerpt']['line_height'] : '',
                                 'default'		=> '',
                                 'placeholder'   => 'normal',
                             ),
@@ -610,6 +709,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'title'		    => __('Margin','text-domain'),
                                 'details'	    => __('Set margin.','text-domain'),
                                 'type'		    => 'text',
+                                'value'		=> isset($elements['post_excerpt']['margin']) ? $elements['post_excerpt']['margin'] : '',
                                 'default'		=> '',
                                 'placeholder'   => '10px',
                             ),
@@ -620,6 +720,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'title'		    => __('Padding','text-domain'),
                                 'details'	    => __('Set padding.','text-domain'),
                                 'type'		    => 'text',
+                                'value'		=> isset($elements['post_excerpt']['padding']) ? $elements['post_excerpt']['padding'] : '',
                                 'default'		=> '',
                                 'placeholder'   => '10px',
                             ),
@@ -629,7 +730,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'title'		    => __('Custom CSS','text-domain'),
                                 'details'	    => __('Write custom CSS, do not write &lt;style>&lt;/style> tag','text-domain'),
                                 'type'		    => 'textarea',
-                                'value'		=> '',
+                                'value'		=> isset($elements['post_excerpt']['custom_css']) ? $elements['post_excerpt']['custom_css'] : '',
                                 'placeholder'   => '',
                             ),
                             array(
@@ -638,7 +739,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'title'		    => __('After HTML','text-domain'),
                                 'details'	    => __('Write custom HTML after post title, you can also use 3rd party shortcodes','text-domain'),
                                 'type'		    => 'textarea',
-                                'value'		=> '',
+                                'value'		=> isset($elements['post_excerpt']['after_html']) ? $elements['post_excerpt']['after_html'] : '',
                                 'placeholder'   => '',
                             ),
 
@@ -711,7 +812,7 @@ if(!function_exists('related_post_settings_content_slider')) {
                         'id'		=> 'column_desktop',
                         'parent'		=> 'related_post_settings[slider]',
                         'title'		=> __('In desktop','job-board-manager'),
-                        'details'	=> __('min 1000px and max','job-board-manager'),
+                        'details'	=> __('min-width: 1200px','job-board-manager'),
                         'type'		=> 'text',
                         'value'		=> $slider_column_number_desktop,
                         'default'		=> 3,
@@ -720,7 +821,7 @@ if(!function_exists('related_post_settings_content_slider')) {
                         'id'		=> 'column_tablet',
                         'parent'		=> 'related_post_settings[slider]',
                         'title'		=> __('In tablet & small desktop','job-board-manager'),
-                        'details'	=> __('900px max width','job-board-manager'),
+                        'details'	=> __('min-width: 992px','job-board-manager'),
                         'type'		=> 'text',
                         'value'		=> $slider_column_number_tablet,
                         'default'		=> 2,
@@ -729,7 +830,7 @@ if(!function_exists('related_post_settings_content_slider')) {
                         'id'		=> 'column_mobile',
                         'parent'		=> 'related_post_settings[slider]',
                         'title'		=> __('In mobile','job-board-manager'),
-                        'details'	=> __('479px max width','job-board-manager'),
+                        'details'	=> __('min-width: 576px','job-board-manager'),
                         'type'		=> 'text',
                         'value'		=> $slider_column_number_mobile,
                         'default'		=> 1,

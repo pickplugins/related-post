@@ -3,6 +3,7 @@
 
 .related-post {
 	clear: both;
+	margin: 20px 0;
 }
 
 .related-post .headline {
@@ -11,18 +12,14 @@
 	font-weight: bold;
 }
 
-.related-post .post-list {
-	padding: 0;
-	margin: 0;
-	
-}
+
 
 .related-post .post-list .item {
 	overflow: hidden;
 	display: inline-block;
 	vertical-align: top;
-	margin: 10px;
-	padding: 0 0;
+	margin: 0px;
+	padding: 0px;
 }
 
 .related-post .post-list .item .thumb{overflow: hidden;}
@@ -30,34 +27,14 @@
 	width: 100%;
 	height: auto;
 }
-.related-post .post-list .item .title {
-	margin: 10px 0;
-}
-
-.related-post .post-list .item .title a{
-	margin: 10px 0;
-	font-size: 15px;
-	text-decoration: none;
-	line-height: normal;
-}
-
-.related-post .post-list .item .excerpt {
-	line-height: normal;
-	font-size: 13px;
-}
 
 
 
-.related-post.list .post-list .item {
-	width: 100%;
-}
-.related-post.list .post-list .item .excerpt {
-	display: none;
-}
-.related-post.list .post-list .item .thumb {
-	max-height: 100px;
-	display: none;
-}
+
+
+
+
+
 
 
 
@@ -124,11 +101,3 @@
   background: url("images/arrow-next.png") no-repeat scroll 5px 3px rgb(255, 255, 255);
 
 }
-
-
-
-
-
-
-
-

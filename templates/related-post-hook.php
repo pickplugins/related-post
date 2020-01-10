@@ -26,6 +26,7 @@ function related_post_main_post_loop($post_id){
     $orderby= isset($related_post_settings['orderby']) ? $related_post_settings['orderby'] : 'date';
     $order = isset($related_post_settings['order']) ? $related_post_settings['order'] : 'DESC';
     $max_post_count= isset($related_post_settings['max_post_count']) ? $related_post_settings['max_post_count'] : 5;
+    $layout_type = isset($related_post_settings['layout_type']) ? $related_post_settings['layout_type'] : 'grid';
 
     $args = array(
         'post_type' => $post_type,
@@ -42,10 +43,10 @@ function related_post_main_post_loop($post_id){
 
     $wp_query = new WP_Query($args);
 
-
+    $slider_class = ($layout_type=='slider') ? 'owl-carousel' : '';
 
     ?>
-    <div class="post-list">
+    <div class="post-list <?php echo $slider_class; ?>">
 
         <?php
 
@@ -79,9 +80,14 @@ function related_post_loop_item($loop_post_id){
     $related_post_settings = get_option( 'related_post_settings' );
     $elements = isset($related_post_settings['elements']) ? $related_post_settings['elements'] : array();
 
-    foreach ($elements as $elementIndex=>$elementData){
+    foreach ($elements as $elementIndex=> $elementData){
 
-        do_action('related_post_loop_item_element_'.$elementIndex, $loop_post_id, $elementData);
+        $hide = isset($elementData['hide']) ? $elementData['hide'] : 'no';
+
+        if($hide != 'yes'){
+            do_action('related_post_loop_item_element_'.$elementIndex, $loop_post_id, $elementData);
+        }
+
 
     }
 
@@ -93,11 +99,21 @@ function related_post_loop_item_element_post_title($loop_post_id, $elementData){
 
     $post_link = get_permalink($loop_post_id);
     $post_title = get_the_title($loop_post_id);
+    $icon = isset($elementData['icon']) ? $elementData['icon'] : '';
 
     ?>
-    <div class="title">
-        <a class="title" class="title" href="<?php echo $post_link; ?>"><?php echo $post_title; ?></a>
-    </div>
+
+    <a class="title post_title" href="<?php echo $post_link; ?>">
+        <?php
+        if(!empty($icon)):
+            ?>
+            <span class="icon"><?php echo $icon;?></span>
+            <?php
+        endif;
+        ?>
+        <?php echo $post_title; ?>
+    </a>
+
     <?php
 }
 
@@ -111,8 +127,8 @@ function related_post_loop_item_element_post_thumb($loop_post_id, $elementData){
     $post_link = get_permalink($loop_post_id);
 
     ?>
-    <div class="thumb">
-        <a href="<?php echo $post_link; ?>"><?php echo $thumb_url; ?></a>
+    <div class="thumb post_thumb">
+        <a href="<?php echo $post_link; ?>"><img src="<?php echo $thumb_url; ?>"></a>
     </div>
     <?php
 }
@@ -121,20 +137,22 @@ function related_post_loop_item_element_post_thumb($loop_post_id, $elementData){
 add_action('related_post_loop_item_element_post_excerpt', 'related_post_loop_item_element_post_excerpt', 10, 2);
 function related_post_loop_item_element_post_excerpt($loop_post_id, $elementData){
 
+    //echo '<pre>'.var_export($elementData, true).'</pre>';
+
+    $word_count = isset($elementData['word_count']) ? $elementData['word_count'] : 20;
+    $read_more_text = isset($elementData['read_more_text']) ? $elementData['read_more_text'] : __('Read more', '');
+    $after_html = isset($elementData['after_html']) ? $elementData['after_html'] : '';
+
     $post = get_post($loop_post_id);
-    $excerpt_word_count = 10;
-    $excerpt_read_more_text= 'Read more';
     $post_excerpt = $post->post_excerpt;
-
-//var_dump($post_excerpt);
-
-
-    $excerpt_text = wp_trim_words( $post_excerpt , $excerpt_word_count, ' <a class="read-more" href="'.get_permalink(get_the_ID()).'"> '.$excerpt_read_more_text.'</a>' );
+    $post_content = $post->post_content;
+    $post_excerpt = !empty($post_excerpt) ? strip_tags($post_excerpt) : strip_tags($post_content);
+    $post_excerpt = wp_trim_words( $post_excerpt , $word_count, ' <a class="read-more" href="'.get_permalink(get_the_ID()).'"> '.$read_more_text.'</a>' );
 
     ?>
-    <div class="excerpt">
+    <p class="excerpt post_excerpt">
         <?php echo $post_excerpt; ?>
-    </div>
+    </p>
     <?php
 }
 
@@ -142,8 +160,224 @@ function related_post_loop_item_element_post_excerpt($loop_post_id, $elementData
 
 
 
+add_action('related_post_main' ,'related_post_main_css');
+
+function related_post_main_css($post_id){
+
+    $related_post_settings = get_option( 'related_post_settings' );
+
+    $elements = isset($related_post_settings['elements']) ? $related_post_settings['elements'] : array();
+    $layout_type = isset($related_post_settings['layout_type']) ? $related_post_settings['layout_type'] : 'grid';
+    $item_width = isset($related_post_settings['item_width']) ? $related_post_settings['item_width'] : array();
 
 
 
+    ?>
 
+    <style type="text/css">
+        .related-post{}
+        .related-post .post-list{
+        <?php if(!empty($grid_item_align) && $layout_type!='slider'):?>
+            text-align:<?php echo $grid_item_align; ?>;
+        <?php endif; ?>
+        }
+        .related-post .post-list .item{
+        <?php if(!empty($grid_item_width) && $layout_type!='slider'):?>
+            width:<?php echo $grid_item_width; ?>;
+        <?php endif; ?>
+        <?php if(!empty($grid_item_margin) && $layout_type!='slider'):?>
+            margin:<?php echo $grid_item_margin; ?>;
+        <?php endif; ?>
+        <?php if(!empty($grid_item_padding) && $layout_type!='slider'):?>
+            padding:<?php echo $grid_item_padding; ?>;
+        <?php endif; ?>
+        }
+
+        <?php
+
+        if(!empty($elements)):
+            foreach ($elements as $elementIndex  => $elementData){
+
+                $font_size = isset($elementData['font_size']) ? $elementData['font_size'] : '14px';
+                $font_color = isset($elementData['font_color']) ? $elementData['font_color'] : '#999';
+                $margin = isset($elementData['margin']) ? $elementData['margin'] : '10px';
+                $padding = isset($elementData['padding']) ? $elementData['padding'] : '0px';
+                $line_height = isset($elementData['line_height']) ? $elementData['line_height'] : '';
+
+                $custom_css = isset($elementData['custom_css']) ? $elementData['custom_css'] : '';
+
+
+                if($elementIndex == 'post_thumb'){
+                     $max_height = isset($elementData['max_height']) ? $elementData['max_height'] : '';
+                    ?>
+                    .related-post .post-list .item .<?php echo $elementIndex; ?>{
+                        max-height:<?php echo $max_height; ?>;
+                        margin:<?php echo $margin; ?>;
+                        padding:<?php echo $padding; ?>;
+                        line-height:<?php echo $line_height; ?>;
+                        display: block;
+                        <?php echo $custom_css; ?>
+                    }
+                    <?php
+
+                }elseif ($elementIndex == 'post_title'){
+
+                    ?>
+                    .related-post .post-list .item .<?php echo $elementIndex; ?>{
+                        font-size:<?php echo $font_size; ?>;
+                        color:<?php echo $font_color; ?>;
+                        margin:<?php echo $margin; ?>;
+                        padding:<?php echo $padding; ?>;
+                        line-height:<?php echo $line_height; ?>;
+                        display: block;
+                        text-decoration: none;
+                        <?php echo $custom_css; ?>
+                    }
+                    <?php
+
+                }elseif ($elementIndex == 'post_excerpt'){
+                    ?>
+                    .related-post .post-list .item .<?php echo $elementIndex; ?>{
+                        font-size:<?php echo $font_size; ?>;
+                        color:<?php echo $font_color; ?>;
+                        margin:<?php echo $margin; ?>;
+                        padding:<?php echo $padding; ?>;
+                        line-height:<?php echo $line_height; ?>;
+                        display: block;
+                        text-decoration: none;
+                        <?php echo $custom_css; ?>
+                    }
+                    <?php
+                }
+            }
+        endif;
+
+        ?>
+
+        .related-post .owl-dots .owl-dot {
+        <?php if(!empty($slider_pagination_bg)):?>
+            background:<?php echo $slider_pagination_bg; ?>;
+        <?php endif; ?>
+
+        <?php if(!empty($slider_pagination_text_color)):?>
+            color:<?php echo $slider_pagination_text_color; ?>;
+        <?php endif; ?>
+        }
+
+        <?php
+
+
+        if($layout_type == 'grid' || $layout_type == 'list'){
+            foreach ($item_width as $widthIndex => $width){
+
+                if($widthIndex == 'large'){
+                    ?>
+                    @media only screen and (min-width: 1200px ){
+                        .related-post .post-list .item{
+                            width: <?php echo $width; ?>;
+
+                        }
+                    }
+
+                    <?php
+
+                }elseif ($widthIndex == 'medium'){
+
+                }elseif ($widthIndex == 'small'){
+
+                }
+            }
+        }
+
+
+
+        ?>
+
+
+
+    </style>
+    <?php
+
+}
+
+
+add_action('related_post_main' ,'related_post_main_slider_scripts');
+
+function related_post_main_slider_scripts($post_id){
+
+    $related_post_settings = get_option( 'related_post_settings' );
+    $layout_type = isset($related_post_settings['layout_type']) ? $related_post_settings['layout_type'] : 'grid';
+    $slider_column_number_desktop = isset($related_post_settings['slider']['column_desktop']) ? $related_post_settings['slider']['column_desktop'] : 3;
+    $slider_column_number_tablet = isset($related_post_settings['slider']['column_tablet']) ? $related_post_settings['slider']['column_tablet'] : 2;
+    $slider_column_number_mobile = isset($related_post_settings['slider']['column_mobile']) ? $related_post_settings['slider']['column_mobile'] : 1;
+    $slider_slide_speed = isset($related_post_settings['slider']['slide_speed']) ? $related_post_settings['slider']['slide_speed'] : 1000;
+    $slider_pagination_speed = isset($related_post_settings['slider']['pagination_speed']) ? $related_post_settings['slider']['pagination_speed'] : 1200;
+    $slider_auto_play = isset($related_post_settings['slider']['auto_play']) ? $related_post_settings['slider']['auto_play'] : 'true';
+    $slider_rewind = isset($related_post_settings['slider']['rewind']) ? $related_post_settings['slider']['rewind'] : 'true';
+    $slider_loop = isset($related_post_settings['slider']['loop']) ? $related_post_settings['slider']['loop'] : 'true';
+    $slider_center = isset($related_post_settings['slider']['center']) ? $related_post_settings['slider']['center'] : 'true';
+    $slider_stop_on_hover = isset($related_post_settings['slider']['stop_on_hover']) ? $related_post_settings['slider']['stop_on_hover'] : 'true';
+    $slider_navigation = isset($related_post_settings['slider']['navigation']) ? $related_post_settings['slider']['navigation'] : 'true';
+    $slider_pagination = isset($related_post_settings['slider']['pagination']) ? $related_post_settings['slider']['pagination'] : 'true';
+    $slider_pagination_count = isset($related_post_settings['slider']['pagination_count']) ? $related_post_settings['slider']['pagination_count'] : 'true';
+    $slider_rtl = isset($related_post_settings['slider']['rtl']) ? $related_post_settings['slider']['rtl'] : 'true';
+
+    if($layout_type=='slider'):
+        ?>
+        <script>
+        jQuery(document).ready(function($){
+            $(".related-post .post-list").owlCarousel({
+                items :<?php echo $slider_column_number_desktop; ?>,
+                responsiveClass:true,
+                responsive:{
+                    576:{
+                        items:<?php echo $slider_column_number_mobile; ?>,
+                    },
+                    992:{
+                        items:<?php echo $slider_column_number_tablet; ?>,
+                    },
+                    1200:{
+                        items:<?php echo $slider_column_number_desktop; ?>,
+                    }
+                },
+                <?php if(!empty($slider_rewind)): ?>
+                rewind: <?php echo $slider_rewind; ?>,
+                <?php endif;?>
+                <?php if(!empty($slider_loop)): ?>
+                loop: <?php echo $slider_loop; ?>,
+                <?php endif;?>
+                <?php if(!empty($slider_center)): ?>
+                center: <?php echo $slider_center; ?>,
+                <?php endif;?>
+                <?php if(!empty($slider_auto_play)): ?>
+                autoplay: <?php echo $slider_auto_play; ?>,
+                autoplayHoverPause: <?php echo $slider_stop_on_hover; ?>,
+                <?php endif;?>
+                <?php if(!empty($slider_navigation)): ?>
+                nav: <?php echo $slider_navigation; ?>,
+                navSpeed: <?php echo $slider_slide_speed; ?>,
+                navText : ["",""],
+                <?php endif;?>
+                <?php if(!empty($slider_pagination)): ?>
+                dots: <?php echo $slider_pagination; ?>,
+                dotsSpeed: <?php echo $slider_pagination_speed; ?>,
+                navText : ["",""],
+                <?php endif;?>
+                <?php if(!empty($slider_touch_drag)): ?>
+                touchDrag: <?php echo $slider_touch_drag; ?>,
+                <?php endif;?>
+                <?php if(!empty($slider_mouse_drag)): ?>
+                mouseDrag: <?php echo $slider_mouse_drag; ?>,
+                <?php endif;?>
+                <?php if(!empty($slider_rtl)): ?>
+                rtl: <?php echo $slider_rtl; ?>,
+                <?php endif;?>
+
+            });
+        });
+        </script>
+    <?php
+    endif;
+
+}
 

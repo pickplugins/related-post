@@ -62,39 +62,29 @@ function related_post_display_auto($content) {
 
     //delete_option('related_post_settings');
 
-	$post_type = get_post_type( get_the_ID() );	
+    $post_id = get_the_ID();
+
+	$post_type = get_post_type( $post_id );
 	$related_post_settings = get_option( 'related_post_settings' );		
     $post_types = !empty($related_post_settings['post_types']) ? $related_post_settings['post_types'] : array();
     $display_auto = !empty($related_post_settings['display_auto']) ? $related_post_settings['display_auto'] : '';
     $content_positions = !empty($related_post_settings['content_positions']) ? $related_post_settings['content_positions'] : array();
     $paragraph_positions = !empty($related_post_settings['paragraph_positions']) ? $related_post_settings['paragraph_positions'] : array();
-
-    $paragraph_positions = explode(',', $paragraph_positions);
-
-
-
-
+    $paragraph_positions = !empty($paragraph_positions) ? explode(',', $paragraph_positions) : array();
     $related_post_html  = do_shortcode('[related_post]');
 
     //echo '<pre>'.var_export($paragraph_positions, true).'</pre>';
-
-
 	$html = '';
 
     if($display_auto=='yes' && in_array($post_type, $post_types) && in_array('before', $content_positions)){
-
-        $html .= do_shortcode('[related_post]');
-
+        $html .= do_shortcode('[related_post post_id="'.$post_id.'"]');
     }
-
 
     if(!empty($paragraph_positions)){
         $split_by = "\n";
         $content_blocks = explode( $split_by, $content);
         $content_blocks = array_filter($content_blocks);
         $content_blocks_count = count($content_blocks);
-
-        //echo '<pre>'.var_export($content_blocks_count, true).'</pre>';
 
         $positions = array();
         foreach ($paragraph_positions as $position){
@@ -111,27 +101,10 @@ function related_post_display_auto($content) {
         }
 
 
-
         $content_html = '';
-
-
-//        foreach ($paragraph_positions as $position){
-//            if(strpos($position, 'N') !== false){
-//
-//                $position = str_replace('N', $content_blocks_count, $position );
-//                $position = eval("return ($position);");
-//                $position = ($content_blocks_count == $position ) ? $position -1 : $position;
-//
-//                $paragraphs[$position] = $paragraphs[$position];
-//            }
-//        }
-
 
         $i = 1;
         foreach ($content_blocks as $content_block){
-
-
-
 
             if(in_array($i, $positions)){
                 $content_html .= $content_block.$related_post_html;
@@ -139,32 +112,19 @@ function related_post_display_auto($content) {
                 $content_html .= $content_block;
             }
 
-
-
-
             $i++;
         }
 
-
         $html .= $content_html;
-
 
     }else{
         $html .= $content;
     }
 
-
-		
 	if($display_auto=='yes' && in_array($post_type, $post_types) && in_array('after', $content_positions)){
-
-            $html .= do_shortcode('[related_post]');
-
+        $html .= do_shortcode('[related_post post_id="'.$post_id.'"]');
 	}
-		
-		
 
-	
-	
 	return $html;
 	
 	}
