@@ -154,13 +154,17 @@ function related_post_display_auto($content) {
    // echo '<pre>'.var_export($is_archive_display, true).'</pre>';
 
 
+
 	$html = '';
 
-    if($display_auto=='yes' && in_array($post_type, $post_types) && in_array('before', $content_positions)){
+    if($display_auto=='yes' && is_singular($post_types) && in_array($post_type, $post_types) && in_array('before', $content_positions)){
         $html .= do_shortcode('[related_post post_id="'.$post_id.'"]');
     }
 
-    if(!empty($paragraph_positions)){
+
+
+
+    if(!empty($paragraph_positions) && is_singular($post_types)){
         $split_by = "\n";
         $content_blocks = explode( $split_by, $content);
         $content_blocks = array_filter($content_blocks);
@@ -201,7 +205,7 @@ function related_post_display_auto($content) {
         $html .= $content;
     }
 
-	if($display_auto=='yes' && in_array($post_type, $post_types) && in_array('after', $content_positions)){
+	if($display_auto=='yes' && is_singular($post_types) && in_array($post_type, $post_types) && in_array('after', $content_positions)){
         $html .= do_shortcode('[related_post post_id="'.$post_id.'"]');
 	}
 

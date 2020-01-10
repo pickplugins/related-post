@@ -40,16 +40,16 @@ if(!function_exists('related_post_settings_content_general')) {
 
         ?>
         <div class="section">
-            <div class="section-title"><?php echo __('General settings', 'job-board-manager'); ?></div>
-            <p class="description section-description"><?php echo __('Choose some general option to getting started.', 'job-board-manager'); ?></p>
+            <div class="section-title"><?php echo __('General settings', 'related-post'); ?></div>
+            <p class="description section-description"><?php echo __('Choose some general option to getting started.', 'related-post'); ?></p>
 
             <?php
 
             $args = array(
                 'id'		=> 'display_auto',
                 'parent'		=> 'related_post_settings',
-                'title'		=> __('Display automatically','job-board-manager'),
-                'details'	=> __('Display automatically related post under post content.','job-board-manager'),
+                'title'		=> __('Display automatically','related-post'),
+                'details'	=> __('Display automatically related post under post content.','related-post'),
                 'type'		=> 'select',
                 'value'		=> $display_auto,
                 'default'		=> 'yes',
@@ -73,8 +73,8 @@ if(!function_exists('related_post_settings_content_general')) {
             $args = array(
                 'id'		=> 'post_types',
                 'parent'		=> 'related_post_settings',
-                'title'		=> __('Choose post types','job-board-manager'),
-                'details'	=> __('Display related post automatically under selected post types.','job-board-manager'),
+                'title'		=> __('Choose post types','related-post'),
+                'details'	=> __('Display related post automatically under selected post types.','related-post'),
                 'type'		=> 'checkbox',
                 'value'		=> $post_types,
                 'default'		=> array('post'),
@@ -87,8 +87,8 @@ if(!function_exists('related_post_settings_content_general')) {
             $args = array(
                 'id'		=> 'archives',
                 'parent'		=> 'related_post_settings',
-                'title'		=> __('Choose archive','job-board-manager'),
-                'details'	=> __('Display related post automatically following archive page.','job-board-manager'),
+                'title'		=> __('Choose archive','related-post'),
+                'details'	=> __('Display related post automatically following archive page.','related-post'),
                 'type'		=> 'checkbox',
                 'value'		=> $archives,
                 'default'		=> array(),
@@ -104,8 +104,8 @@ if(!function_exists('related_post_settings_content_general')) {
             $args = array(
                 'id'		=> 'content_positions',
                 'parent'		=> 'related_post_settings',
-                'title'		=> __('Content positions','job-board-manager'),
-                'details'	=> __('Display before or after content.','job-board-manager'),
+                'title'		=> __('Content positions','related-post'),
+                'details'	=> __('Display before or after content.','related-post'),
                 'type'		=> 'checkbox',
                 'value'		=> $content_positions,
                 'default'		=> array(),
@@ -119,8 +119,8 @@ if(!function_exists('related_post_settings_content_general')) {
             $args = array(
                 'id'		=> 'excerpt_positions',
                 'parent'		=> 'related_post_settings',
-                'title'		=> __('Excerpt positions','job-board-manager'),
-                'details'	=> __('Display before or after excerpt.','job-board-manager'),
+                'title'		=> __('Excerpt positions','related-post'),
+                'details'	=> __('Display before or after excerpt.','related-post'),
                 'type'		=> 'checkbox',
                 'value'		=> $excerpt_positions,
                 'default'		=> array(),
@@ -134,8 +134,8 @@ if(!function_exists('related_post_settings_content_general')) {
             $args = array(
                 'id'		=> 'paragraph_positions',
                 'parent'		=> 'related_post_settings',
-                'title'		=> __('Paragraph positions','job-board-manager'),
-                'details'	=> __('Display related post after n\'th paragraph. N is total paragraph count, use comma to separate.','job-board-manager'),
+                'title'		=> __('Paragraph positions','related-post'),
+                'details'	=> __('Display related post after n\'th paragraph. N is total paragraph count, use comma to separate.','related-post'),
                 'type'		=> 'text',
                 'value'		=> $paragraph_positions,
                 'default'		=> '',
@@ -149,8 +149,8 @@ if(!function_exists('related_post_settings_content_general')) {
             $args = array(
                 'id'		=> 'headline_text',
                 'parent'		=> 'related_post_settings',
-                'title'		=> __('Title text','job-board-manager'),
-                'details'	=> __('Custom text for related post title.','job-board-manager'),
+                'title'		=> __('Title text','related-post'),
+                'details'	=> __('Custom text for related post title.','related-post'),
                 'type'		=> 'text',
                 'value'		=> $headline_text,
                 'default'		=> __('Related Post',''),
@@ -191,16 +191,16 @@ if(!function_exists('related_post_settings_content_style')) {
 
         ?>
         <div class="section">
-            <div class="section-title"><?php echo __('General settings', 'job-board-manager'); ?></div>
-            <p class="description section-description"><?php echo __('Choose some general option to getting started.', 'job-board-manager'); ?></p>
+            <div class="section-title"><?php echo __('General settings', 'related-post'); ?></div>
+            <p class="description section-description"><?php echo __('Choose some general option to getting started.', 'related-post'); ?></p>
 
             <?php
 
             $args = array(
                 'id'		=> 'layout_type',
                 'parent'		=> 'related_post_settings',
-                'title'		=> __('Layout type','job-board-manager'),
-                'details'	=> __('Choose layout type.','job-board-manager'),
+                'title'		=> __('Layout type','related-post'),
+                'details'	=> __('Choose layout type.','related-post'),
                 'type'		=> 'select',
                 'value'		=> $layout_type,
                 'default'		=> 'grid',
@@ -215,15 +215,15 @@ if(!function_exists('related_post_settings_content_style')) {
 
             $args = array(
                 'id'		=> 'item_width',
-                'title'		=> __('Item width','job-board-manager'),
-                'details'	=> __('Set item width.','job-board-manager'),
+                'title'		=> __('Item width','related-post'),
+                'details'	=> __('Set item width.','related-post'),
                 'type'		=> 'option_group',
                 'options'		=> array(
                     array(
                         'id'		=> 'large',
                         'parent'		=> 'related_post_settings[item_width]',
-                        'title'		=> __('In desktop','job-board-manager'),
-                        'details'	=> __('min-width: 1200px','job-board-manager'),
+                        'title'		=> __('In desktop','related-post'),
+                        'details'	=> __('min-width: 1200px','related-post'),
                         'type'		=> 'text',
                         'value'		=> $item_width_large,
                         'default'		=> '45%',
@@ -231,8 +231,8 @@ if(!function_exists('related_post_settings_content_style')) {
                     array(
                         'id'		=> 'medium',
                         'parent'		=> 'related_post_settings[item_width]',
-                        'title'		=> __('In tablet & small desktop','job-board-manager'),
-                        'details'	=> __('min-width: 992px','job-board-manager'),
+                        'title'		=> __('In tablet & small desktop','related-post'),
+                        'details'	=> __('min-width: 992px','related-post'),
                         'type'		=> 'text',
                         'value'		=> $item_width_medium,
                         'default'		=> '90%',
@@ -240,8 +240,8 @@ if(!function_exists('related_post_settings_content_style')) {
                     array(
                         'id'		=> 'small',
                         'parent'		=> 'related_post_settings[item_width]',
-                        'title'		=> __('In mobile','job-board-manager'),
-                        'details'	=> __('max-width: 768px','job-board-manager'),
+                        'title'		=> __('In mobile','related-post'),
+                        'details'	=> __('max-width: 768px','related-post'),
                         'type'		=> 'text',
                         'value'		=> $item_width_small,
                         'default'		=> '90%',
@@ -263,8 +263,8 @@ if(!function_exists('related_post_settings_content_style')) {
             $args = array(
                 'id'		=> 'grid_item_margin',
                 'parent'		=> 'related_post_settings',
-                'title'		=> __('Item margin','job-board-manager'),
-                'details'	=> __('Set item margin.','job-board-manager'),
+                'title'		=> __('Item margin','related-post'),
+                'details'	=> __('Set item margin.','related-post'),
                 'type'		=> 'text',
                 'value'		=> $grid_item_margin,
                 'default'		=> '10px',
@@ -275,8 +275,8 @@ if(!function_exists('related_post_settings_content_style')) {
             $args = array(
                 'id'		=> 'grid_item_padding',
                 'parent'		=> 'related_post_settings',
-                'title'		=> __('Item padding','job-board-manager'),
-                'details'	=> __('Set item padding.','job-board-manager'),
+                'title'		=> __('Item padding','related-post'),
+                'details'	=> __('Set item padding.','related-post'),
                 'type'		=> 'text',
                 'value'		=> $grid_item_padding,
                 'default'		=> '10px',
@@ -287,8 +287,8 @@ if(!function_exists('related_post_settings_content_style')) {
             $args = array(
                 'id'		=> 'grid_item_align',
                 'parent'		=> 'related_post_settings',
-                'title'		=> __('Item text align','job-board-manager'),
-                'details'	=> __('Set item text align.','job-board-manager'),
+                'title'		=> __('Item text align','related-post'),
+                'details'	=> __('Set item text align.','related-post'),
                 'type'		=> 'select',
                 'value'		=> $grid_item_align,
                 'default'		=> 'left',
@@ -328,16 +328,16 @@ if(!function_exists('related_post_settings_content_query')) {
 
         ?>
         <div class="section">
-            <div class="section-title"><?php echo __('Post query settings', 'job-board-manager'); ?></div>
-            <p class="description section-description"><?php echo __('Choose post query settings.', 'job-board-manager'); ?></p>
+            <div class="section-title"><?php echo __('Post query settings', 'related-post'); ?></div>
+            <p class="description section-description"><?php echo __('Choose post query settings.', 'related-post'); ?></p>
 
             <?php
 
             $args = array(
                 'id'		=> 'orderby',
                 'parent'		=> 'related_post_settings',
-                'title'		=> __('Query orderby','job-board-manager'),
-                'details'	=> __('Choose related post query orderby','job-board-manager'),
+                'title'		=> __('Query orderby','related-post'),
+                'details'	=> __('Choose related post query orderby','related-post'),
                 'type'		=> 'select',
                 'value'		=> $orderby,
                 'multiple'		=> true,
@@ -362,8 +362,8 @@ if(!function_exists('related_post_settings_content_query')) {
             $args = array(
                 'id'		=> 'order',
                 'parent'		=> 'related_post_settings',
-                'title'		=> __('Post order','job-board-manager'),
-                'details'	=> __('Choose post query order.','job-board-manager'),
+                'title'		=> __('Post order','related-post'),
+                'details'	=> __('Choose post query order.','related-post'),
                 'type'		=> 'select',
                 'value'		=> $order,
                 'default'		=> 'DESC',
@@ -377,8 +377,8 @@ if(!function_exists('related_post_settings_content_query')) {
             $args = array(
                 'id'		=> 'max_post_count',
                 'parent'		=> 'related_post_settings',
-                'title'		=> __('Max number of post','job-board-manager'),
-                'details'	=> __('Maximum number of post to display.','job-board-manager'),
+                'title'		=> __('Max number of post','related-post'),
+                'details'	=> __('Maximum number of post to display.','related-post'),
                 'type'		=> 'text',
                 'value'		=> $max_post_count,
                 'default'		=> '5',
@@ -426,8 +426,8 @@ if(!function_exists('related_post_settings_content_elements')) {
 
         ?>
         <div class="section">
-            <div class="section-title"><?php echo __('Elements', 'job-board-manager'); ?></div>
-            <p class="description section-description"><?php echo __('Customize post elements.', 'job-board-manager'); ?></p>
+            <div class="section-title"><?php echo __('Elements', 'related-post'); ?></div>
+            <p class="description section-description"><?php echo __('Customize post elements.', 'related-post'); ?></p>
 
             <?php
             $get_intermediate_image_sizes =  get_intermediate_image_sizes();
@@ -435,8 +435,8 @@ if(!function_exists('related_post_settings_content_elements')) {
 
             $args = array(
                 'id'		    => 'elements',
-                'title'		    => __('Elements settings','job-board-manager'),
-                'details'	    => __('Customize elements.','job-board-manager'),
+                'title'		    => __('Elements settings','related-post'),
+                'details'	    => __('Customize elements.','related-post'),
                 'type'		    => 'option_group_accordion',
                 'value'		    => $elements,
                 'sortable'		=> true,
@@ -461,8 +461,8 @@ if(!function_exists('related_post_settings_content_elements')) {
                             array(
                                 'id'		=> 'hide',
                                 'parent'		=> 'related_post_settings[elements][post_title]',
-                                'title'		=> __('Hide','job-board-manager'),
-                                'details'	=> __('You can hide this element.','job-board-manager'),
+                                'title'		=> __('Hide','related-post'),
+                                'details'	=> __('You can hide this element.','related-post'),
                                 'type'		=> 'select',
                                 'value'		=> isset($elements['post_title']['hide']) ? $elements['post_title']['hide'] : 'no',
                                 //'multiple'		=> true,
@@ -585,8 +585,8 @@ if(!function_exists('related_post_settings_content_elements')) {
                             array(
                                 'id'		=> 'hide',
                                 'parent'		=> 'related_post_settings[elements][post_thumb]',
-                                'title'		=> __('Hide','job-board-manager'),
-                                'details'	=> __('You can hide this element.','job-board-manager'),
+                                'title'		=> __('Hide','related-post'),
+                                'details'	=> __('You can hide this element.','related-post'),
                                 'type'		=> 'select',
                                 'value'		=> isset($elements['post_thumb']['hide']) ? $elements['post_thumb']['hide'] : 'no',
                                 //'multiple'		=> true,
@@ -683,8 +683,8 @@ if(!function_exists('related_post_settings_content_elements')) {
                             array(
                                 'id'		=> 'hide',
                                 'parent'		=> 'related_post_settings[elements][post_excerpt]',
-                                'title'		=> __('Hide','job-board-manager'),
-                                'details'	=> __('You can hide this element.','job-board-manager'),
+                                'title'		=> __('Hide','related-post'),
+                                'details'	=> __('You can hide this element.','related-post'),
                                 'type'		=> 'select',
                                 'value'		=> isset($elements['post_excerpt']['hide']) ? $elements['post_excerpt']['hide'] : 'no',
                                 //'multiple'		=> true,
@@ -843,22 +843,22 @@ if(!function_exists('related_post_settings_content_slider')) {
 
         ?>
         <div class="section">
-            <div class="section-title"><?php echo __('Slider settings', 'job-board-manager'); ?></div>
-            <p class="description section-description"><?php echo __('Choose slider settings.', 'job-board-manager'); ?></p>
+            <div class="section-title"><?php echo __('Slider settings', 'related-post'); ?></div>
+            <p class="description section-description"><?php echo __('Choose slider settings.', 'related-post'); ?></p>
 
             <?php
 
             $args = array(
                 'id'		=> 'slider',
-                'title'		=> __('Slider column count ','job-board-manager'),
-                'details'	=> __('Set slider column count.','job-board-manager'),
+                'title'		=> __('Slider column count ','related-post'),
+                'details'	=> __('Set slider column count.','related-post'),
                 'type'		=> 'option_group',
                 'options'		=> array(
                     array(
                         'id'		=> 'column_desktop',
                         'parent'		=> 'related_post_settings[slider]',
-                        'title'		=> __('In desktop','job-board-manager'),
-                        'details'	=> __('min-width: 1200px','job-board-manager'),
+                        'title'		=> __('In desktop','related-post'),
+                        'details'	=> __('min-width: 1200px','related-post'),
                         'type'		=> 'text',
                         'value'		=> $slider_column_number_desktop,
                         'default'		=> 3,
@@ -866,8 +866,8 @@ if(!function_exists('related_post_settings_content_slider')) {
                     array(
                         'id'		=> 'column_tablet',
                         'parent'		=> 'related_post_settings[slider]',
-                        'title'		=> __('In tablet & small desktop','job-board-manager'),
-                        'details'	=> __('min-width: 992px','job-board-manager'),
+                        'title'		=> __('In tablet & small desktop','related-post'),
+                        'details'	=> __('min-width: 992px','related-post'),
                         'type'		=> 'text',
                         'value'		=> $slider_column_number_tablet,
                         'default'		=> 2,
@@ -875,8 +875,8 @@ if(!function_exists('related_post_settings_content_slider')) {
                     array(
                         'id'		=> 'column_mobile',
                         'parent'		=> 'related_post_settings[slider]',
-                        'title'		=> __('In mobile','job-board-manager'),
-                        'details'	=> __('min-width: 576px','job-board-manager'),
+                        'title'		=> __('In mobile','related-post'),
+                        'details'	=> __('min-width: 576px','related-post'),
                         'type'		=> 'text',
                         'value'		=> $slider_column_number_mobile,
                         'default'		=> 1,
@@ -893,8 +893,8 @@ if(!function_exists('related_post_settings_content_slider')) {
             $args = array(
                 'id'		=> 'slide_speed',
                 'parent'		=> 'related_post_settings[slider]',
-                'title'		=> __('Navigation slide speed','job-board-manager'),
-                'details'	=> __('Set slide speed','job-board-manager'),
+                'title'		=> __('Navigation slide speed','related-post'),
+                'details'	=> __('Set slide speed','related-post'),
                 'type'		=> 'text',
                 'value'		=> $slider_slide_speed,
                 'default'		=> 1,
@@ -905,8 +905,8 @@ if(!function_exists('related_post_settings_content_slider')) {
             $args = array(
                 'id'		=> 'pagination_speed',
                 'parent'		=> 'related_post_settings[slider]',
-                'title'		=> __('Dots slide speed','job-board-manager'),
-                'details'	=> __('Set dots slide speed','job-board-manager'),
+                'title'		=> __('Dots slide speed','related-post'),
+                'details'	=> __('Set dots slide speed','related-post'),
                 'type'		=> 'text',
                 'value'		=> $slider_pagination_speed,
                 'default'		=> 1,
@@ -919,8 +919,8 @@ if(!function_exists('related_post_settings_content_slider')) {
             $args = array(
                 'id'		=> 'auto_play',
                 'parent'		=> 'related_post_settings[slider]',
-                'title'		=> __('Auto play','job-board-manager'),
-                'details'	=> __('Choose slider auto play.','job-board-manager'),
+                'title'		=> __('Auto play','related-post'),
+                'details'	=> __('Choose slider auto play.','related-post'),
                 'type'		=> 'select',
                 'value'		=> $slider_auto_play,
                 'default'		=> 'true',
@@ -932,8 +932,8 @@ if(!function_exists('related_post_settings_content_slider')) {
             $args = array(
                 'id'		=> 'rewind',
                 'parent'		=> 'related_post_settings[slider]',
-                'title'		=> __('Slider rewind','job-board-manager'),
-                'details'	=> __('Choose slider rewind.','job-board-manager'),
+                'title'		=> __('Slider rewind','related-post'),
+                'details'	=> __('Choose slider rewind.','related-post'),
                 'type'		=> 'select',
                 'value'		=> $slider_rewind,
                 'default'		=> 'true',
@@ -945,8 +945,8 @@ if(!function_exists('related_post_settings_content_slider')) {
             $args = array(
                 'id'		=> 'loop',
                 'parent'		=> 'related_post_settings[slider]',
-                'title'		=> __('Slider loop','job-board-manager'),
-                'details'	=> __('Choose slider loop.','job-board-manager'),
+                'title'		=> __('Slider loop','related-post'),
+                'details'	=> __('Choose slider loop.','related-post'),
                 'type'		=> 'select',
                 'value'		=> $slider_rewind,
                 'default'		=> 'true',
@@ -960,8 +960,8 @@ if(!function_exists('related_post_settings_content_slider')) {
             $args = array(
                 'id'		=> 'center',
                 'parent'		=> 'related_post_settings[slider]',
-                'title'		=> __('Slider center','job-board-manager'),
-                'details'	=> __('Choose slider center.','job-board-manager'),
+                'title'		=> __('Slider center','related-post'),
+                'details'	=> __('Choose slider center.','related-post'),
                 'type'		=> 'select',
                 'value'		=> $slider_center,
                 'default'		=> 'true',
@@ -973,8 +973,8 @@ if(!function_exists('related_post_settings_content_slider')) {
             $args = array(
                 'id'		=> 'stop_on_hover',
                 'parent'		=> 'related_post_settings[slider]',
-                'title'		=> __('Slider stop on hover','job-board-manager'),
-                'details'	=> __('Choose stop on hover.','job-board-manager'),
+                'title'		=> __('Slider stop on hover','related-post'),
+                'details'	=> __('Choose stop on hover.','related-post'),
                 'type'		=> 'select',
                 'value'		=> $slider_stop_on_hover,
                 'default'		=> 'true',
@@ -989,8 +989,8 @@ if(!function_exists('related_post_settings_content_slider')) {
             $args = array(
                 'id'		=> 'navigation',
                 'parent'		=> 'related_post_settings[slider]',
-                'title'		=> __('Slider navigation','job-board-manager'),
-                'details'	=> __('Choose slider navigation.','job-board-manager'),
+                'title'		=> __('Slider navigation','related-post'),
+                'details'	=> __('Choose slider navigation.','related-post'),
                 'type'		=> 'select',
                 'value'		=> $slider_navigation,
                 'default'		=> 'true',
@@ -1002,8 +1002,8 @@ if(!function_exists('related_post_settings_content_slider')) {
             $args = array(
                 'id'		=> 'navigation_position',
                 'parent'		=> 'related_post_settings[slider]',
-                'title'		=> __('Slider navigation position','job-board-manager'),
-                'details'	=> __('Choose slider navigation position.','job-board-manager'),
+                'title'		=> __('Slider navigation position','related-post'),
+                'details'	=> __('Choose slider navigation position.','related-post'),
                 'type'		=> 'select',
                 'value'		=> $slider_navigation,
                 'default'		=> 'topright',
@@ -1017,8 +1017,8 @@ if(!function_exists('related_post_settings_content_slider')) {
             $args = array(
                 'id'		=> 'pagination',
                 'parent'		=> 'related_post_settings[slider]',
-                'title'		=> __('Slider pagination','job-board-manager'),
-                'details'	=> __('Choose slider pagination.','job-board-manager'),
+                'title'		=> __('Slider pagination','related-post'),
+                'details'	=> __('Choose slider pagination.','related-post'),
                 'type'		=> 'select',
                 'value'		=> $slider_pagination,
                 'default'		=> 'true',
@@ -1031,8 +1031,8 @@ if(!function_exists('related_post_settings_content_slider')) {
             $args = array(
                 'id'		=> 'pagination_count',
                 'parent'		=> 'related_post_settings[slider]',
-                'title'		=> __('Slider pagination count','job-board-manager'),
-                'details'	=> __('Choose slider pagination count.','job-board-manager'),
+                'title'		=> __('Slider pagination count','related-post'),
+                'details'	=> __('Choose slider pagination count.','related-post'),
                 'type'		=> 'select',
                 'value'		=> $slider_pagination_count,
                 'default'		=> 'true',
@@ -1044,8 +1044,8 @@ if(!function_exists('related_post_settings_content_slider')) {
             $args = array(
                 'id'		=> 'rtl',
                 'parent'		=> 'related_post_settings[slider]',
-                'title'		=> __('Slider rtl','job-board-manager'),
-                'details'	=> __('Choose slider rtl.','job-board-manager'),
+                'title'		=> __('Slider rtl','related-post'),
+                'details'	=> __('Choose slider rtl.','related-post'),
                 'type'		=> 'select',
                 'value'		=> $slider_rtl,
                 'default'		=> 'true',
@@ -1082,8 +1082,8 @@ if(!function_exists('related_post_settings_content_stats')) {
 
         ?>
         <div class="section">
-            <div class="section-title"><?php echo __('Post query settings', 'job-board-manager'); ?></div>
-            <p class="description section-description"><?php echo __('Choose post query settings.', 'job-board-manager'); ?></p>
+            <div class="section-title"><?php echo __('Post query settings', 'related-post'); ?></div>
+            <p class="description section-description"><?php echo __('Choose post query settings.', 'related-post'); ?></p>
 
             <?php
 
@@ -1092,8 +1092,8 @@ if(!function_exists('related_post_settings_content_stats')) {
             $args = array(
                 'id'		=> 'enable_stats',
                 'parent'		=> 'related_post_settings',
-                'title'		=> __('Enable stats','job-board-manager'),
-                'details'	=> __('Enable trace click on related post.','job-board-manager'),
+                'title'		=> __('Enable stats','related-post'),
+                'details'	=> __('Enable trace click on related post.','related-post'),
                 'type'		=> 'select',
                 'value'		=> $enable_stats,
                 'default'		=> 'yes',
@@ -1147,8 +1147,8 @@ if(!function_exists('related_post_settings_content_stats')) {
             $args = array(
                 'id'		=> 'top_10',
                 'parent'		=> 'related_post_settings',
-                'title'		=> __('Top 10 visited post today','job-board-manager'),
-                'details'	=> __('','job-board-manager'),
+                'title'		=> __('Top 10 visited post today','related-post'),
+                'details'	=> __('','related-post'),
                 'type'		=> 'custom_html',
                 'html'		=> $top_10_html,
 
@@ -1167,4 +1167,63 @@ if(!function_exists('related_post_settings_content_stats')) {
     }
 }
 
+
+add_action('related_post_settings_content_shortcodes', 'related_post_settings_content_shortcodes');
+
+if(!function_exists('related_post_settings_content_shortcodes')) {
+    function related_post_settings_content_shortcodes($tab){
+
+        $settings_tabs_field = new settings_tabs_field();
+
+        $related_post_settings = get_option( 'related_post_settings' );
+
+        $enable_stats = isset($related_post_settings['enable_stats']) ? $related_post_settings['enable_stats'] : 'no';
+
+        //echo '<pre>'.var_export($display_auto, true).'</pre>';
+
+        ?>
+        <div class="section">
+            <div class="section-title"><?php echo __('SHortcodes', 'related-post'); ?></div>
+            <p class="description section-description"><?php echo __('Get shortcode and use anywhere you want.', 'related-post'); ?></p>
+
+            <?php
+
+
+            ob_start();
+            ?>
+
+            <p>Short-code for php file</p>
+            <textarea onclick="this.select()">&#60;?php echo do_shortcode( '&#91;related_post&#93;' ); ?&#62;</textarea>
+            <p class="description" >Short-code inside loop by dynamic post id you can use anywhere inside loop on .php files.</p>
+
+            <p>Short-code for content</p>
+            <textarea onclick="this.select()">[related_post]</textarea>
+
+            <p class="description">Short-code inside content for fixed post id you can use anywhere inside content.</p>
+            <?php
+
+            $html = ob_get_clean();
+
+            $args = array(
+                'id'		=> 'shortcodes',
+                'parent'		=> 'related_post_settings',
+                'title'		=> __('Shortcodes','related-post'),
+                'details'	=> __('','related-post'),
+                'type'		=> 'custom_html',
+                'html'		=> $html,
+
+            );
+
+            $settings_tabs_field->generate_field($args);
+
+
+            ?>
+
+
+        </div>
+        <?php
+
+
+    }
+}
 

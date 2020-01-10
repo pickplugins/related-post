@@ -101,6 +101,12 @@ function related_post_loop_item_element_post_title($loop_post_id, $elementData){
     $post_title = get_the_title($loop_post_id);
     $icon = isset($elementData['icon']) ? $elementData['icon'] : '';
 
+    $related_post_settings = get_option( 'related_post_settings' );
+    $enable_stats = isset($related_post_settings['enable_stats']) ? $related_post_settings['enable_stats'] : 'disable';
+
+    $post_link = ($enable_stats == 'enable') ? $post_link.'?to_id='.get_the_ID().'&from_id='.$loop_post_id : $post_link ;
+
+
     ?>
 
     <a class="title post_title" href="<?php echo $post_link; ?>">
@@ -126,6 +132,12 @@ function related_post_loop_item_element_post_thumb($loop_post_id, $elementData){
     $thumb_url = $post_thumb['0'];
     $post_link = get_permalink($loop_post_id);
 
+    $related_post_settings = get_option( 'related_post_settings' );
+    $enable_stats = isset($related_post_settings['enable_stats']) ? $related_post_settings['enable_stats'] : 'disable';
+
+    $post_link = ($enable_stats == 'enable') ? $post_link.'?to_id='.get_the_ID().'&from_id='.$loop_post_id : $post_link;
+
+
     ?>
     <div class="thumb post_thumb">
         <a href="<?php echo $post_link; ?>"><img src="<?php echo $thumb_url; ?>"></a>
@@ -137,17 +149,27 @@ function related_post_loop_item_element_post_thumb($loop_post_id, $elementData){
 add_action('related_post_loop_item_element_post_excerpt', 'related_post_loop_item_element_post_excerpt', 10, 2);
 function related_post_loop_item_element_post_excerpt($loop_post_id, $elementData){
 
-    //echo '<pre>'.var_export($elementData, true).'</pre>';
 
+    //echo '<pre>'.var_export($elementData, true).'</pre>';
+    $post_link = get_permalink($loop_post_id);
     $word_count = isset($elementData['word_count']) ? $elementData['word_count'] : 20;
     $read_more_text = isset($elementData['read_more_text']) ? $elementData['read_more_text'] : __('Read more', '');
     $after_html = isset($elementData['after_html']) ? $elementData['after_html'] : '';
+
+
+    $related_post_settings = get_option( 'related_post_settings' );
+    $enable_stats = isset($related_post_settings['enable_stats']) ? $related_post_settings['enable_stats'] : 'disable';
+
+    $post_link = ($enable_stats == 'enable') ? $post_link.'?to_id='.get_the_ID().'&from_id='.$loop_post_id : $post_link;
+
 
     $post = get_post($loop_post_id);
     $post_excerpt = $post->post_excerpt;
     $post_content = $post->post_content;
     $post_excerpt = !empty($post_excerpt) ? strip_tags($post_excerpt) : strip_tags($post_content);
-    $post_excerpt = wp_trim_words( $post_excerpt , $word_count, ' <a class="read-more" href="'.get_permalink(get_the_ID()).'"> '.$read_more_text.'</a>' );
+    $post_excerpt = wp_trim_words( $post_excerpt , $word_count, ' <a class="read-more" href="'.$post_link.'"> '.$read_more_text.'</a>' );
+
+
 
     ?>
     <p class="excerpt post_excerpt">
@@ -248,6 +270,8 @@ function related_post_main_css($post_id){
                         <?php echo $custom_css; ?>
                     }
                     <?php
+                }else{
+                    do_action('related_post_element_css_'.$elementIndex, $elementData );
                 }
             }
         endif;
