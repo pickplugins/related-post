@@ -36,7 +36,7 @@ if(!function_exists('related_post_settings_content_general')) {
         }
 
 
-        //echo '<pre>'.var_export($archives_array, true).'</pre>';
+       // echo '<pre>'.var_export($related_post_settings, true).'</pre>';
 
         ?>
         <div class="section">
@@ -422,7 +422,7 @@ if(!function_exists('related_post_settings_content_elements')) {
         //$layout_items= $related_post_settings['layout_items'];
 
 
-        //echo '<pre>'.var_export($elements, true).'</pre>';
+        //echo '<pre>'.var_export($get_intermediate_image_sizes, true).'</pre>';
 
         ?>
         <div class="section">
@@ -431,7 +431,19 @@ if(!function_exists('related_post_settings_content_elements')) {
 
             <?php
             $get_intermediate_image_sizes =  get_intermediate_image_sizes();
-            $get_intermediate_image_sizes = array_merge($get_intermediate_image_sizes,array('full'));
+            $get_intermediate_image_sizes[] = 'full';
+
+
+            $image_sizes = array();
+            foreach ($get_intermediate_image_sizes as $size){
+                $image_sizes[$size] = ucfirst($size);
+            }
+
+
+            //$wp_get_additional_image_sizes =  wp_get_additional_image_sizes();
+
+            //$get_intermediate_image_sizes = array_merge($get_intermediate_image_sizes,array('full'));
+            //echo '<pre>'.var_export($wp_get_additional_image_sizes, true).'</pre>';
 
             $args = array(
                 'id'		    => 'elements',
@@ -605,7 +617,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'type'		    => 'select',
                                 'value'		=> isset($elements['post_thumb']['thumb_size']) ? $elements['post_thumb']['thumb_size'] : '',
                                 'default'		=> '',
-                                'args'   => $get_intermediate_image_sizes,
+                                'args'   => $image_sizes,
                             ),
                             array(
                                 'id'		    => 'default_img',

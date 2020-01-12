@@ -914,6 +914,17 @@ if ( ! defined('ABSPATH')) exit; // if direct access
 				<?php
 				} 
 		}
+
+
+
+
+
+echo '<pre>'.var_export($related_post_settings, true).'</pre>';
+
+
+
+
+
 ?>
 
 

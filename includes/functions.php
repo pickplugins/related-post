@@ -69,9 +69,17 @@ function related_post_is_archive_display($archives){
         if(in_array('blog', $archives)){
             return true;
         }
-    }else if( is_tax()){
+    }else if( is_tag()){
+        if(in_array('post_tag', $archives)){
+            return true;
+        }
+    }else if( is_category()){
+        if(in_array('category', $archives)){
+            return true;
+        }
+    }
 
-    }else if(is_author()){
+    else if(is_author()){
         if(in_array('author', $archives)){
             return true;
         }
@@ -109,18 +117,24 @@ function related_post_excerpt_display_auto($excerpt) {
     $post_type = get_post_type( $post_id );
     $related_post_settings = get_option( 'related_post_settings' );
     $display_auto = !empty($related_post_settings['display_auto']) ? $related_post_settings['display_auto'] : '';
+    $archives = !empty($related_post_settings['archives']) ? $related_post_settings['archives'] : array();
+
     $post_types = !empty($related_post_settings['post_types']) ? $related_post_settings['post_types'] : array();
     $excerpt_positions = !empty($related_post_settings['excerpt_positions']) ? $related_post_settings['excerpt_positions'] : array();
 
+
+    $is_archive_display = related_post_is_archive_display($archives);
+    //echo '<pre>'.var_export($is_archive_display, true).'</pre>';
+
     $html = '';
 
-    if($display_auto=='yes' && in_array($post_type, $post_types) && in_array('before', $excerpt_positions)){
+    if($display_auto=='yes' && $is_archive_display && in_array($post_type, $post_types) && in_array('before', $excerpt_positions)){
         $html .= do_shortcode('[related_post post_id="'.$post_id.'"]');
     }
 
     $html .= $excerpt;
 
-    if($display_auto=='yes' && in_array($post_type, $post_types) && in_array('after', $excerpt_positions)){
+    if($display_auto=='yes' && $is_archive_display && in_array($post_type, $post_types) && in_array('after', $excerpt_positions)){
         $html .= do_shortcode('[related_post post_id="'.$post_id.'"]');
     }
 
@@ -150,14 +164,14 @@ function related_post_display_auto($content) {
     $is_archive_display = related_post_is_archive_display($archives);
 
 
-    //echo '<pre>'.var_export($archives, true).'</pre>';
-   // echo '<pre>'.var_export($is_archive_display, true).'</pre>';
+    //echo '<pre>'.var_export($is_archive_display, true).'</pre>';
+    //echo '<pre>'.var_export($is_archive_display, true).'</pre>';
 
 
 
 	$html = '';
 
-    if($display_auto=='yes' && is_singular($post_types) && in_array($post_type, $post_types) && in_array('before', $content_positions)){
+    if($display_auto=='yes'  && is_singular($post_types) && in_array($post_type, $post_types) && in_array('before', $content_positions)){
         $html .= do_shortcode('[related_post post_id="'.$post_id.'"]');
     }
 
@@ -205,8 +219,8 @@ function related_post_display_auto($content) {
         $html .= $content;
     }
 
-	if($display_auto=='yes' && is_singular($post_types) && in_array($post_type, $post_types) && in_array('after', $content_positions)){
-        $html .= do_shortcode('[related_post post_id="'.$post_id.'"]');
+	if($display_auto=='yes'  && is_singular($post_types) && in_array($post_type, $post_types) && in_array('after', $content_positions)){
+       $html .= do_shortcode('[related_post post_id="'.$post_id.'"]');
 	}
 
 	return $html;

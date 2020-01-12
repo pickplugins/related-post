@@ -32,6 +32,8 @@ class RelatedPost{
         require_once( related_post_plugin_dir . 'includes/class-settings-tabs.php');
 
 
+
+
         // functions
 		require_once( related_post_plugin_dir . 'includes/functions.php');
         require_once( related_post_plugin_dir . 'includes/functions-settings.php');
@@ -68,75 +70,14 @@ class RelatedPost{
 
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 
-		dbDelta( $sql );	
-		
+		dbDelta( $sql );
+
+        require_once( related_post_plugin_dir . 'includes/class-data-upgrade.php');
 
 
-        $related_post_review_settings = get_option('related_post_review_settings');
+        $class_related_post_data_upgrade = new class_related_post_data_upgrade();
+        $class_related_post_data_upgrade->settings_update();
 
-        if(empty($related_post_review_settings)):
-
-            $related_post_display = get_option( 'related_post_display' );
-            $related_post_display_themes = get_option( 'related_post_display_themes' );
-            $related_post_display_posttype = get_option( 'related_post_display_posttype' );
-            $related_post_max_number = get_option( 'related_post_max_number' );
-            $related_post_headline = get_option( 'related_post_headline' );
-            $related_post_title_font_size = get_option( 'related_post_title_font_size' );
-            $related_post_title_font_color = get_option( 'related_post_title_font_color' );
-            $related_post_thumb_size = get_option( 'related_post_thumb_size' );
-            $related_post_404_img_src = get_option( 'related_post_404_img_src' );
-
-
-            $related_post_settings = array(
-                'display_auto'=>$related_post_display,
-                'post_types'=>$related_post_display_posttype,
-                'max_post_count'=>$related_post_max_number,
-                'headline_text'=>$related_post_headline,
-                'layout_items'=>array(
-                    'thumbnail'=> array (
-                        'name' => 'Thumbnail',
-                        'options' => array (
-                            'thumb_size' => $related_post_thumb_size,
-                            'default_img' => $related_post_404_img_src,
-                            'thumb_linked' => 'yes',
-                            'max_height' => '180px',
-                            'margin' => '',
-                            'padding' => '',
-                            ),
-                        ),
-                    'title'=> array (
-                        'name' => 'Title',
-                        'options' =>
-                        array (
-                            'font_size' => $related_post_title_font_size,
-                            'font_color' => $related_post_title_font_color,
-                            'line_height' => 'normal',
-                            'title_linked' => 'yes',
-                            'margin' => '',
-                            'padding' => '',
-                            ),
-                        ),
-                    'excerpt'=> array (
-                        'name' => 'Excerpt',
-                        'options' =>
-                        array (
-                            'font_size' => '13px',
-                            'font_color' => '#999',
-                            'line_height' => 'normal',
-                            'word_count' => '15',
-                            'read_more_text' => '',
-                            'margin' => '',
-                            'padding' => '',
-                            ),
-                        ),
-                    ),
-                );
-
-            update_option('related_post_settings', $related_post_settings);
-
-			
-			endif;
-			
 
 		
 		
