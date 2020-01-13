@@ -28,6 +28,17 @@ function related_post_main_post_loop($post_id){
     $max_post_count= isset($related_post_settings['max_post_count']) ? $related_post_settings['max_post_count'] : 5;
     $layout_type = isset($related_post_settings['layout_type']) ? $related_post_settings['layout_type'] : 'grid';
 
+    $related_post_ids = get_post_meta( $post_id, 'related_post_ids', true );
+
+    if(!empty($related_post_ids))
+        $post_ids = array_merge($related_post_ids, $post_ids);
+
+    //echo '<pre>'.var_export($post_ids, true).'</pre>';
+    //echo '<pre>'.var_export($orderby, true).'</pre>';
+
+    $orderby = implode(' ', $orderby);
+    //echo '<pre>'.var_export($orderby, true).'</pre>';
+
     $args = array(
         'post_type' => $post_type,
         'post_status' => 'publish',
@@ -126,7 +137,7 @@ function related_post_loop_item_element_post_title($loop_post_id, $elementData){
 add_action('related_post_loop_item_element_post_thumb', 'related_post_loop_item_element_post_thumb', 10, 2);
 function related_post_loop_item_element_post_thumb($loop_post_id, $elementData){
 
-    $thumb_size = 'full';
+    $thumb_size = isset($elementData['thumb_size']) ? $elementData['thumb_size'] : 'full';
 
     $post_thumb = wp_get_attachment_image_src( get_post_thumbnail_id($loop_post_id), $thumb_size );
     $thumb_url = $post_thumb['0'];
@@ -380,7 +391,7 @@ function related_post_main_slider_scripts($post_id){
                 <?php if(!empty($slider_navigation)): ?>
                 nav: <?php echo $slider_navigation; ?>,
                 navSpeed: <?php echo $slider_slide_speed; ?>,
-                navText : ["",""],
+                navText : ['<i class="fas fa-chevron-left"></i>','<i class="fas fa-chevron-right"></i>'],
                 <?php endif;?>
                 <?php if(!empty($slider_pagination)): ?>
                 dots: <?php echo $slider_pagination; ?>,

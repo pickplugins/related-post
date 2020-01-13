@@ -3,7 +3,7 @@
 Plugin Name: Related Post
 Plugin URI: http://wordpress.org/plugins/related-post/
 Description: Display Related Post under post by tags and category.
-Version: 2.0.6
+Version: 2.0.7
 Author: pickplugins
 Author URI: http://pickplugins.com
 License: GPLv2 or later

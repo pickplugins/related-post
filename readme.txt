@@ -1,10 +1,10 @@
 === Related Post ===
-	Contributors: pickplugins
+	Contributors: PickPlugins
 	Donate link: http://pickplugins.com
 	Tags: related post, related posts, related content, related post list, related, similar posts
 	Requires at least: 3.8
 	Tested up to: 5.3
-	Stable tag: 2.0.6
+	Stable tag: 2.0.7
 	License: GPLv2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,21 +12,57 @@
 
 == Description ==
 
-Related Post allows you to display related post under post or other post type via short-code. you can also set post manually for each different post. this will also allow to display related post automatically under post content.
+
+**Related Post** plugin is one of the most powerful plugin to display related post under post content on single post or page or custom post types, its also support to display related post under excerpt on archive pages. you can conditionally choose to display related content under excerpt or content by archive pages like tag, category, date, author, search page and custom taxonomy pages.
 
 ### Related Post by http://pickplugins.com
 
-* [Documentation! &raquo;](https://pickplugins.com/documentation/related-post/ref=wordpress.org)
+* [Documentation! &raquo;](https://www.pickplugins.com/documentation/related-post/ref=wordpress.org)
+* [Live Demo! &raquo;](https://www.pickplugins.com/demo/related-post/ref=wordpress.org)
 
 
-### Features
+### Related post under paragraph
+You can choose paragraph position like first, second, third and before last paragraph to display related post.
 
-* Display under content automatically or via shortcode.
-* Grid view or slider view.
-* Manually set related post for each post.
-* Manually choose custom post type to display automatically related post.
-* Display under loop on archive page.
-* Display under loop on custom taxonomy page.
+### Before & After content and excerpt
+Related post plugin allows you to display related content link before and after the content, this feature also available for excerpt under archive pages.
+
+### Related post under archive page
+You can display related post under various archive pages like home page, front page, blog page, date, search, author, year, date, month and etc.
+
+### Related post by post types
+You can choose custom post types to display Related post under single page.
+
+### Manual Post selection
+You can choose manually picked the post to display as related post for each post.
+
+### Advance query
+You can set max number post to display and choose query order and orderby parameters, related posts query based on current post category, tags and custom taxonomies.
+
+### Ready layout
+
+There is 3 different type layout currently available to display related post, you can choose grid, slider and list style layout. you can set custom width for items and margin, padding, text align.
+
+### Sortable post elements
+You can sort post elements like post title, post thumbnail and excerpt as you want.
+
+### Hide any elements
+You can hide or display post elements like post title, thumbnail or excerpt.
+
+### Customize elemetns style
+
+You can set custom font size, font color, padding, margin for post title, post excerpt and set custom height for post thumbnail, select custom thumbnail size and etc. you can also write custom CSS for each elements.
+
+### Track click
+
+You can enable tracking click on related post, this will help you understand which post getting more attention from related posts. you will see top 10 post from stats page.
+
+### Display via shortcode
+
+You can display related post any where via shortcode by using on your theme files
+```php
+<?php echo do_shortcode( '[related_post]' ); ?>
+```
 
 
 
@@ -62,6 +98,9 @@ echo do_shortcode( '[related_post]' );
 
 == Changelog ==
 
+
+	= 2.0.7 =
+    * 12/01/2020 update - re-write plugin
 
 	= 2.0.6 =
     * 23/10/2018 add - added orderby post__in option
