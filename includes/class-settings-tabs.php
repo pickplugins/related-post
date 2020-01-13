@@ -1068,6 +1068,10 @@ class settings_tabs_field{
 
         $field_name = !empty($parent) ? $parent.'['.$id.']' : $id;
 
+        if($is_pro == true){
+            $details = '<span class="pro-feature">'.$pro_text.'</span> '.$details;
+        }
+
 
         ob_start();
         ?>

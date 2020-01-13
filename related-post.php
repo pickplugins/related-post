@@ -3,7 +3,7 @@
 Plugin Name: Related Post
 Plugin URI: http://wordpress.org/plugins/related-post/
 Description: Display Related Post under post by tags and category.
-Version: 2.0.7
+Version: 2.0.8
 Author: pickplugins
 Author URI: http://pickplugins.com
 License: GPLv2 or later
@@ -30,6 +30,7 @@ class RelatedPost{
         require_once( related_post_plugin_dir . 'includes/class-notices.php');
         require_once( related_post_plugin_dir . 'includes/class-post-meta.php');
         require_once( related_post_plugin_dir . 'includes/class-settings-tabs.php');
+        require_once( related_post_plugin_dir . 'includes/class-data-upgrade.php');
 
 
 

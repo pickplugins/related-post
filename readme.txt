@@ -4,7 +4,7 @@
 	Tags: related post, related posts, related content, related post list, related, similar posts
 	Requires at least: 3.8
 	Tested up to: 5.3
-	Stable tag: 2.0.7
+	Stable tag: 2.0.8
 	License: GPLv2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -98,6 +98,8 @@ echo do_shortcode( '[related_post]' );
 
 == Changelog ==
 
+	= 2.0.8 =
+    * 12/01/2020 add - data update process added.
 
 	= 2.0.7 =
     * 12/01/2020 update - re-write plugin

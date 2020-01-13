@@ -5,9 +5,87 @@ class class_related_post_data_upgrade{
 
     public function __construct(){
 
-		//add_action( 'admin_menu', array( $this, 'related_post_menu_init' ), 12 );
+        add_action('admin_notices', array( $this, 'admin_notices_data_update' ));
+        add_action( 'admin_menu', array( $this, 'related_post_menu_data_upgrade' ), 12 );
 
-		}
+
+    }
+
+    public function admin_notices_data_update(){
+
+        //delete_option('related_post_info');
+
+
+        $related_post_info = get_option('related_post_info');
+        $data_update_status = isset($related_post_info['data_update_status']) ? $related_post_info['data_update_status'] : '';
+
+        $admin_url = get_admin_url();
+
+        $url = wp_nonce_url($admin_url.'admin.php?page=related_post_data_upgrade', 'related_post_data_upgrade', '_wpnonce');
+
+        ob_start();
+
+        if($data_update_status != 'success'):
+        ?>
+        <div class="update-nag">
+            <?php
+            echo sprintf(__('Data update required for  <b>%s &raquo; <a href="%s">Update</a></b>', 'post-grid'), related_post_plugin_name, $url)
+            ?>
+        </div>
+        <?php
+        endif;
+
+
+        echo ob_get_clean();
+    }
+
+    public function related_post_menu_data_upgrade() {
+        $related_post_info = get_option('related_post_info');
+        $data_update_status = isset($related_post_info['data_update_status']) ? $related_post_info['data_update_status'] : '';
+
+        if($data_update_status != 'success'):
+            add_submenu_page('related_post_settings', __('Data upgrade', 'post-grid'), __('Data upgrade', 'post-grid'), 'manage_options', 'related_post_data_upgrade', array( $this, 'data_update_process' ));
+        endif;
+
+    }
+
+    public function data_update_process(){
+
+        $nonce = isset($_GET['_wpnonce']) ? $_GET['_wpnonce'] : '';
+        $related_post_info = get_option('related_post_info');
+        ?>
+        <div class="wrap">
+	        <h2><?php echo sprintf(__('%s Data Upgrade', 'job-board-manager'), related_post_plugin_name)?></h2>
+
+            <?php
+
+            if(wp_verify_nonce( $nonce, 'related_post_data_upgrade' ) || current_user_can('manage_options')) {
+
+                $this->settings_update();
+
+                ?>
+                Data update done.
+                <?php
+
+                $related_post_info['data_update_status'] = 'success';
+                update_option('related_post_info', $related_post_info);
+            }else{
+                ?>
+                <p>Sorry you don't have access to this page.</p>
+                <?php
+
+                $related_post_info['data_update_status'] = 'pending';
+            }
+
+            ?>
+        </div>
+        <?php
+
+
+
+
+    }
+
 
 
 	
@@ -146,4 +224,4 @@ class class_related_post_data_upgrade{
 
 	}
 	
-//new class_related_post_data_upgrade();
+new class_related_post_data_upgrade();

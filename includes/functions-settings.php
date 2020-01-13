@@ -577,6 +577,9 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'type'		    => 'textarea',
                                 'value'		=> isset($elements['post_title']['after_html']) ? $elements['post_title']['after_html'] : '',
                                 'placeholder'   => '',
+                                'is_pro'   => true,
+                                'pro_text'   => 'Only in pro',
+
                             ),
 
 
@@ -678,6 +681,8 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'type'		    => 'textarea',
                                 'value'		=> isset($elements['post_thumb']['after_html']) ? $elements['post_thumb']['after_html'] : '',
                                 'placeholder'   => '',
+                                'is_pro'   => true,
+                                'pro_text'   => 'Only in pro',
                             ),
                         ),
                     ),
@@ -800,6 +805,8 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'type'		    => 'textarea',
                                 'value'		=> isset($elements['post_excerpt']['after_html']) ? $elements['post_excerpt']['after_html'] : '',
                                 'placeholder'   => '',
+                                'is_pro'   => true,
+                                'pro_text'   => 'Only in pro',
                             ),
 
 
