@@ -204,6 +204,7 @@ function related_post_main_css($post_id){
     $item_width = isset($related_post_settings['item_width']) ? $related_post_settings['item_width'] : array();
 
 
+    //var_dump($item_width);
 
     ?>
 
@@ -244,10 +245,18 @@ function related_post_main_css($post_id){
                      $max_height = isset($elementData['max_height']) ? $elementData['max_height'] : '';
                     ?>
                     .related-post .post-list .item .<?php echo $elementIndex; ?>{
-                        max-height:<?php echo $max_height; ?>;
-                        margin:<?php echo $margin; ?>;
-                        padding:<?php echo $padding; ?>;
-                        line-height:<?php echo $line_height; ?>;
+                        <?php if(!empty($max_height)): ?>
+                            max-height:<?php echo $max_height; ?>;
+                        <?php endif; ?>
+                        <?php if(!empty($margin)): ?>
+                            margin:<?php echo $margin; ?>;
+                        <?php endif; ?>
+                        <?php if(!empty($padding)): ?>
+                            padding:<?php echo $padding; ?>;
+                        <?php endif; ?>
+                        <?php if(!empty($line_height)): ?>
+                            line-height:<?php echo $line_height; ?>;
+                        <?php endif; ?>
                         display: block;
                         <?php echo $custom_css; ?>
                     }
@@ -257,11 +266,21 @@ function related_post_main_css($post_id){
 
                     ?>
                     .related-post .post-list .item .<?php echo $elementIndex; ?>{
-                        font-size:<?php echo $font_size; ?>;
-                        color:<?php echo $font_color; ?>;
-                        margin:<?php echo $margin; ?>;
-                        padding:<?php echo $padding; ?>;
-                        line-height:<?php echo $line_height; ?>;
+                        <?php if(!empty($font_size)): ?>
+                            font-size:<?php echo $font_size; ?>;
+                        <?php endif; ?>
+                        <?php if(!empty($font_color)): ?>
+                            color:<?php echo $font_color; ?>;
+                        <?php endif; ?>
+                        <?php if(!empty($margin)): ?>
+                            margin:<?php echo $margin; ?>;
+                        <?php endif; ?>
+                        <?php if(!empty($padding)): ?>
+                            padding:<?php echo $padding; ?>;
+                        <?php endif; ?>
+                        <?php if(!empty($line_height)): ?>
+                            line-height:<?php echo $line_height; ?>;
+                        <?php endif; ?>
                         display: block;
                         text-decoration: none;
                         <?php echo $custom_css; ?>
@@ -271,11 +290,21 @@ function related_post_main_css($post_id){
                 }elseif ($elementIndex == 'post_excerpt'){
                     ?>
                     .related-post .post-list .item .<?php echo $elementIndex; ?>{
-                        font-size:<?php echo $font_size; ?>;
-                        color:<?php echo $font_color; ?>;
-                        margin:<?php echo $margin; ?>;
-                        padding:<?php echo $padding; ?>;
-                        line-height:<?php echo $line_height; ?>;
+                        <?php if(!empty($font_size)): ?>
+                            font-size:<?php echo $font_size; ?>;
+                        <?php endif; ?>
+                        <?php if(!empty($font_color)): ?>
+                            color:<?php echo $font_color; ?>;
+                        <?php endif; ?>
+                        <?php if(!empty($margin)): ?>
+                            margin:<?php echo $margin; ?>;
+                        <?php endif; ?>
+                        <?php if(!empty($padding)): ?>
+                            padding:<?php echo $padding; ?>;
+                        <?php endif; ?>
+                        <?php if(!empty($line_height)): ?>
+                            line-height:<?php echo $line_height; ?>;
+                        <?php endif; ?>
                         display: block;
                         text-decoration: none;
                         <?php echo $custom_css; ?>
@@ -289,39 +318,53 @@ function related_post_main_css($post_id){
 
         ?>
 
+        <?php
+
+        if($layout_type=='slider'):
+        ?>
         .related-post .owl-dots .owl-dot {
         <?php if(!empty($slider_pagination_bg)):?>
             background:<?php echo $slider_pagination_bg; ?>;
         <?php endif; ?>
-
         <?php if(!empty($slider_pagination_text_color)):?>
             color:<?php echo $slider_pagination_text_color; ?>;
         <?php endif; ?>
         }
+        <?php
+        endif;
+
+        ?>
+
+
 
         <?php
 
 
         if($layout_type == 'grid' || $layout_type == 'list'){
-            foreach ($item_width as $widthIndex => $width){
 
-                if($widthIndex == 'large'){
-                    ?>
-                    @media only screen and (min-width: 1200px ){
-                        .related-post .post-list .item{
-                            width: <?php echo $width; ?>;
-
-                        }
-                    }
-
-                    <?php
-
-                }elseif ($widthIndex == 'medium'){
-
-                }elseif ($widthIndex == 'small'){
-
+            ?>
+            @media only screen and (min-width: 1024px ){
+                .related-post .post-list .item{
+                    width: <?php echo isset($item_width['large']) ?  $item_width['large'] : ''; ?>;
                 }
             }
+
+            @media only screen and ( min-width: 768px ) and ( max-width: 1023px ) {
+                .related-post .post-list .item{
+                    width: <?php echo isset($item_width['medium']) ?  $item_width['medium'] : ''; ?>;
+                }
+            }
+
+            @media only screen and ( min-width: 0px ) and ( max-width: 767px ){
+                .related-post .post-list .item{
+                    width: <?php echo isset($item_width['small']) ?  $item_width['small'] : ''; ?>;
+                }
+            }
+
+            <?php
+
+
+
         }
 
 

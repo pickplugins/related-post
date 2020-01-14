@@ -29,7 +29,7 @@ class class_related_post_data_upgrade{
         ?>
         <div class="update-nag">
             <?php
-            echo sprintf(__('Data update required for  <b>%s &raquo; <a href="%s">Update</a></b>', 'post-grid'), related_post_plugin_name, $url)
+            echo sprintf(__('Data update required for  <b>%s &raquo; <a href="%s">Update</a></b>', 'related-post'), related_post_plugin_name, $url)
             ?>
         </div>
         <?php
@@ -44,7 +44,7 @@ class class_related_post_data_upgrade{
         $data_update_status = isset($related_post_info['data_update_status']) ? $related_post_info['data_update_status'] : '';
 
         if($data_update_status != 'success'):
-            add_submenu_page('related_post_settings', __('Data upgrade', 'post-grid'), __('Data upgrade', 'post-grid'), 'manage_options', 'related_post_data_upgrade', array( $this, 'data_update_process' ));
+            add_submenu_page('related_post_settings', __('Data upgrade', 'related-post'), __('Data upgrade', 'related-post'), 'manage_options', 'related_post_data_upgrade', array( $this, 'data_update_process' ));
         endif;
 
     }

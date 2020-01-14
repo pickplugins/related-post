@@ -19,6 +19,7 @@
 
 * [Documentation! &raquo;](https://www.pickplugins.com/documentation/related-post/ref=wordpress.org)
 * [Live Demo! &raquo;](https://www.pickplugins.com/demo/related-post/ref=wordpress.org)
+* [Buy Pro! &raquo;](https://www.pickplugins.com/item/related-post-for-wordpress/ref=wordpress.org)
 
 
 ### Related post under paragraph
