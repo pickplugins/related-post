@@ -9,7 +9,7 @@ class class_related_post_settings{
     }
 
 	public function settings(){
-		include('menu/settings-new.php');
+		include('menu/settings.php');
 
     }
 

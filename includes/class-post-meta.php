@@ -26,7 +26,7 @@ class class_related_post_post_meta{
 				__( 'Related Post', 'related-post' ),
 				array($this, 'related_post_meta_box_function'),
 				$post_type,
-				'normal',
+				'side',
 				'high'
 			);
 				
@@ -42,12 +42,15 @@ class class_related_post_post_meta{
 		$related_post_ids = get_post_meta( $post->ID, 'related_post_ids', true );		
 	
 		//echo '<pre>'.var_export($related_post_ids, true).'</pre>';
-		
+
+        wp_enqueue_style( 'font-awesome-5' );
+
+
 		?> 
 		
 		<div class="related-post-meta"> 
 			
-            <div class="expandable">
+            <div class="post-list">
             
             
             	<?php
@@ -57,13 +60,12 @@ class class_related_post_post_meta{
 					$post_title = get_the_title($post_id);
 					
 					?>
-                    <div class="items">
-                        <div class="header">
-                            <span class="remove rt-tooltip tooltipstered"><i class="fa fa-times"></i></span>                    
-                            <span class="move rt-tooltip tooltipstered"><i class="fa fa-bars"></i></span>
-                            <span class="title"><?php echo $post_title; ?></span>
-                            <input type="hidden" name="related_post_ids[]" value="<?php echo $post_id; ?>" />
-                        </div>                       
+                    <div class="item">
+                        <span class="remove"><i class="fas fa-times"></i></span>
+                        <span class="move"><i class="fas fa-sort"></i></span>
+                        <span class="title"><?php echo $post_title; ?></span>
+                        <input type="hidden" name="related_post_ids[]" value="<?php echo $post_id; ?>" />
+
                     </div>
                     <?php
 					
@@ -76,12 +78,15 @@ class class_related_post_post_meta{
                  
                 
             </div>
-            
+
+
+
+
 			<script>
              jQuery(document).ready(function($){
                  
                     $(function() {
-                        $( ".expandable" ).sortable({ handle: '.move' });
+                        $( ".post-list" ).sortable({ handle: '.move' });
                     
                     });
                     
@@ -97,7 +102,47 @@ class class_related_post_post_meta{
             </div>
             
                         
-		</div> 
+		</div>
+
+        <style type="text/css">
+            .related-post-meta{}
+            .related-post-meta .item{
+                display: block;
+                margin: 5px 0;
+            }
+
+            .related-post-meta .remove{
+                background: #fd5a0d;
+                padding: 3px 7px;
+                color: #fff;
+                display: inline-block;
+                cursor: pointer;
+            }
+            .related-post-meta .move{
+                background: #cacaca;
+                padding: 3px 8px;
+                color: #fff;
+                display: inline-block;
+                cursor: move;
+            }
+            .related-post-meta .title{}
+
+            .related-post-meta .suggest-post-list{
+                margin-top: 12px;
+            }
+            .related-post-meta .suggest-post-list .item{
+                cursor: pointer;
+                margin: 4px 0;
+                background: #ddd;
+                padding: 5px 7px;
+            }
+            .related-post-meta .related_post_get_ids{
+                width: 100%;
+            }
+
+
+
+        </style>
 		
 		<?php
    	}

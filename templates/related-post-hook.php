@@ -20,10 +20,12 @@ add_action('related_post_main' ,'related_post_main_post_loop');
 
 function related_post_main_post_loop($post_id){
 
+    //delete_option( 'related_post_settings' );
+
     $related_post_settings = get_option( 'related_post_settings' );
     $post_type = get_post_type( $post_id );
     $post_ids = get_post_ids_by_taxonomy_terms($post_id);
-    $orderby= isset($related_post_settings['orderby']) ? $related_post_settings['orderby'] : array('date');
+    $orderby = isset($related_post_settings['orderby']) ? $related_post_settings['orderby'] : array('post__in');
     $order = isset($related_post_settings['order']) ? $related_post_settings['order'] : 'DESC';
     $max_post_count= isset($related_post_settings['max_post_count']) ? $related_post_settings['max_post_count'] : 5;
     $layout_type = isset($related_post_settings['layout_type']) ? $related_post_settings['layout_type'] : 'grid';
@@ -33,10 +35,10 @@ function related_post_main_post_loop($post_id){
     if(!empty($related_post_ids))
         $post_ids = array_merge($related_post_ids, $post_ids);
 
-    //echo '<pre>'.var_export($post_ids, true).'</pre>';
-    //echo '<pre>'.var_export($orderby, true).'</pre>';
+    //echo '<pre>'.var_export($related_post_settings, true).'</pre>';
+    //echo '<pre>'.var_export($related_post_settings, true).'</pre>';
 
-    $orderby = implode(' ', $orderby);
+    $orderby = (!empty($orderby) && is_array($orderby)) ? implode(' ', $orderby) : '';
     //echo '<pre>'.var_export($orderby, true).'</pre>';
 
     $args = array(
@@ -73,6 +75,9 @@ function related_post_main_post_loop($post_id){
                 </div>
                 <?php
             endwhile;
+
+            wp_reset_query();
+            wp_reset_postdata();
 
         }
 
@@ -202,7 +207,13 @@ function related_post_main_css($post_id){
     $elements = isset($related_post_settings['elements']) ? $related_post_settings['elements'] : array();
     $layout_type = isset($related_post_settings['layout_type']) ? $related_post_settings['layout_type'] : 'grid';
     $item_width = isset($related_post_settings['item_width']) ? $related_post_settings['item_width'] : array();
+    $grid_item_margin = isset($related_post_settings['grid_item_margin']) ? $related_post_settings['grid_item_margin'] : '10px';
+    $grid_item_padding = isset($related_post_settings['grid_item_padding']) ? $related_post_settings['grid_item_padding'] : '0px';
+    $grid_item_align = isset($related_post_settings['grid_item_align']) ? $related_post_settings['grid_item_align'] : 'left';
 
+    $headline_text_font_size = isset($related_post_settings['headline_text_style']['font_size']) ? $related_post_settings['headline_text_style']['font_size'] : '';
+    $headline_text_color = isset($related_post_settings['headline_text_style']['color']) ? $related_post_settings['headline_text_style']['color'] : '';
+    $headline_text_custom_css = isset($related_post_settings['headline_text_style']['custom_css']) ? $related_post_settings['headline_text_style']['custom_css'] : '';
 
     //var_dump($item_width);
 
@@ -211,23 +222,36 @@ function related_post_main_css($post_id){
     <style type="text/css">
         .related-post{}
         .related-post .post-list{
-        <?php if(!empty($grid_item_align) && $layout_type!='slider'):?>
+        <?php if(!empty($grid_item_align)):?>
             text-align:<?php echo $grid_item_align; ?>;
         <?php endif; ?>
         }
         .related-post .post-list .item{
-        <?php if(!empty($grid_item_width) && $layout_type!='slider'):?>
+        <?php if(!empty($grid_item_width) && $layout_type == 'grid'):?>
             width:<?php echo $grid_item_width; ?>;
         <?php endif; ?>
-        <?php if(!empty($grid_item_margin) && $layout_type!='slider'):?>
+        <?php if(!empty($grid_item_margin)):?>
             margin:<?php echo $grid_item_margin; ?>;
         <?php endif; ?>
-        <?php if(!empty($grid_item_padding) && $layout_type!='slider'):?>
+        <?php if(!empty($grid_item_padding)):?>
             padding:<?php echo $grid_item_padding; ?>;
+        <?php endif; ?>
+        }
+        .related-post .headline{
+        <?php if(!empty($headline_text_font_size)): ?>
+            font-size:<?php echo $headline_text_font_size; ?>;
+        <?php endif; ?>
+        <?php if(!empty($headline_text_color)): ?>
+            color:<?php echo $headline_text_color; ?>;
+        <?php endif; ?>
+        <?php if(!empty($headline_text_custom_css)): ?>
+            <?php echo $headline_text_custom_css; ?>
         <?php endif; ?>
         }
 
         <?php
+
+
 
         if(!empty($elements)):
             foreach ($elements as $elementIndex  => $elementData){

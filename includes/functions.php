@@ -254,7 +254,7 @@ function related_post_ajax_get_post_ids()
 					$post_id = get_the_id();
 					$post_title = get_the_title();
 				
-					$html.= '<div post_id="'.$post_id.'" post_title="'.$post_title.'" class="item">'.get_the_title().'</div>';
+					$html.= '<div post_id="'.$post_id.'" post_title="'.$post_title.'" class="item"><i class="far fa-plus-square"></i> '.get_the_title().'</div>';
 				
 				endwhile; 
 				wp_reset_query();

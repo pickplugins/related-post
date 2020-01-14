@@ -4,7 +4,7 @@
 	Tags: related post, related posts, related content, related post list, related, similar posts
 	Requires at least: 3.8
 	Tested up to: 5.3
-	Stable tag: 2.0.8
+	Stable tag: 2.0.10
 	License: GPLv2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -50,7 +50,7 @@ You can sort post elements like post title, post thumbnail and excerpt as you wa
 ### Hide any elements
 You can hide or display post elements like post title, thumbnail or excerpt.
 
-### Customize elemetns style
+### Customize elements style
 
 You can set custom font size, font color, padding, margin for post title, post excerpt and set custom height for post thumbnail, select custom thumbnail size and etc. you can also write custom CSS for each elements.
 
@@ -61,9 +61,9 @@ You can enable tracking click on related post, this will help you understand whi
 ### Display via shortcode
 
 You can display related post any where via shortcode by using on your theme files
-```php
-<?php echo do_shortcode( '[related_post]' ); ?>
-```
+`
+<?php echo do_shortcode( '[related_post post_id=""]' ); ?>
+`
 
 
 
@@ -80,9 +80,11 @@ short-code inside content for fixed post id you can use anywhere inside content.
 
 Short-code inside loop by dynamic post id you can use anywhere inside loop on .php files.
 
-`<?php
-echo do_shortcode( '[related_post]' ); 
-?>`
+`
+<?php
+echo do_shortcode( '[related_post post_id=""]' );
+?>
+`
 
 `Themes: text, flat`
 
@@ -98,6 +100,16 @@ echo do_shortcode( '[related_post]' );
 
 
 == Changelog ==
+
+
+
+	= 2.0.10 =
+    * 14/01/2020 add - custom font size, color and custom css for headline text
+
+	= 2.0.9 =
+    * 14/01/2020 fix - data update issue for undefined index issue fixed.
+    * 14/01/2020 fix - added reset post query after loop.
+
 
 	= 2.0.8 =
     * 12/01/2020 add - data update process added.

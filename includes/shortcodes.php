@@ -42,7 +42,7 @@ function related_post_display($atts,$content = null) {
         wp_enqueue_style('owl.carousel');
     }
 
-
+    wp_enqueue_style('related-post');
 
     return ob_get_clean();
 

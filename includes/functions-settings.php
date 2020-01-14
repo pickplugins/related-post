@@ -16,6 +16,11 @@ if(!function_exists('related_post_settings_content_general')) {
         $display_auto = isset($related_post_settings['display_auto']) ? $related_post_settings['display_auto'] : 'yes';
         $post_types = isset($related_post_settings['post_types']) ? $related_post_settings['post_types'] : array('post');
         $headline_text = isset($related_post_settings['headline_text']) ? $related_post_settings['headline_text'] : __('Related Post','');
+        $headline_text_font_size = isset($related_post_settings['headline_text_style']['font_size']) ? $related_post_settings['headline_text_style']['font_size'] : '';
+        $headline_text_color = isset($related_post_settings['headline_text_style']['color']) ? $related_post_settings['headline_text_style']['color'] : '';
+        $headline_text_custom_css = isset($related_post_settings['headline_text_style']['custom_css']) ? $related_post_settings['headline_text_style']['custom_css'] : '';
+
+
         $content_positions = isset($related_post_settings['content_positions']) ? $related_post_settings['content_positions'] : array();
         $excerpt_positions = isset($related_post_settings['excerpt_positions']) ? $related_post_settings['excerpt_positions'] : array();
 
@@ -34,6 +39,7 @@ if(!function_exists('related_post_settings_content_general')) {
             $archives_array[$taxonomy] = $the_taxonomy->labels->name;
 
         }
+
 
 
        // echo '<pre>'.var_export($related_post_settings, true).'</pre>';
@@ -149,14 +155,63 @@ if(!function_exists('related_post_settings_content_general')) {
             $args = array(
                 'id'		=> 'headline_text',
                 'parent'		=> 'related_post_settings',
-                'title'		=> __('Title text','related-post'),
-                'details'	=> __('Custom text for related post title.','related-post'),
+                'title'		=> __('Headline text','related-post'),
+                'details'	=> __('Custom text for related post headline.','related-post'),
                 'type'		=> 'text',
                 'value'		=> $headline_text,
                 'default'		=> __('Related Post',''),
             );
 
             $settings_tabs_field->generate_field($args);
+
+
+            $args = array(
+                'id'		=> 'headline_text_style',
+                'title'		=> __('Headline text style','related-post'),
+                'details'	=> __('Customize headline text.','related-post'),
+                'type'		=> 'option_group',
+                'options'		=> array(
+                    array(
+                        'id'		=> 'font_size',
+                        'parent'		=> 'related_post_settings[headline_text_style]',
+                        'title'		=> __('Font size','related-post'),
+                        'details'	=> __('Set custom font size, ex: 18px','related-post'),
+                        'type'		=> 'text',
+                        'value'		=> $headline_text_font_size,
+                        'default'		=> '18px',
+                        'placeholder'   => '18px',
+                    ),
+
+                    array(
+                        'id'		=> 'color',
+                        'parent'		=> 'related_post_settings[headline_text_style]',
+                        'title'		=> __('Color','related-post'),
+                        'details'	=> __('Set custom font color, ex: 18px','related-post'),
+                        'type'		=> 'colorpicker',
+                        'value'		=> $headline_text_color,
+                        'default'		=> '#999999',
+                        'placeholder'   => '#999999',
+                    ),
+
+                    array(
+                        'id'		=> 'custom_css',
+                        'parent'		=> 'related_post_settings[headline_text_style]',
+                        'title'		=> __('Custom CSS','related-post'),
+                        'details'	=> __('Set custom css, do not use &lt;style>&lt;/style> tag or selector(.class-name)','related-post'),
+                        'type'		=> 'textarea',
+                        'value'		=> $headline_text_custom_css,
+                        'default'		=> '',
+                        'placeholder'   => 'border:1px solid #999',
+                    ),
+
+
+
+                ),
+
+            );
+
+            $settings_tabs_field->generate_field($args);
+
 
 
             ?>
