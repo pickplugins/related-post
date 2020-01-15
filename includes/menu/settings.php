@@ -8,7 +8,7 @@ $related_post_settings_tab[] = array(
     'id' => 'general',
     'title' => sprintf(__('%s General','job-board-manager'),'<i class="fas fa-list-ul"></i>'),
     'priority' => 1,
-    'active' => true,
+    'active' => false,
 );
 
 $related_post_settings_tab[] = array(
@@ -33,12 +33,18 @@ $related_post_settings_tab[] = array(
 );
 
 
+
 $related_post_settings_tab[] = array(
-    'id' => 'slider',
-    'title' => sprintf(__('%s Slider','job-board-manager'),'<i class="fas fa-photo-video"></i>'),
+    'id' => 'pop_up',
+    'title' => sprintf(__('%s Pop up','job-board-manager'),'<i class="fas fa-window-restore"></i>'),
     'priority' => 5,
-    'active' => false,
+    'active' => true,
+    'is_pro' => true,
+    'pro_text' => 'Pro',
+
 );
+
+
 
 $related_post_settings_tab[] = array(
     'id' => 'shortcodes',
@@ -124,8 +130,20 @@ wp_enqueue_script('settings-tabs');
                         $active = $tab['active'];
                         $data_visible = isset($tab['data_visible']) ? $tab['data_visible'] : '';
                         $hidden = isset($tab['hidden']) ? $tab['hidden'] : false;
+                        $is_pro = isset($tab['is_pro']) ? $tab['is_pro'] : false;
+                        $pro_text = isset($tab['pro_text']) ? $tab['pro_text'] : '';
+
+
                         ?>
-                        <li <?php if(!empty($data_visible)):  ?> data_visible="<?php echo $data_visible; ?>" <?php endif; ?> class="tab-nav <?php if($hidden) echo 'hidden';?> <?php if($active) echo 'active';?>" data-id="<?php echo $id; ?>"><?php echo $title; ?></li>
+                        <li <?php if(!empty($data_visible)):  ?> data_visible="<?php echo $data_visible; ?>" <?php endif; ?> class="tab-nav <?php if($hidden) echo 'hidden';?> <?php if($active) echo 'active';?>" data-id="<?php echo $id; ?>">
+                            <?php echo $title; ?>
+                            <?php
+                            if($is_pro):
+                                ?><span class="pro-feature"><?php echo $pro_text; ?></span> <?php
+                            endif;
+                            ?>
+
+                        </li>
                         <?php
                     }
                     ?>

@@ -1268,7 +1268,7 @@ if(!function_exists('related_post_settings_content_shortcodes')) {
 
         ?>
         <div class="section">
-            <div class="section-title"><?php echo __('SHortcodes', 'related-post'); ?></div>
+            <div class="section-title"><?php echo __('Shortcodes', 'related-post'); ?></div>
             <p class="description section-description"><?php echo __('Get shortcode and use anywhere you want.', 'related-post'); ?></p>
 
             <?php
@@ -1312,3 +1312,234 @@ if(!function_exists('related_post_settings_content_shortcodes')) {
     }
 }
 
+
+add_action('related_post_settings_content_pop_up', 'related_post_settings_content_pop_up');
+
+if(!function_exists('related_post_settings_content_pop_up')) {
+    function related_post_settings_content_pop_up($tab){
+
+        $settings_tabs_field = new settings_tabs_field();
+
+        $related_post_settings = get_option( 'related_post_settings' );
+        $pop_up_display_auto = isset($related_post_settings['pop_up']['display_auto']) ? $related_post_settings['pop_up']['display_auto'] : '';
+
+        $pop_up_width_large = isset($related_post_settings['pop_up']['width']['large']) ? $related_post_settings['pop_up']['width']['large'] : '';
+        $pop_up_width_medium = isset($related_post_settings['pop_up']['width']['medium']) ? $related_post_settings['pop_up']['width']['medium'] : '';
+        $pop_up_width_small = isset($related_post_settings['pop_up']['width']['small']) ? $related_post_settings['pop_up']['width']['small'] : '';
+
+        $pop_up_position_large = isset($related_post_settings['pop_up']['position']['large']) ? $related_post_settings['pop_up']['position']['large'] : '';
+        $pop_up_position_medium = isset($related_post_settings['pop_up']['position']['medium']) ? $related_post_settings['pop_up']['position']['medium'] : '';
+        $pop_up_position_small = isset($related_post_settings['pop_up']['position']['small']) ? $related_post_settings['pop_up']['position']['small'] : '';
+
+        $pop_up_delay_large = isset($related_post_settings['pop_up']['delay']['large']) ? $related_post_settings['pop_up']['delay']['large'] : '';
+        $pop_up_delay_medium = isset($related_post_settings['pop_up']['delay']['medium']) ? $related_post_settings['pop_up']['delay']['medium'] : '';
+        $pop_up_delay_small = isset($related_post_settings['pop_up']['delay']['small']) ? $related_post_settings['pop_up']['delay']['small'] : '';
+
+        $pop_up_visible_action = isset($related_post_settings['pop_up']['visible_action']) ? $related_post_settings['pop_up']['visible_action'] : '';
+
+        //echo '<pre>'.var_export($display_auto, true).'</pre>';
+
+        ?>
+        <div class="section">
+            <div class="section-title"><?php echo __('Pop up related posts', 'related-post'); ?></div>
+            <p class="description section-description"><?php echo __('Display related post on pop-up on single post page.', 'related-post'); ?></p>
+
+            <?php
+
+            $args = array(
+                'id'		=> 'display_auto',
+                'parent'		=> 'related_post_settings[pop_up]',
+                'title'		=> __('Display popup automatically','related-post'),
+                'details'	=> __('Display popup automatically related post on single post page.','related-post'),
+                'type'		=> 'select',
+                'value'		=> $pop_up_display_auto,
+                'default'		=> 'yes',
+                'args'		=> array('yes'=>__('Yes','related-post'), 'no'=>__('No','related-post')),
+            );
+
+            $settings_tabs_field->generate_field($args);
+
+
+            $args = array(
+                'id'		=> 'pop_up_width',
+                'title'		=> __('Popup width','related-post'),
+                'details'	=> __('Set popup width.','related-post'),
+                'type'		=> 'option_group',
+                'options'		=> array(
+                    array(
+                        'id'		=> 'large',
+                        'parent'		=> 'related_post_settings[pop_up][width]',
+                        'title'		=> __('In desktop','related-post'),
+                        'details'	=> __('min-width: 1200px, ex: 3','related-post'),
+                        'type'		=> 'text',
+                        'value'		=> $pop_up_width_large,
+                        'default'		=> '450px',
+                        'placeholder'   => '450px',
+                    ),
+                    array(
+                        'id'		=> 'medium',
+                        'parent'		=> 'related_post_settings[pop_up][width]',
+                        'title'		=> __('In tablet & small desktop','related-post'),
+                        'details'	=> __('min-width: 992px, ex: 2','related-post'),
+                        'type'		=> 'text',
+                        'value'		=> $pop_up_width_medium,
+                        'default'		=> '450px',
+                        'placeholder'   => '450px',
+                    ),
+                    array(
+                        'id'		=> 'small',
+                        'parent'		=> 'related_post_settings[slider]',
+                        'title'		=> __('In mobile','related-post'),
+                        'details'	=> __('min-width: 576px, ex: 1','related-post'),
+                        'type'		=> 'text',
+                        'value'		=> $pop_up_width_small,
+                        'default'		=> '100%',
+                        'placeholder'   => '100%',
+                    ),
+                ),
+
+            );
+
+            $settings_tabs_field->generate_field($args);
+
+
+
+            $args = array(
+                'id'		=> 'pop_up_position',
+                'title'		=> __('Popup position','related-post'),
+                'details'	=> __('Set popup position.','related-post'),
+                'type'		=> 'option_group',
+                'options'		=> array(
+                    array(
+                        'id'		=> 'large',
+                        'parent'		=> 'related_post_settings[pop_up][position]',
+                        'title'		=> __('In desktop','related-post'),
+                        'details'	=> __('min-width: 1200px, ex: 3','related-post'),
+                        'type'		=> 'select',
+                        'value'		=> $pop_up_position_large,
+                        'default'		=> 'right-bottom',
+                        'args'   => array(
+                            'left-top'=>__('Left-Top', 'related-post'),
+                            'left-middle'=>__('Left-Middle', 'related-post'),
+                            'left-bottom'=>__('Left-Bottom', 'related-post'),
+                            'right-top'=>__('Right-Top', 'related-post'),
+                            'right-middle'=>__('Right-Middle', 'related-post'),
+                            'right-bottom'=>__('Right-Bottom', 'related-post'),
+                            'center-top'=>__('Center-Top', 'related-post'),
+                            'center-bottom'=>__('Center-Bottom', 'related-post'),
+
+                        ),
+                    ),
+                    array(
+                        'id'		=> 'medium',
+                        'parent'		=> 'related_post_settings[pop_up][position]',
+                        'title'		=> __('In tablet & small desktop','related-post'),
+                        'details'	=> __('min-width: 992px, ex: 2','related-post'),
+                        'type'		=> 'select',
+                        'value'		=> $pop_up_position_medium,
+                        'default'		=> 'right-bottom',
+                        'args'   => array(
+                            'left-top'=>__('Left-Top', 'related-post'),
+                            'left-middle'=>__('Left-Middle', 'related-post'),
+                            'left-bottom'=>__('Left-Bottom', 'related-post'),
+                            'right-top'=>__('Right-Top', 'related-post'),
+                            'right-middle'=>__('Right-Middle', 'related-post'),
+                            'right-bottom'=>__('Right-Bottom', 'related-post'),
+                            'center-top'=>__('Center-Top', 'related-post'),
+                            'center-bottom'=>__('Center-Bottom', 'related-post'),
+
+                        ),
+                    ),
+                    array(
+                        'id'		=> 'small',
+                        'parent'		=> 'related_post_settings[pop_up][position]',
+                        'title'		=> __('In mobile','related-post'),
+                        'details'	=> __('min-width: 576px, ex: 1','related-post'),
+                        'type'		=> 'select',
+                        'value'		=> $pop_up_position_small,
+                        'default'		=> 'center-bottom',
+                        'args'   => array(
+                            'left-top'=>__('Left-Top', 'related-post'),
+                            'left-middle'=>__('Left-Middle', 'related-post'),
+                            'left-bottom'=>__('Left-Bottom', 'related-post'),
+                            'right-top'=>__('Right-Top', 'related-post'),
+                            'right-middle'=>__('Right-Middle', 'related-post'),
+                            'right-bottom'=>__('Right-Bottom', 'related-post'),
+                            'center-top'=>__('Center-Top', 'related-post'),
+                            'center-bottom'=>__('Center-Bottom', 'related-post'),
+
+                            ),
+                    ),
+                ),
+
+            );
+
+            $settings_tabs_field->generate_field($args);
+
+
+            $args = array(
+                'id'		=> 'pop_up_delay',
+                'title'		=> __('Popup delay','related-post'),
+                'details'	=> __('Set popup delay.','related-post'),
+                'type'		=> 'option_group',
+                'options'		=> array(
+                    array(
+                        'id'		=> 'large',
+                        'parent'		=> 'related_post_settings[pop_up][delay]',
+                        'title'		=> __('In desktop','related-post'),
+                        'details'	=> __('min-width: 1200px, ex: 2000','related-post'),
+                        'type'		=> 'text',
+                        'value'		=> $pop_up_delay_large,
+                        'default'		=> '2000',
+                        'placeholder'   => '2000',
+                    ),
+                    array(
+                        'id'		=> 'medium',
+                        'parent'		=> 'related_post_settings[pop_up][delay]',
+                        'title'		=> __('In tablet & small desktop','related-post'),
+                        'details'	=> __('min-width: 992px, ex: 1500','related-post'),
+                        'type'		=> 'text',
+                        'value'		=> $pop_up_delay_medium,
+                        'default'		=> '1500',
+                        'placeholder'   => '1500',
+                    ),
+                    array(
+                        'id'		=> 'small',
+                        'parent'		=> 'related_post_settings[pop_up][delay]',
+                        'title'		=> __('In mobile','related-post'),
+                        'details'	=> __('min-width: 576px, ex: 1000','related-post'),
+                        'type'		=> 'text',
+                        'value'		=> $pop_up_delay_small,
+                        'default'		=> '1000',
+                        'placeholder'   => '1000',
+                    ),
+                ),
+
+            );
+
+            $settings_tabs_field->generate_field($args);
+
+
+            $args = array(
+                'id'		=> 'visible_action',
+                'parent'		=> 'related_post_settings[pop_up]',
+                'title'		=> __('Visible action','related-post'),
+                'details'	=> __('Choose visible action.','related-post'),
+                'type'		=> 'select',
+                'value'		=> $pop_up_visible_action,
+                'default'		=> 'always_visible',
+                'args'		=> array('always_visible'=>__('Always visible','related-post'), 'on_scroll'=>__('On scroll','related-post'), 'on_delay'=>__('On delay','related-post'), 'end_of_article'=>__('End of article','related-post'), 'end_of_page'=>__('End of page','related-post'),),
+            );
+
+            $settings_tabs_field->generate_field($args);
+
+
+            ?>
+
+
+        </div>
+        <?php
+
+
+    }
+}

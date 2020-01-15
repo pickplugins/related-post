@@ -367,15 +367,192 @@ function related_post_get_taxonomy_terms()
     }
 
     return $post_taxonomies_terms;
-}	
-	
-
-	
+}
 
 
 
 
 
+
+
+add_filter('the_content','related_post_pop_up');
+
+
+function related_post_pop_up($content) {
+    $post_id = get_the_id();
+    $post_type = get_post_type( $post_id );
+    $related_post_settings = get_option( 'related_post_settings' );
+    $post_types = !empty($related_post_settings['post_types']) ? $related_post_settings['post_types'] : array();
+    $pop_up_display_auto = isset($related_post_settings['pop_up']['display_auto']) ? $related_post_settings['pop_up']['display_auto'] : '';
+
+    if(is_singular($post_types) && $pop_up_display_auto == 'yes' && in_array($post_type, $post_types)){
+
+        $pop_up_width_large = isset($related_post_settings['pop_up']['width']['large']) ? $related_post_settings['pop_up']['width']['large'] : '';
+        $pop_up_width_medium = isset($related_post_settings['pop_up']['width']['medium']) ? $related_post_settings['pop_up']['width']['medium'] : '';
+        $pop_up_width_small = isset($related_post_settings['pop_up']['width']['small']) ? $related_post_settings['pop_up']['width']['small'] : '';
+
+        $pop_up_visible_action = isset($related_post_settings['pop_up']['visible_action']) ? $related_post_settings['pop_up']['visible_action'] : '';
+
+
+        ob_start();
+
+        ?>
+        <div class="related-post-popup right-bottom">
+
+            <?php echo do_shortcode( '[related_post post_id="'.$post_id.'"]' ); ?>
+        </div>
+
+        <script>
+            jQuery(document).ready(function($) {
+
+                <?php
+
+                if($pop_up_visible_action == 'always_visible'):
+
+                ?>
+                $('.related-post-popup').fadeIn(600);
+                <?php
+
+
+                elseif ($pop_up_visible_action == 'on_scroll'):
+                ?>
+                $(window).on('scroll', function () {
+                    if ($(this).scrollTop() > 800) {
+                        $('.related-post-popup').fadeIn(600);
+                    } else {
+                        $('.related-post-popup').fadeOut(600);
+                    }
+                });
+                <?php
+                elseif ($pop_up_visible_action == 'on_delay'):
+
+                ?>
+                setTimeout(function(){
+                    $('.related-post-popup').fadeIn(600);
+
+                }, 5000);
+
+                <?php
+                elseif ($pop_up_visible_action == 'end_of_article'):
+
+                ?>
+                contentWrap = $('.entry-content');
+
+                $(window).on('scroll', function() {
+                    if ($(window).scrollTop() >= contentWrap.offset().top + contentWrap.outerHeight() - window.innerHeight) {
+                        $('.related-post-popup').fadeIn(600);
+                    }else{
+                        $('.related-post-popup').fadeOut();
+                    }
+                });
+                <?php
+
+                elseif ($pop_up_visible_action == 'end_of_page'):
+                ?>
+                contentWrap = $('body');
+
+                $(window).on('scroll', function() {
+                    if ($(window).scrollTop() >= contentWrap.offset().top + contentWrap.outerHeight() - window.innerHeight) {
+                        $('.related-post-popup').fadeIn(600);
+                    }else{
+                        $('.related-post-popup').fadeOut();
+                    }
+                });
+                <?php
+
+                endif;
+
+
+                ?>
+
+
+
+
+            })
+
+
+
+        </script>
+
+        <style type="text/css">
+            .related-post-popup{
+                position: fixed;
+                padding: 10px;
+                background: #fff;
+                box-shadow: 0 0px 4px 1px rgba(193, 193, 193, 0.61);
+                z-index: 99999;
+                display: none;
+            }
+            .related-post-popup.left-top{
+                left: 10px;
+                top: 40px;
+            }
+            .related-post-popup.left-middle{
+                left: 10px;
+                top: 50%;
+                transform: translate(0,-50%);
+            }
+            .related-post-popup.left-bottom{
+                left: 10px;
+                bottom: 10px;
+            }
+            .related-post-popup.right-top{
+                right: 10px;
+                top: 40px;
+            }
+            .related-post-popup.right-middle{
+                right: 10px;
+                top: 50%;
+                transform: translate(0,-50%);
+            }
+            .related-post-popup.right-bottom{
+                right: 10px;
+                bottom: 10px;
+            }
+            .related-post-popup.center-top{
+                right: 50%;
+                top: 40px;
+                transform: translate(-50%,0);
+            }
+            .related-post-popup.center-bottom{
+                right: 50%;
+                bottom: 10px;
+                transform: translate(-50%,0);
+            }
+
+            @media only screen and (min-width: 1024px ){
+                .related-post-popup{
+                    width: <?php echo $pop_up_width_large; ?>;
+                }
+            }
+
+            @media only screen and ( min-width: 768px ) and ( max-width: 1023px ) {
+                .related-post-popup{
+                    width: <?php echo $pop_up_width_medium; ?>;
+                }
+            }
+
+            @media only screen and ( min-width: 0px ) and ( max-width: 767px ){
+                .related-post-popup{
+                    width: <?php echo $pop_up_width_small; ?>;
+                }
+            }
+
+        </style>
+        <?php
+
+        $content .= ob_get_clean();
+
+
+    }
+
+
+
+
+
+
+    return $content;
+}
 
 
 

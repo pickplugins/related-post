@@ -79,6 +79,11 @@
     background:#f1f1f159;
 }
 
+.settings-tabs .tab-nav .pro-feature {
+    float: right;
+}
+
+
 .settings-tabs .tab-content{
     margin-left: 220px;
     padding: 0px 0;
