@@ -18,8 +18,12 @@ class class_related_post_post_meta{
 	}
 	
 	public function meta_boxes_related_post($post_type) {
-		
-		$post_types = array('post');
+
+        $related_post_settings = get_option( 'related_post_settings' );
+        $post_types = isset($related_post_settings['post_types']) ? $related_post_settings['post_types'] : array('post');
+
+
+        //$post_types = array('post');
 		if (in_array($post_type, $post_types)) {
 		
 			add_meta_box('related_post_metabox',
@@ -27,7 +31,7 @@ class class_related_post_post_meta{
 				array($this, 'related_post_meta_box_function'),
 				$post_type,
 				'side',
-				'high'
+				'default'
 			);
 				
 		}
@@ -138,6 +142,25 @@ class class_related_post_post_meta{
             }
             .related-post-meta .related_post_get_ids{
                 width: 100%;
+            }
+            .suggest-post-list .title-text{
+                display: inline-block;
+                word-break: break-word;
+            }
+
+            .suggest-post-list .icon-plus{
+                display: inline-block;
+            }
+
+            .suggest-post-list .icon-add{
+                display: none;
+            }
+
+            .suggest-post-list .item:hover .icon-plus{
+                display: none;
+            }
+            .suggest-post-list .item:hover .icon-add{
+                display: inline-block;
             }
 
 

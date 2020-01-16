@@ -8,7 +8,7 @@ $related_post_settings_tab[] = array(
     'id' => 'general',
     'title' => sprintf(__('%s General','job-board-manager'),'<i class="fas fa-list-ul"></i>'),
     'priority' => 1,
-    'active' => false,
+    'active' => true,
 );
 
 $related_post_settings_tab[] = array(
@@ -32,20 +32,6 @@ $related_post_settings_tab[] = array(
     'active' => false,
 );
 
-
-
-$related_post_settings_tab[] = array(
-    'id' => 'pop_up',
-    'title' => sprintf(__('%s Pop up','job-board-manager'),'<i class="fas fa-window-restore"></i>'),
-    'priority' => 5,
-    'active' => true,
-    'is_pro' => true,
-    'pro_text' => 'Pro',
-
-);
-
-
-
 $related_post_settings_tab[] = array(
     'id' => 'shortcodes',
     'title' => sprintf(__('%s Shortcodes','job-board-manager'),'<i class="fas fa-code"></i>'),
@@ -59,6 +45,14 @@ $related_post_settings_tab[] = array(
     'priority' => 7,
     'active' => false,
 );
+
+$related_post_settings_tab[] = array(
+    'id' => 'help_support',
+    'title' => sprintf(__('%s Help & Support','job-board-manager'),'<i class="fas fa-hands-helping"></i>'),
+    'priority' => 8,
+    'active' => false,
+);
+
 
 
 
@@ -78,6 +72,10 @@ wp_enqueue_script('settings-tabs');
 <div class="wrap">
 	<div id="icon-tools" class="icon32"><br></div><h2><?php echo sprintf(__('%s Settings', 'job-board-manager'), related_post_plugin_name)?></h2>
 		<form  method="post" action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>">
+
+
+
+
 	        <input type="hidden" name="related_post_hidden" value="Y">
             <?php
             if(!empty($_POST['related_post_hidden'])){
@@ -147,6 +145,9 @@ wp_enqueue_script('settings-tabs');
                         <?php
                     }
                     ?>
+
+
+
                 </ul>
 
 

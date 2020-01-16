@@ -1,0 +1,767 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Related post\n"
+"POT-Creation-Date: 2020-01-16 10:13+0600\n"
+"PO-Revision-Date: 2020-01-16 10:25+0600\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: bn_BD\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.4\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: templates\n"
+"X-Poedit-SearchPath-1: includes\n"
+
+#: includes/class-data-upgrade.php:32
+#, php-format
+msgid "Data update required for  <b>%s &raquo; <a href=\"%s\">Update</a></b>"
+msgstr ""
+
+#: includes/class-data-upgrade.php:47
+msgid "Data upgrade"
+msgstr ""
+
+#: includes/class-data-upgrade.php:58
+#, php-format
+msgid "%s Data Upgrade"
+msgstr ""
+
+#: includes/class-data-upgrade.php:123
+msgid "Related Posts"
+msgstr "রিলেটেড পোষ্ট সমুহ"
+
+#: includes/class-functions.php:25
+msgid "Core"
+msgstr ""
+
+#: includes/class-functions.php:29
+msgid "How to display on archive pages ?"
+msgstr ""
+
+#: includes/class-functions.php:61
+msgid "Thumbnail"
+msgstr ""
+
+#: includes/class-functions.php:62 includes/functions-settings.php:412
+msgid "Title"
+msgstr "শিরোনাম"
+
+#: includes/class-functions.php:63
+msgid "Excerpt"
+msgstr ""
+
+#: includes/class-post-meta.php:30 includes/class-settings.php:18
+#: includes/functions-settings.php:18 includes/functions-settings.php:162
+msgid "Related Post"
+msgstr "রিলেটেড পোষ্ট"
+
+#: includes/class-settings-tabs.php:342 includes/class-settings-tabs.php:423
+msgid "Upload"
+msgstr "আপলোড"
+
+#: includes/class-settings-tabs.php:343 includes/class-settings-tabs.php:424
+msgid "Clear"
+msgstr "মুছুন"
+
+#: includes/class-settings-tabs.php:534 includes/class-settings-tabs.php:790
+msgid "Add"
+msgstr "যোগ করুন"
+
+#: includes/functions-settings.php:49 includes/functions-settings.php:250
+msgid "General settings"
+msgstr "সাধারন সেটিংস"
+
+#: includes/functions-settings.php:50 includes/functions-settings.php:251
+msgid "Choose some general option to getting started."
+msgstr ""
+
+#: includes/functions-settings.php:57
+msgid "Display automatically"
+msgstr ""
+
+#: includes/functions-settings.php:58
+msgid "Display automatically related post under post content."
+msgstr ""
+
+#: includes/functions-settings.php:62 includes/functions-settings.php:545
+#: includes/functions-settings.php:661 includes/functions-settings.php:751
+msgid "Yes"
+msgstr "হা"
+
+#: includes/functions-settings.php:62 includes/functions-settings.php:544
+#: includes/functions-settings.php:660 includes/functions-settings.php:750
+msgid "No"
+msgstr "না"
+
+#: includes/functions-settings.php:82
+msgid "Choose post types"
+msgstr ""
+
+#: includes/functions-settings.php:83
+msgid "Display related post automatically under selected post types."
+msgstr ""
+
+#: includes/functions-settings.php:96
+msgid "Choose archive"
+msgstr ""
+
+#: includes/functions-settings.php:97
+msgid "Display related post automatically following archive page."
+msgstr ""
+
+#: includes/functions-settings.php:113
+msgid "Content positions"
+msgstr ""
+
+#: includes/functions-settings.php:114
+msgid "Display before or after content."
+msgstr ""
+
+#: includes/functions-settings.php:128
+msgid "Excerpt positions"
+msgstr ""
+
+#: includes/functions-settings.php:129
+msgid "Display before or after excerpt."
+msgstr ""
+
+#: includes/functions-settings.php:143
+msgid "Paragraph positions"
+msgstr ""
+
+#: includes/functions-settings.php:144
+msgid ""
+"Display related post after n'th paragraph. N is total paragraph count, use "
+"comma to separate."
+msgstr ""
+
+#: includes/functions-settings.php:158
+msgid "Headline text"
+msgstr ""
+
+#: includes/functions-settings.php:159
+msgid "Custom text for related post headline."
+msgstr ""
+
+#: includes/functions-settings.php:170
+msgid "Headline text style"
+msgstr ""
+
+#: includes/functions-settings.php:171
+msgid "Customize headline text."
+msgstr ""
+
+#: includes/functions-settings.php:177 includes/functions-settings.php:552
+#: includes/functions-settings.php:780
+msgid "Font size"
+msgstr ""
+
+#: includes/functions-settings.php:178
+msgid "Set custom font size, ex: 18px"
+msgstr ""
+
+#: includes/functions-settings.php:188
+msgid "Color"
+msgstr "রঙ"
+
+#: includes/functions-settings.php:189
+msgid "Set custom font color, ex: 18px"
+msgstr ""
+
+#: includes/functions-settings.php:199 includes/functions-settings.php:625
+#: includes/functions-settings.php:719 includes/functions-settings.php:833
+msgid "Custom CSS"
+msgstr ""
+
+#: includes/functions-settings.php:200
+msgid ""
+"Set custom css, do not use &lt;style>&lt;/style> tag or selector(.class-name)"
+msgstr ""
+
+#: includes/functions-settings.php:258
+msgid "Layout type"
+msgstr ""
+
+#: includes/functions-settings.php:259
+msgid "Choose layout type."
+msgstr ""
+
+#: includes/functions-settings.php:263
+msgid "Grid"
+msgstr "গ্রিড"
+
+#: includes/functions-settings.php:263
+msgid "Slider"
+msgstr "স্লাইডার"
+
+#: includes/functions-settings.php:274
+msgid "Item width"
+msgstr ""
+
+#: includes/functions-settings.php:275
+msgid "Set item width."
+msgstr ""
+
+#: includes/functions-settings.php:281 includes/functions-settings.php:911
+msgid "In desktop"
+msgstr ""
+
+#: includes/functions-settings.php:282
+#, php-format
+msgid "min-width: 1200px, ex: 45% or 280px"
+msgstr ""
+
+#: includes/functions-settings.php:291 includes/functions-settings.php:921
+msgid "In tablet & small desktop"
+msgstr ""
+
+#: includes/functions-settings.php:292
+#, php-format
+msgid "min-width: 992px, ex: 90% or 280px"
+msgstr ""
+
+#: includes/functions-settings.php:301 includes/functions-settings.php:931
+msgid "In mobile"
+msgstr ""
+
+#: includes/functions-settings.php:302
+#, php-format
+msgid "max-width: 768px, ex: 90% or 280px"
+msgstr ""
+
+#: includes/functions-settings.php:325
+msgid "Item margin"
+msgstr ""
+
+#: includes/functions-settings.php:326
+msgid "Set item margin. ex: 5px 10px"
+msgstr ""
+
+#: includes/functions-settings.php:338
+msgid "Item padding"
+msgstr ""
+
+#: includes/functions-settings.php:339
+msgid "Set item padding. ex: 5px 10px"
+msgstr ""
+
+#: includes/functions-settings.php:351
+msgid "Item text align"
+msgstr ""
+
+#: includes/functions-settings.php:352
+msgid "Set item text align."
+msgstr ""
+
+#: includes/functions-settings.php:356
+msgid "Left"
+msgstr "বাম"
+
+#: includes/functions-settings.php:356
+msgid "Center"
+msgstr "কেন্দ্র"
+
+#: includes/functions-settings.php:356
+msgid "Right"
+msgstr "ডান"
+
+#: includes/functions-settings.php:392 includes/functions-settings.php:1141
+msgid "Post query settings"
+msgstr ""
+
+#: includes/functions-settings.php:393 includes/functions-settings.php:1142
+msgid "Choose post query settings."
+msgstr ""
+
+#: includes/functions-settings.php:400
+msgid "Query orderby"
+msgstr ""
+
+#: includes/functions-settings.php:401
+msgid "Choose related post query orderby"
+msgstr ""
+
+#: includes/functions-settings.php:407
+msgid "ID"
+msgstr ""
+
+#: includes/functions-settings.php:408
+msgid "Date"
+msgstr "তারিখ"
+
+#: includes/functions-settings.php:409
+msgid "Random"
+msgstr "র‍্যান্ডম"
+
+#: includes/functions-settings.php:410
+msgid "Comment count"
+msgstr "মন্থব্য সংখ্যা"
+
+#: includes/functions-settings.php:411
+msgid "Author"
+msgstr "লেখক"
+
+#: includes/functions-settings.php:413
+msgid "Name"
+msgstr "নাম"
+
+#: includes/functions-settings.php:414
+msgid "Type"
+msgstr "টাইপ"
+
+#: includes/functions-settings.php:415
+msgid "Menu order"
+msgstr "মেনু অর্ডার"
+
+#: includes/functions-settings.php:416
+msgid "post__in"
+msgstr "post__in"
+
+#: includes/functions-settings.php:426
+msgid "Post order"
+msgstr "পোস্ট অর্ডার"
+
+#: includes/functions-settings.php:427
+msgid "Choose post query order."
+msgstr ""
+
+#: includes/functions-settings.php:431
+msgid "Descending"
+msgstr ""
+
+#: includes/functions-settings.php:431
+msgid "Ascending"
+msgstr ""
+
+#: includes/functions-settings.php:441
+msgid "Max number of post"
+msgstr ""
+
+#: includes/functions-settings.php:442
+msgid "Maximum number of post to display."
+msgstr ""
+
+#: includes/functions-settings.php:490
+msgid "Elements"
+msgstr ""
+
+#: includes/functions-settings.php:491
+msgid "Customize post elements."
+msgstr ""
+
+#: includes/functions-settings.php:511
+msgid "Elements settings"
+msgstr ""
+
+#: includes/functions-settings.php:512
+msgid "Customize elements."
+msgstr ""
+
+#: includes/functions-settings.php:537 includes/functions-settings.php:653
+#: includes/functions-settings.php:743
+msgid "Hide"
+msgstr "লুকান"
+
+#: includes/functions-settings.php:538 includes/functions-settings.php:654
+#: includes/functions-settings.php:744
+msgid "You can hide this element."
+msgstr ""
+
+#: includes/functions-settings.php:553 includes/functions-settings.php:781
+msgid "Set custom font size. ex: 14px"
+msgstr ""
+
+#: includes/functions-settings.php:563 includes/functions-settings.php:791
+msgid "Font color"
+msgstr "লেখার রঙ"
+
+#: includes/functions-settings.php:564 includes/functions-settings.php:792
+msgid "Choose font color."
+msgstr "লেখার রঙ নির্বাচন"
+
+#: includes/functions-settings.php:573 includes/functions-settings.php:801
+msgid "Line height"
+msgstr ""
+
+#: includes/functions-settings.php:574 includes/functions-settings.php:802
+msgid "Set line height."
+msgstr ""
+
+#: includes/functions-settings.php:584 includes/functions-settings.php:698
+#: includes/functions-settings.php:812
+msgid "Margin"
+msgstr ""
+
+#: includes/functions-settings.php:585 includes/functions-settings.php:699
+#: includes/functions-settings.php:813
+msgid "Set margin. ex: 5px 10px"
+msgstr ""
+
+#: includes/functions-settings.php:595 includes/functions-settings.php:709
+#: includes/functions-settings.php:823
+msgid "Padding"
+msgstr ""
+
+#: includes/functions-settings.php:596 includes/functions-settings.php:710
+#: includes/functions-settings.php:824
+msgid "Set padding. ex: 5px 10px"
+msgstr ""
+
+#: includes/functions-settings.php:605
+msgid "Icon"
+msgstr ""
+
+#: includes/functions-settings.php:606
+msgid ""
+"Set icon. use font awesome icon HTML, ex: <code>&lt;i class=\"fas fa-dot-"
+"circle\">&lt;/i></code>"
+msgstr ""
+
+#: includes/functions-settings.php:615
+msgid "Icon font size"
+msgstr ""
+
+#: includes/functions-settings.php:616
+msgid "Set icon font size."
+msgstr ""
+
+#: includes/functions-settings.php:626 includes/functions-settings.php:720
+#: includes/functions-settings.php:834
+msgid ""
+"Write custom CSS, do not write &lt;style>&lt;/style> tag, do not use "
+"selector(.class-name{})"
+msgstr ""
+
+#: includes/functions-settings.php:668
+msgid "Thumbnail size"
+msgstr ""
+
+#: includes/functions-settings.php:669
+msgid "Choose thumbnail size"
+msgstr ""
+
+#: includes/functions-settings.php:678
+msgid "Default thumbnail"
+msgstr ""
+
+#: includes/functions-settings.php:679
+msgid "Set default thumbnail"
+msgstr ""
+
+#: includes/functions-settings.php:688
+msgid "Max height"
+msgstr ""
+
+#: includes/functions-settings.php:689
+msgid "Set max height"
+msgstr ""
+
+#: includes/functions-settings.php:757
+msgid "Excerpt word count"
+msgstr ""
+
+#: includes/functions-settings.php:758
+msgid "Set custom number of word count for excerpt."
+msgstr ""
+
+#: includes/functions-settings.php:768
+msgid "Read more text"
+msgstr ""
+
+#: includes/functions-settings.php:769
+msgid "Set custom raed more text for excerpt."
+msgstr ""
+
+#: includes/functions-settings.php:897
+msgid "Slider settings"
+msgstr ""
+
+#: includes/functions-settings.php:898
+msgid "Choose slider settings."
+msgstr ""
+
+#: includes/functions-settings.php:904
+msgid "Slider column count "
+msgstr ""
+
+#: includes/functions-settings.php:905
+msgid "Set slider column count."
+msgstr ""
+
+#: includes/functions-settings.php:912
+msgid "min-width: 1200px, ex: 3"
+msgstr ""
+
+#: includes/functions-settings.php:922
+msgid "min-width: 992px, ex: 2"
+msgstr ""
+
+#: includes/functions-settings.php:932
+msgid "min-width: 576px, ex: 1"
+msgstr ""
+
+#: includes/functions-settings.php:950
+msgid "Navigation slide speed"
+msgstr ""
+
+#: includes/functions-settings.php:951
+msgid "Set slide speed, ex: 1000"
+msgstr ""
+
+#: includes/functions-settings.php:963
+msgid "Dots slide speed"
+msgstr ""
+
+#: includes/functions-settings.php:964
+msgid "Set dots slide speed, ex: 1200"
+msgstr ""
+
+#: includes/functions-settings.php:978
+msgid "Auto play"
+msgstr ""
+
+#: includes/functions-settings.php:979
+msgid "Choose slider auto play."
+msgstr ""
+
+#: includes/functions-settings.php:983 includes/functions-settings.php:996
+#: includes/functions-settings.php:1009 includes/functions-settings.php:1024
+#: includes/functions-settings.php:1037 includes/functions-settings.php:1053
+#: includes/functions-settings.php:1081 includes/functions-settings.php:1095
+#: includes/functions-settings.php:1108
+msgid "True"
+msgstr ""
+
+#: includes/functions-settings.php:983 includes/functions-settings.php:996
+#: includes/functions-settings.php:1009 includes/functions-settings.php:1024
+#: includes/functions-settings.php:1037 includes/functions-settings.php:1053
+#: includes/functions-settings.php:1081 includes/functions-settings.php:1095
+#: includes/functions-settings.php:1108
+msgid "False"
+msgstr ""
+
+#: includes/functions-settings.php:991
+msgid "Slider rewind"
+msgstr ""
+
+#: includes/functions-settings.php:992
+msgid "Choose slider rewind."
+msgstr ""
+
+#: includes/functions-settings.php:1004
+msgid "Slider loop"
+msgstr ""
+
+#: includes/functions-settings.php:1005
+msgid "Choose slider loop."
+msgstr ""
+
+#: includes/functions-settings.php:1019
+msgid "Slider center"
+msgstr ""
+
+#: includes/functions-settings.php:1020
+msgid "Choose slider center."
+msgstr ""
+
+#: includes/functions-settings.php:1032
+msgid "Slider stop on hover"
+msgstr ""
+
+#: includes/functions-settings.php:1033
+msgid "Choose stop on hover."
+msgstr ""
+
+#: includes/functions-settings.php:1048
+msgid "Slider navigation"
+msgstr ""
+
+#: includes/functions-settings.php:1049
+msgid "Choose slider navigation."
+msgstr ""
+
+#: includes/functions-settings.php:1061
+msgid "Slider navigation position"
+msgstr ""
+
+#: includes/functions-settings.php:1062
+msgid "Choose slider navigation position."
+msgstr ""
+
+#: includes/functions-settings.php:1066
+msgid "Top-right"
+msgstr ""
+
+#: includes/functions-settings.php:1066
+msgid "Middle"
+msgstr ""
+
+#: includes/functions-settings.php:1066
+msgid "Middle-fixed"
+msgstr ""
+
+#: includes/functions-settings.php:1076
+msgid "Slider pagination"
+msgstr ""
+
+#: includes/functions-settings.php:1077
+msgid "Choose slider pagination."
+msgstr ""
+
+#: includes/functions-settings.php:1090
+msgid "Slider pagination count"
+msgstr ""
+
+#: includes/functions-settings.php:1091
+msgid "Choose slider pagination count."
+msgstr ""
+
+#: includes/functions-settings.php:1103
+msgid "Slider rtl"
+msgstr ""
+
+#: includes/functions-settings.php:1104
+msgid "Choose slider rtl."
+msgstr ""
+
+#: includes/functions-settings.php:1151
+msgid "Enable stats"
+msgstr ""
+
+#: includes/functions-settings.php:1152
+msgid "Enable trace click on related post."
+msgstr ""
+
+#: includes/functions-settings.php:1156
+msgid "Enable"
+msgstr ""
+
+#: includes/functions-settings.php:1156
+msgid "Disable"
+msgstr ""
+
+#: includes/functions-settings.php:1206
+msgid "Top 10 visited post today"
+msgstr ""
+
+#: includes/functions-settings.php:1242 includes/functions-settings.php:1266
+msgid "Shortcodes"
+msgstr ""
+
+#: includes/functions-settings.php:1243
+msgid "Get shortcode and use anywhere you want."
+msgstr ""
+
+#: includes/functions-settings.php:1251
+msgid "Shortcode for php file"
+msgstr ""
+
+#: includes/functions-settings.php:1253
+msgid ""
+"Shortcode inside loop by dynamic post id you can use anywhere inside loop "
+"on .php files."
+msgstr ""
+
+#: includes/functions-settings.php:1255
+msgid "Short-code for content"
+msgstr ""
+
+#: includes/functions-settings.php:1258
+msgid ""
+"Short-code inside content for fixed post id you can use anywhere inside "
+"content."
+msgstr ""
+
+#: includes/functions-settings.php:1303
+msgid "Get support"
+msgstr ""
+
+#: includes/functions-settings.php:1304
+msgid "Use following to get help and support from our expert team."
+msgstr ""
+
+#: includes/functions-settings.php:1312
+msgid ""
+"Ask question for free on our forum and get quick reply from our expert team "
+"members."
+msgstr ""
+
+#: includes/functions-settings.php:1313
+msgid "Create support ticket"
+msgstr ""
+
+#: includes/functions-settings.php:1315
+msgid "Read our documentation before asking your question."
+msgstr ""
+
+#: includes/functions-settings.php:1316
+msgid "Documentation"
+msgstr ""
+
+#: includes/functions-settings.php:1318
+msgid "Watch video tutorials."
+msgstr ""
+
+#: includes/functions-settings.php:1319
+msgid "Tutorials"
+msgstr ""
+
+#: includes/functions-settings.php:1329
+msgid "Ask question"
+msgstr ""
+
+#: includes/menu/settings.php:9
+#, php-format
+msgid "%s General"
+msgstr "%s সাধারন"
+
+#: includes/menu/settings.php:16
+#, php-format
+msgid "%s Query"
+msgstr "%s কুয়েরী"
+
+#: includes/menu/settings.php:23
+#, php-format
+msgid "%s Style"
+msgstr "%s স্টাইল"
+
+#: includes/menu/settings.php:30
+#, php-format
+msgid "%s Elements"
+msgstr "%s ইলেমেন্টস"
+
+#: includes/menu/settings.php:37
+#, php-format
+msgid "%s Shortcodes"
+msgstr "%s শর্টকোড"
+
+#: includes/menu/settings.php:44
+#, php-format
+msgid "%s Stats"
+msgstr "%s স্টাটস"
+
+#: includes/menu/settings.php:51
+#, php-format
+msgid "%s Help & Support"
+msgstr "%s সাহায্য ও সাপোর্ট"
+
+#: includes/menu/settings.php:73
+#, php-format
+msgid "%s Settings"
+msgstr "%s সেটিংস"
+
+#: includes/menu/settings.php:91
+msgid "Changes Saved."
+msgstr "পরিবর্তন গুলো সংরক্ষন হয়েছে"
+
+#: includes/menu/settings.php:172
+msgid "Save Changes"
+msgstr "সেভ সংরক্ষন করুন"
+
+#: templates/related-post-hook.php:168
+msgid "Read more"
+msgstr "আরো পড়ুন"

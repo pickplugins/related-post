@@ -78,6 +78,16 @@ function related_post_is_archive_display($archives){
             return true;
         }
     }
+    else if( is_tax()){
+
+        $queried_object = get_queried_object();
+        $taxonomy = $queried_object->taxonomy;
+        //echo '<pre>'.var_export($taxonomy, true).'</pre>';
+        if(in_array($taxonomy, $archives)){
+            return true;
+        }
+    }
+
 
     else if(is_author()){
         if(in_array('author', $archives)){
@@ -159,7 +169,7 @@ function related_post_display_auto($content) {
     $content_positions = !empty($related_post_settings['content_positions']) ? $related_post_settings['content_positions'] : array();
     $paragraph_positions = !empty($related_post_settings['paragraph_positions']) ? $related_post_settings['paragraph_positions'] : array();
     $paragraph_positions = !empty($paragraph_positions) ? explode(',', $paragraph_positions) : array();
-    $related_post_html  = do_shortcode('[related_post]');
+    $related_post_html  = do_shortcode('[related_post post_id="'.$post_id.'"]');
 
     $is_archive_display = related_post_is_archive_display($archives);
 
@@ -232,57 +242,58 @@ function related_post_display_auto($content) {
 
 
 
-function related_post_ajax_get_post_ids()
-	{
+function related_post_ajax_get_post_ids(){
+
 			$response = array();
 			$post_id 	= (int)sanitize_text_field($_POST['post_id']);
 			$title 	= sanitize_text_field($_POST['title']);
-		
 			$post_type = get_post_type($post_id);
-		
-			$args = array('post_type'=>array('post'), 's'=>$title, 'post__not_in'=> array($post_id), 'posts_per_page'=>10);
-			
-			
+			$args = array('post_type'=> array($post_type), 's'=> $title, 'post__not_in'=> array($post_id), 'posts_per_page'=>10);
 			$wp_query = new WP_Query($args);
 			
-			$html = '';
+			ob_start();
 			
 			if($wp_query->have_posts()):
 			
 				while ($wp_query->have_posts()) : $wp_query->the_post();
-				
+
 					$post_id = get_the_id();
 					$post_title = get_the_title();
 				
-					$html.= '<div post_id="'.$post_id.'" post_title="'.$post_title.'" class="item"><i class="far fa-plus-square"></i> '.get_the_title().'</div>';
+					?>
+                    <div post_id="<?php echo $post_id; ?>" post_title="<?php echo $post_title; ?>" class="item">
+                        <span class="icon-plus"><i class="far fa-plus-square"></i></span>
+                        <span class="icon-add"><i class="fas fa-plus-square"></i></span>
+                        <span class="title-text"><?php echo $post_title; ?></span>
+                    </div>
+                    <?php
 				
-				endwhile; 
-				wp_reset_query();
+				endwhile;
+                wp_reset_postdata();
 			
 			endif;
 			
-			$response['html'] = $html;
+			$response['html'] = ob_get_clean();
 			
 			echo json_encode($response);
-		//echo json_encode($response);
-		
+
 		die();
 	}
 
 	add_action('wp_ajax_related_post_ajax_get_post_ids', 'related_post_ajax_get_post_ids');
-	add_action('wp_ajax_nopriv_related_post_ajax_get_post_ids', 'related_post_ajax_get_post_ids');	
+	add_action('wp_ajax_nopriv_related_post_ajax_get_post_ids', 'related_post_ajax_get_post_ids');
 
 
 
 
 
 
-function get_post_ids_by_taxonomy_terms($post_id=0){
+function get_post_ids_by_taxonomy_terms($post_id = 0){
 
     $post_id = !empty($post_id) ? $post_id : get_the_ID();
 
     $post_type = get_post_type( $post_id );
-    $taxonomy_terms = related_post_get_taxonomy_terms();
+    $taxonomy_terms = related_post_get_taxonomy_terms($post_id);
 		
     if(!empty($taxonomy_terms)) {
         foreach($taxonomy_terms as $taxonomy => $term_ids){
@@ -306,14 +317,14 @@ function get_post_ids_by_taxonomy_terms($post_id=0){
 
 
             if ( $wp_query->have_posts() ) :
-            $i = 0;
-            while ( $wp_query->have_posts() ) : $wp_query->the_post();
-                $post_ids[$i] = get_the_ID();
+                $i = 0;
+                while ( $wp_query->have_posts() ) : $wp_query->the_post();
+                    $post_ids[$i] = get_the_ID();
 
-                $i++;
-            endwhile;
+                    $i++;
+                endwhile;
 
-            wp_reset_query();
+                wp_reset_postdata();
             endif;
 
 
@@ -338,226 +349,34 @@ function get_post_ids_by_taxonomy_terms($post_id=0){
 
 
 
-function related_post_get_taxonomy_terms()
-	{
-   // global $post, $post_id;
+function related_post_get_taxonomy_terms($post_id){
+
     // get post by post id
-    $post = get_post(get_the_ID());
+    $post = get_post($post_id);
+
     // get post type by post
     $post_type = $post->post_type;
+
     // get post type taxonomies
     $taxonomies = get_object_taxonomies($post_type);
 	$post_taxonomies_terms = array();
+
+	if(!empty($taxonomies))
     foreach ($taxonomies as $taxonomy) {        
 
         // get the terms related to post
         $terms = get_the_terms( $post->ID, $taxonomy );
-        if ( !empty( $terms ) )
-			{
-				$i = 0;
-				foreach ( $terms as $term )
-					{
-						$post_taxonomies_terms[$taxonomy][$i] =$term->term_id; 
-						$i++;
-					}
-				   
-			}
-
-
+        if ( !empty( $terms ) ) {
+            $i = 0;
+            foreach ( $terms as $term ){
+                $post_taxonomies_terms[$taxonomy][$i] =$term->term_id;
+                $i++;
+            }
+        }
     }
 
     return $post_taxonomies_terms;
 }
-
-
-
-
-
-
-
-add_filter('the_content','related_post_pop_up');
-
-
-function related_post_pop_up($content) {
-    $post_id = get_the_id();
-    $post_type = get_post_type( $post_id );
-    $related_post_settings = get_option( 'related_post_settings' );
-    $post_types = !empty($related_post_settings['post_types']) ? $related_post_settings['post_types'] : array();
-    $pop_up_display_auto = isset($related_post_settings['pop_up']['display_auto']) ? $related_post_settings['pop_up']['display_auto'] : '';
-
-    if(is_singular($post_types) && $pop_up_display_auto == 'yes' && in_array($post_type, $post_types)){
-
-        $pop_up_width_large = isset($related_post_settings['pop_up']['width']['large']) ? $related_post_settings['pop_up']['width']['large'] : '';
-        $pop_up_width_medium = isset($related_post_settings['pop_up']['width']['medium']) ? $related_post_settings['pop_up']['width']['medium'] : '';
-        $pop_up_width_small = isset($related_post_settings['pop_up']['width']['small']) ? $related_post_settings['pop_up']['width']['small'] : '';
-
-        $pop_up_visible_action = isset($related_post_settings['pop_up']['visible_action']) ? $related_post_settings['pop_up']['visible_action'] : '';
-
-
-        ob_start();
-
-        ?>
-        <div class="related-post-popup right-bottom">
-
-            <?php echo do_shortcode( '[related_post post_id="'.$post_id.'"]' ); ?>
-        </div>
-
-        <script>
-            jQuery(document).ready(function($) {
-
-                <?php
-
-                if($pop_up_visible_action == 'always_visible'):
-
-                ?>
-                $('.related-post-popup').fadeIn(600);
-                <?php
-
-
-                elseif ($pop_up_visible_action == 'on_scroll'):
-                ?>
-                $(window).on('scroll', function () {
-                    if ($(this).scrollTop() > 800) {
-                        $('.related-post-popup').fadeIn(600);
-                    } else {
-                        $('.related-post-popup').fadeOut(600);
-                    }
-                });
-                <?php
-                elseif ($pop_up_visible_action == 'on_delay'):
-
-                ?>
-                setTimeout(function(){
-                    $('.related-post-popup').fadeIn(600);
-
-                }, 5000);
-
-                <?php
-                elseif ($pop_up_visible_action == 'end_of_article'):
-
-                ?>
-                contentWrap = $('.entry-content');
-
-                $(window).on('scroll', function() {
-                    if ($(window).scrollTop() >= contentWrap.offset().top + contentWrap.outerHeight() - window.innerHeight) {
-                        $('.related-post-popup').fadeIn(600);
-                    }else{
-                        $('.related-post-popup').fadeOut();
-                    }
-                });
-                <?php
-
-                elseif ($pop_up_visible_action == 'end_of_page'):
-                ?>
-                contentWrap = $('body');
-
-                $(window).on('scroll', function() {
-                    if ($(window).scrollTop() >= contentWrap.offset().top + contentWrap.outerHeight() - window.innerHeight) {
-                        $('.related-post-popup').fadeIn(600);
-                    }else{
-                        $('.related-post-popup').fadeOut();
-                    }
-                });
-                <?php
-
-                endif;
-
-
-                ?>
-
-
-
-
-            })
-
-
-
-        </script>
-
-        <style type="text/css">
-            .related-post-popup{
-                position: fixed;
-                padding: 10px;
-                background: #fff;
-                box-shadow: 0 0px 4px 1px rgba(193, 193, 193, 0.61);
-                z-index: 99999;
-                display: none;
-            }
-            .related-post-popup.left-top{
-                left: 10px;
-                top: 40px;
-            }
-            .related-post-popup.left-middle{
-                left: 10px;
-                top: 50%;
-                transform: translate(0,-50%);
-            }
-            .related-post-popup.left-bottom{
-                left: 10px;
-                bottom: 10px;
-            }
-            .related-post-popup.right-top{
-                right: 10px;
-                top: 40px;
-            }
-            .related-post-popup.right-middle{
-                right: 10px;
-                top: 50%;
-                transform: translate(0,-50%);
-            }
-            .related-post-popup.right-bottom{
-                right: 10px;
-                bottom: 10px;
-            }
-            .related-post-popup.center-top{
-                right: 50%;
-                top: 40px;
-                transform: translate(-50%,0);
-            }
-            .related-post-popup.center-bottom{
-                right: 50%;
-                bottom: 10px;
-                transform: translate(-50%,0);
-            }
-
-            @media only screen and (min-width: 1024px ){
-                .related-post-popup{
-                    width: <?php echo $pop_up_width_large; ?>;
-                }
-            }
-
-            @media only screen and ( min-width: 768px ) and ( max-width: 1023px ) {
-                .related-post-popup{
-                    width: <?php echo $pop_up_width_medium; ?>;
-                }
-            }
-
-            @media only screen and ( min-width: 0px ) and ( max-width: 767px ){
-                .related-post-popup{
-                    width: <?php echo $pop_up_width_small; ?>;
-                }
-            }
-
-        </style>
-        <?php
-
-        $content .= ob_get_clean();
-
-
-    }
-
-
-
-
-
-
-    return $content;
-}
-
-
-
-
-
 
 
 

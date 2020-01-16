@@ -9,6 +9,9 @@ add_action('related_post_settings_content_general', 'related_post_settings_conte
 if(!function_exists('related_post_settings_content_general')) {
     function related_post_settings_content_general($tab){
 
+
+        //delete_option('related_post_settings');
+
         $settings_tabs_field = new settings_tabs_field();
 
         $related_post_settings = get_option( 'related_post_settings' );
@@ -21,8 +24,8 @@ if(!function_exists('related_post_settings_content_general')) {
         $headline_text_custom_css = isset($related_post_settings['headline_text_style']['custom_css']) ? $related_post_settings['headline_text_style']['custom_css'] : '';
 
 
-        $content_positions = isset($related_post_settings['content_positions']) ? $related_post_settings['content_positions'] : array();
-        $excerpt_positions = isset($related_post_settings['excerpt_positions']) ? $related_post_settings['excerpt_positions'] : array();
+        $content_positions = isset($related_post_settings['content_positions']) ? $related_post_settings['content_positions'] : array('after');
+        $excerpt_positions = isset($related_post_settings['excerpt_positions']) ? $related_post_settings['excerpt_positions'] : array('after');
 
         $paragraph_positions = isset($related_post_settings['paragraph_positions']) ? $related_post_settings['paragraph_positions'] : array();
 
@@ -326,7 +329,7 @@ if(!function_exists('related_post_settings_content_style')) {
                 'details'	=> __('Set item margin. ex: 5px 10px','related-post'),
                 'type'		=> 'text',
                 'value'		=> $grid_item_margin,
-                'default'		=> '10px',
+                'default'		=> '5px',
                 'placeholder'   => '5px 10px',
             );
 
@@ -339,7 +342,7 @@ if(!function_exists('related_post_settings_content_style')) {
                 'details'	=> __('Set item padding. ex: 5px 10px','related-post'),
                 'type'		=> 'text',
                 'value'		=> $grid_item_padding,
-                'default'		=> '10px',
+                'default'		=> '5px',
                 'placeholder'   => '5px 10px',
             );
 
@@ -383,7 +386,7 @@ if(!function_exists('related_post_settings_content_query')) {
 
         $orderby = isset($related_post_settings['orderby']) ? $related_post_settings['orderby'] : array('post__in');
         $order = isset($related_post_settings['order']) ? $related_post_settings['order'] : 'DESC';
-        $max_post_count = isset($related_post_settings['max_post_count']) ? $related_post_settings['max_post_count'] : 5;
+        $max_post_count = isset($related_post_settings['max_post_count']) ? $related_post_settings['max_post_count'] : 4;
 
         //echo '<pre>'.var_export($display_auto, true).'</pre>';
 
@@ -515,18 +518,18 @@ if(!function_exists('related_post_settings_content_elements')) {
                 'sortable'		=> true,
                 'default'		=> array(),
                 'args_index'	=> $elements_index,
-                'args_index_default'    => array('post_title', 'post_thumb', 'post_excerpt'),
-                'args_index_hide'	=> array('post_title' => false, 'post_thumb' => false , 'post_excerpt' => false),
+                'args_index_default'    => apply_filters('related_post_elements_index', array('post_title', 'post_thumb', 'post_excerpt')),
+                'args_index_hide'	=>  array('post_title' => false, 'post_thumb' => false , 'post_excerpt' => false),
 
-                'args'          => array(
+                'args'          => apply_filters('related_post_elements_args', array(
                     'post_title'    => array(
                         'title'     =>'Post title',
                         'options'   =>array(
                             array(
                                 'id'		    => 'post_title',
                                 'parent'		=> 'related_post_settings[elements_index]',
-                                'title'		    => __('','related-post'),
-                                'details'	    => __('','related-post'),
+                                'title'		    => '',
+                                'details'	    => '',
                                 'type'		    => 'hidden',
                                 'value'		=> 'post_title',
                                 'default'		=> 'post_title',
@@ -629,18 +632,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'placeholder'   => 'color:#999999;',
                             ),
 
-                            array(
-                                'id'		    => 'after_html',
-                                'parent'		=> 'related_post_settings[elements][post_title]',
-                                'title'		    => __('After HTML','related-post'),
-                                'details'	    => __('Write custom HTML after post title, you can also use 3rd party shortcodes','related-post'),
-                                'type'		    => 'textarea',
-                                'value'		=> isset($elements['post_title']['after_html']) ? $elements['post_title']['after_html'] : '',
-                                'placeholder'   => '',
-                                'is_pro'   => true,
-                                'pro_text'   => 'Only in pro',
 
-                            ),
 
 
 
@@ -652,8 +644,8 @@ if(!function_exists('related_post_settings_content_elements')) {
                             array(
                                 'id'		    => 'post_thumb',
                                 'parent'		=> 'related_post_settings[elements_index]',
-                                'title'		    => __('','related-post'),
-                                'details'	    => __('','related-post'),
+                                'title'		    => '',
+                                'details'	    => '',
                                 'type'		    => 'hidden',
                                 'value'		=> 'post_thumb',
                                 'default'		=> 'post_thumb',
@@ -733,17 +725,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'value'		=> isset($elements['post_thumb']['custom_css']) ? $elements['post_thumb']['custom_css'] : '',
                                 'placeholder'   => 'font-size:16px;',
                             ),
-                            array(
-                                'id'		    => 'after_html',
-                                'parent'		=> 'related_post_settings[elements][post_thumb]',
-                                'title'		    => __('After HTML','related-post'),
-                                'details'	    => __('Write custom HTML after post thumbnail, you can also use 3rd party shortcodes','related-post'),
-                                'type'		    => 'textarea',
-                                'value'		=> isset($elements['post_thumb']['after_html']) ? $elements['post_thumb']['after_html'] : '',
-                                'placeholder'   => '',
-                                'is_pro'   => true,
-                                'pro_text'   => 'Only in pro',
-                            ),
+
                         ),
                     ),
                     'post_excerpt' => array(
@@ -752,8 +734,8 @@ if(!function_exists('related_post_settings_content_elements')) {
                             array(
                                 'id'		    => 'post_excerpt',
                                 'parent'		=> 'related_post_settings[elements_index]',
-                                'title'		    => __('','related-post'),
-                                'details'	    => __('','related-post'),
+                                'title'		    => '',
+                                'details'	    => '',
                                 'type'		    => 'hidden',
                                 'value'		=> 'post_excerpt',
                                 'default'		=> 'post_excerpt',
@@ -857,21 +839,13 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'value'		=> isset($elements['post_excerpt']['custom_css']) ? $elements['post_excerpt']['custom_css'] : '',
                                 'placeholder'   => 'border: 1px solid #ddddd;',
                             ),
-                            array(
-                                'id'		    => 'after_html',
-                                'parent'		=> 'related_post_settings[elements][post_excerpt]',
-                                'title'		    => __('After HTML','related-post'),
-                                'details'	    => __('Write custom HTML after post title, you can also use 3rd party shortcodes','related-post'),
-                                'type'		    => 'textarea',
-                                'value'		=> isset($elements['post_excerpt']['after_html']) ? $elements['post_excerpt']['after_html'] : '',
-                                'placeholder'   => '',
-                                'is_pro'   => true,
-                                'pro_text'   => 'Only in pro',
-                            ),
+
 
 
                         ),
                     ),
+
+                        ), $elements
                 ),
             );
 
@@ -1233,7 +1207,7 @@ if(!function_exists('related_post_settings_content_stats')) {
                 'id'		=> 'top_10',
                 'parent'		=> 'related_post_settings',
                 'title'		=> __('Top 10 visited post today','related-post'),
-                'details'	=> __('','related-post'),
+                'details'	=> '',
                 'type'		=> 'custom_html',
                 'html'		=> $top_10_html,
 
@@ -1277,14 +1251,14 @@ if(!function_exists('related_post_settings_content_shortcodes')) {
             ob_start();
             ?>
 
-            <p>Short-code for php file</p>
+            <p><?php echo __('Shortcode for php file', 'related-post'); ?></p>
             <textarea onclick="this.select()">&#60;?php echo do_shortcode( '&#91;related_post&#93;' ); ?&#62;</textarea>
-            <p class="description" >Short-code inside loop by dynamic post id you can use anywhere inside loop on .php files.</p>
+            <p class="description" ><?php echo __('Shortcode inside loop by dynamic post id you can use anywhere inside loop on .php files.', 'related-post'); ?></p>
 
-            <p>Short-code for content</p>
+            <p><?php echo __('Short-code for content', 'related-post'); ?></p>
             <textarea onclick="this.select()">[related_post]</textarea>
 
-            <p class="description">Short-code inside content for fixed post id you can use anywhere inside content.</p>
+            <p class="description"><?php echo __('Short-code inside content for fixed post id you can use anywhere inside content.', 'related-post'); ?></p>
             <?php
 
             $html = ob_get_clean();
@@ -1293,7 +1267,7 @@ if(!function_exists('related_post_settings_content_shortcodes')) {
                 'id'		=> 'shortcodes',
                 'parent'		=> 'related_post_settings',
                 'title'		=> __('Shortcodes','related-post'),
-                'details'	=> __('','related-post'),
+                'details'	=> '',
                 'type'		=> 'custom_html',
                 'html'		=> $html,
 
@@ -1313,222 +1287,53 @@ if(!function_exists('related_post_settings_content_shortcodes')) {
 }
 
 
-add_action('related_post_settings_content_pop_up', 'related_post_settings_content_pop_up');
 
-if(!function_exists('related_post_settings_content_pop_up')) {
-    function related_post_settings_content_pop_up($tab){
+add_action('related_post_settings_content_help_support', 'related_post_settings_content_help_support');
+
+if(!function_exists('related_post_settings_content_help_support')) {
+    function related_post_settings_content_help_support($tab){
 
         $settings_tabs_field = new settings_tabs_field();
 
         $related_post_settings = get_option( 'related_post_settings' );
-        $pop_up_display_auto = isset($related_post_settings['pop_up']['display_auto']) ? $related_post_settings['pop_up']['display_auto'] : '';
 
-        $pop_up_width_large = isset($related_post_settings['pop_up']['width']['large']) ? $related_post_settings['pop_up']['width']['large'] : '';
-        $pop_up_width_medium = isset($related_post_settings['pop_up']['width']['medium']) ? $related_post_settings['pop_up']['width']['medium'] : '';
-        $pop_up_width_small = isset($related_post_settings['pop_up']['width']['small']) ? $related_post_settings['pop_up']['width']['small'] : '';
-
-        $pop_up_position_large = isset($related_post_settings['pop_up']['position']['large']) ? $related_post_settings['pop_up']['position']['large'] : '';
-        $pop_up_position_medium = isset($related_post_settings['pop_up']['position']['medium']) ? $related_post_settings['pop_up']['position']['medium'] : '';
-        $pop_up_position_small = isset($related_post_settings['pop_up']['position']['small']) ? $related_post_settings['pop_up']['position']['small'] : '';
-
-        $pop_up_delay_large = isset($related_post_settings['pop_up']['delay']['large']) ? $related_post_settings['pop_up']['delay']['large'] : '';
-        $pop_up_delay_medium = isset($related_post_settings['pop_up']['delay']['medium']) ? $related_post_settings['pop_up']['delay']['medium'] : '';
-        $pop_up_delay_small = isset($related_post_settings['pop_up']['delay']['small']) ? $related_post_settings['pop_up']['delay']['small'] : '';
-
-        $pop_up_visible_action = isset($related_post_settings['pop_up']['visible_action']) ? $related_post_settings['pop_up']['visible_action'] : '';
+        $enable_stats = isset($related_post_settings['enable_stats']) ? $related_post_settings['enable_stats'] : 'no';
 
         //echo '<pre>'.var_export($display_auto, true).'</pre>';
 
         ?>
         <div class="section">
-            <div class="section-title"><?php echo __('Pop up related posts', 'related-post'); ?></div>
-            <p class="description section-description"><?php echo __('Display related post on pop-up on single post page.', 'related-post'); ?></p>
+            <div class="section-title"><?php echo __('Get support', 'related-post'); ?></div>
+            <p class="description section-description"><?php echo __('Use following to get help and support from our expert team.', 'related-post'); ?></p>
 
             <?php
 
-            $args = array(
-                'id'		=> 'display_auto',
-                'parent'		=> 'related_post_settings[pop_up]',
-                'title'		=> __('Display popup automatically','related-post'),
-                'details'	=> __('Display popup automatically related post on single post page.','related-post'),
-                'type'		=> 'select',
-                'value'		=> $pop_up_display_auto,
-                'default'		=> 'yes',
-                'args'		=> array('yes'=>__('Yes','related-post'), 'no'=>__('No','related-post')),
-            );
 
-            $settings_tabs_field->generate_field($args);
+            ob_start();
+            ?>
 
+            <p><?php echo __('Ask question for free on our forum and get quick reply from our expert team members.', 'related-post'); ?></p>
+            <a class="button" href="https://www.pickplugins.com/create-support-ticket/"><?php echo __('Create support ticket', 'related-post'); ?></a>
 
-            $args = array(
-                'id'		=> 'pop_up_width',
-                'title'		=> __('Popup width','related-post'),
-                'details'	=> __('Set popup width.','related-post'),
-                'type'		=> 'option_group',
-                'options'		=> array(
-                    array(
-                        'id'		=> 'large',
-                        'parent'		=> 'related_post_settings[pop_up][width]',
-                        'title'		=> __('In desktop','related-post'),
-                        'details'	=> __('min-width: 1200px, ex: 3','related-post'),
-                        'type'		=> 'text',
-                        'value'		=> $pop_up_width_large,
-                        'default'		=> '450px',
-                        'placeholder'   => '450px',
-                    ),
-                    array(
-                        'id'		=> 'medium',
-                        'parent'		=> 'related_post_settings[pop_up][width]',
-                        'title'		=> __('In tablet & small desktop','related-post'),
-                        'details'	=> __('min-width: 992px, ex: 2','related-post'),
-                        'type'		=> 'text',
-                        'value'		=> $pop_up_width_medium,
-                        'default'		=> '450px',
-                        'placeholder'   => '450px',
-                    ),
-                    array(
-                        'id'		=> 'small',
-                        'parent'		=> 'related_post_settings[slider]',
-                        'title'		=> __('In mobile','related-post'),
-                        'details'	=> __('min-width: 576px, ex: 1','related-post'),
-                        'type'		=> 'text',
-                        'value'		=> $pop_up_width_small,
-                        'default'		=> '100%',
-                        'placeholder'   => '100%',
-                    ),
-                ),
+            <p><?php echo __('Read our documentation before asking your question.', 'related-post'); ?></p>
+            <a class="button" href="https://www.pickplugins.com/documentation/related-post/"><?php echo __('Documentation', 'related-post'); ?></a>
 
-            );
-
-            $settings_tabs_field->generate_field($args);
+            <p><?php echo __('Watch video tutorials.', 'related-post'); ?></p>
+            <a class="button" href="https://www.youtube.com/playlist?list=PL0QP7T2SN94aXEA_fguVn2ZpdizEeNmsx"><?php echo __('Tutorials', 'related-post'); ?></a>
 
 
+            <?php
+
+            $html = ob_get_clean();
 
             $args = array(
-                'id'		=> 'pop_up_position',
-                'title'		=> __('Popup position','related-post'),
-                'details'	=> __('Set popup position.','related-post'),
-                'type'		=> 'option_group',
-                'options'		=> array(
-                    array(
-                        'id'		=> 'large',
-                        'parent'		=> 'related_post_settings[pop_up][position]',
-                        'title'		=> __('In desktop','related-post'),
-                        'details'	=> __('min-width: 1200px, ex: 3','related-post'),
-                        'type'		=> 'select',
-                        'value'		=> $pop_up_position_large,
-                        'default'		=> 'right-bottom',
-                        'args'   => array(
-                            'left-top'=>__('Left-Top', 'related-post'),
-                            'left-middle'=>__('Left-Middle', 'related-post'),
-                            'left-bottom'=>__('Left-Bottom', 'related-post'),
-                            'right-top'=>__('Right-Top', 'related-post'),
-                            'right-middle'=>__('Right-Middle', 'related-post'),
-                            'right-bottom'=>__('Right-Bottom', 'related-post'),
-                            'center-top'=>__('Center-Top', 'related-post'),
-                            'center-bottom'=>__('Center-Bottom', 'related-post'),
+                'id'		=> 'get_support',
+                'parent'		=> 'related_post_settings',
+                'title'		=> __('Ask question','related-post'),
+                'details'	=> '',
+                'type'		=> 'custom_html',
+                'html'		=> $html,
 
-                        ),
-                    ),
-                    array(
-                        'id'		=> 'medium',
-                        'parent'		=> 'related_post_settings[pop_up][position]',
-                        'title'		=> __('In tablet & small desktop','related-post'),
-                        'details'	=> __('min-width: 992px, ex: 2','related-post'),
-                        'type'		=> 'select',
-                        'value'		=> $pop_up_position_medium,
-                        'default'		=> 'right-bottom',
-                        'args'   => array(
-                            'left-top'=>__('Left-Top', 'related-post'),
-                            'left-middle'=>__('Left-Middle', 'related-post'),
-                            'left-bottom'=>__('Left-Bottom', 'related-post'),
-                            'right-top'=>__('Right-Top', 'related-post'),
-                            'right-middle'=>__('Right-Middle', 'related-post'),
-                            'right-bottom'=>__('Right-Bottom', 'related-post'),
-                            'center-top'=>__('Center-Top', 'related-post'),
-                            'center-bottom'=>__('Center-Bottom', 'related-post'),
-
-                        ),
-                    ),
-                    array(
-                        'id'		=> 'small',
-                        'parent'		=> 'related_post_settings[pop_up][position]',
-                        'title'		=> __('In mobile','related-post'),
-                        'details'	=> __('min-width: 576px, ex: 1','related-post'),
-                        'type'		=> 'select',
-                        'value'		=> $pop_up_position_small,
-                        'default'		=> 'center-bottom',
-                        'args'   => array(
-                            'left-top'=>__('Left-Top', 'related-post'),
-                            'left-middle'=>__('Left-Middle', 'related-post'),
-                            'left-bottom'=>__('Left-Bottom', 'related-post'),
-                            'right-top'=>__('Right-Top', 'related-post'),
-                            'right-middle'=>__('Right-Middle', 'related-post'),
-                            'right-bottom'=>__('Right-Bottom', 'related-post'),
-                            'center-top'=>__('Center-Top', 'related-post'),
-                            'center-bottom'=>__('Center-Bottom', 'related-post'),
-
-                            ),
-                    ),
-                ),
-
-            );
-
-            $settings_tabs_field->generate_field($args);
-
-
-            $args = array(
-                'id'		=> 'pop_up_delay',
-                'title'		=> __('Popup delay','related-post'),
-                'details'	=> __('Set popup delay.','related-post'),
-                'type'		=> 'option_group',
-                'options'		=> array(
-                    array(
-                        'id'		=> 'large',
-                        'parent'		=> 'related_post_settings[pop_up][delay]',
-                        'title'		=> __('In desktop','related-post'),
-                        'details'	=> __('min-width: 1200px, ex: 2000','related-post'),
-                        'type'		=> 'text',
-                        'value'		=> $pop_up_delay_large,
-                        'default'		=> '2000',
-                        'placeholder'   => '2000',
-                    ),
-                    array(
-                        'id'		=> 'medium',
-                        'parent'		=> 'related_post_settings[pop_up][delay]',
-                        'title'		=> __('In tablet & small desktop','related-post'),
-                        'details'	=> __('min-width: 992px, ex: 1500','related-post'),
-                        'type'		=> 'text',
-                        'value'		=> $pop_up_delay_medium,
-                        'default'		=> '1500',
-                        'placeholder'   => '1500',
-                    ),
-                    array(
-                        'id'		=> 'small',
-                        'parent'		=> 'related_post_settings[pop_up][delay]',
-                        'title'		=> __('In mobile','related-post'),
-                        'details'	=> __('min-width: 576px, ex: 1000','related-post'),
-                        'type'		=> 'text',
-                        'value'		=> $pop_up_delay_small,
-                        'default'		=> '1000',
-                        'placeholder'   => '1000',
-                    ),
-                ),
-
-            );
-
-            $settings_tabs_field->generate_field($args);
-
-
-            $args = array(
-                'id'		=> 'visible_action',
-                'parent'		=> 'related_post_settings[pop_up]',
-                'title'		=> __('Visible action','related-post'),
-                'details'	=> __('Choose visible action.','related-post'),
-                'type'		=> 'select',
-                'value'		=> $pop_up_visible_action,
-                'default'		=> 'always_visible',
-                'args'		=> array('always_visible'=>__('Always visible','related-post'), 'on_scroll'=>__('On scroll','related-post'), 'on_delay'=>__('On delay','related-post'), 'end_of_article'=>__('End of article','related-post'), 'end_of_page'=>__('End of page','related-post'),),
             );
 
             $settings_tabs_field->generate_field($args);
@@ -1543,3 +1348,4 @@ if(!function_exists('related_post_settings_content_pop_up')) {
 
     }
 }
+

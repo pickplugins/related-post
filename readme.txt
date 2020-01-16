@@ -4,7 +4,7 @@
 	Tags: related post, related posts, related content, related post list, related, similar posts
 	Requires at least: 3.8
 	Tested up to: 5.3
-	Stable tag: 2.0.10
+	Stable tag: 2.0.13
 	License: GPLv2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,43 +22,49 @@
 * [Buy Pro! &raquo;](https://www.pickplugins.com/item/related-post-for-wordpress/ref=wordpress.org)
 
 
-### Related post under paragraph
+**Related post under paragraph**
+
 You can choose paragraph position like first, second, third and before last paragraph to display related post.
 
-### Before & After content and excerpt
+**Before & After content and excerpt**
+
 Related post plugin allows you to display related content link before and after the content, this feature also available for excerpt under archive pages.
 
-### Related post under archive page
+**Related post under archive page**
+
 You can display related post under various archive pages like home page, front page, blog page, date, search, author, year, date, month and etc.
 
-### Related post by post types
+**Related post by post types**
+
 You can choose custom post types to display Related post under single page.
 
-### Manual Post selection
+**Manual Post selection**
 You can choose manually picked the post to display as related post for each post.
 
-### Advance query
+**Advance query**
 You can set max number post to display and choose query order and orderby parameters, related posts query based on current post category, tags and custom taxonomies.
 
-### Ready layout
+**Ready layout**
 
 There is 3 different type layout currently available to display related post, you can choose grid, slider and list style layout. you can set custom width for items and margin, padding, text align.
 
-### Sortable post elements
+**Sortable post elements**
+
 You can sort post elements like post title, post thumbnail and excerpt as you want.
 
-### Hide any elements
+**Hide any elements**
+
 You can hide or display post elements like post title, thumbnail or excerpt.
 
-### Customize elements style
+**Customize elements style**
 
 You can set custom font size, font color, padding, margin for post title, post excerpt and set custom height for post thumbnail, select custom thumbnail size and etc. you can also write custom CSS for each elements.
 
-### Track click
+**Track click**
 
 You can enable tracking click on related post, this will help you understand which post getting more attention from related posts. you will see top 10 post from stats page.
 
-### Display via shortcode
+**Display via shortcode**
 
 You can display related post any where via shortcode by using on your theme files
 `
@@ -101,7 +107,18 @@ echo do_shortcode( '[related_post post_id=""]' );
 
 == Changelog ==
 
+	= 2.0.13 =
+    * 16/01/2020 fix - manually added post query issue fixed.
 
+	= 2.0.12 =
+    * 16/01/2020 add - added help menu.
+    * 16/01/2020 fix - fixed minor post query issue.
+    * 16/01/2020 add - translation file added
+
+
+	= 2.0.11 =
+    * 15/01/2020 add - add new filter hook for link attributes
+    * 15/01/2020 fix - fixed the issue displaying related post on custom taxonomy
 
 	= 2.0.10 =
     * 14/01/2020 add - custom font size, color and custom css for headline text

@@ -15,8 +15,7 @@ function related_post_display($atts,$content = null) {
             'post_id' => "",
         ), $atts);
 
-    $post_id = $atts['post_id'];
-    $post_id = !empty($post_id) ? $post_id : get_the_ID();
+    $post_id = isset($atts['post_id']) ? (int) $atts['post_id'] : get_the_ID();
     $post_type = get_post_type( $post_id );
 
     $related_post_settings = get_option( 'related_post_settings' );
@@ -43,6 +42,7 @@ function related_post_display($atts,$content = null) {
     }
 
     wp_enqueue_style('related-post');
+    wp_enqueue_style('font-awesome-5');
 
     return ob_get_clean();
 

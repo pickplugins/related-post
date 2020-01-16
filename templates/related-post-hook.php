@@ -20,11 +20,10 @@ add_action('related_post_main' ,'related_post_main_post_loop');
 
 function related_post_main_post_loop($post_id){
 
-    //delete_option( 'related_post_settings' );
-
     $related_post_settings = get_option( 'related_post_settings' );
     $post_type = get_post_type( $post_id );
     $post_ids = get_post_ids_by_taxonomy_terms($post_id);
+
     $orderby = isset($related_post_settings['orderby']) ? $related_post_settings['orderby'] : array('post__in');
     $order = isset($related_post_settings['order']) ? $related_post_settings['order'] : 'DESC';
     $max_post_count= isset($related_post_settings['max_post_count']) ? $related_post_settings['max_post_count'] : 5;
@@ -35,17 +34,14 @@ function related_post_main_post_loop($post_id){
     if(!empty($related_post_ids))
         $post_ids = array_merge($related_post_ids, $post_ids);
 
-    //echo '<pre>'.var_export($related_post_settings, true).'</pre>';
-    //echo '<pre>'.var_export($related_post_settings, true).'</pre>';
 
     $orderby = (!empty($orderby) && is_array($orderby)) ? implode(' ', $orderby) : '';
-    //echo '<pre>'.var_export($orderby, true).'</pre>';
 
     $args = array(
         'post_type' => $post_type,
         'post_status' => 'publish',
         'post__in'=> $post_ids,
-        'post__not_in' => $post_id,
+        'post__not_in' => array($post_id),
         'orderby' => $orderby,
         'order' => $order,
         'showposts' => $max_post_count,
@@ -54,7 +50,7 @@ function related_post_main_post_loop($post_id){
 
     $args = apply_filters('related_post_query_args', $args);
 
-    $wp_query = new WP_Query($args);
+    $wp_query_new = new WP_Query($args);
 
     $slider_class = ($layout_type=='slider') ? 'owl-carousel' : '';
 
@@ -63,9 +59,9 @@ function related_post_main_post_loop($post_id){
 
         <?php
 
-        if ($wp_query->have_posts()) {
+        if ($wp_query_new->have_posts()) {
 
-            while ($wp_query->have_posts()) : $wp_query->the_post();
+            while ($wp_query_new->have_posts()) : $wp_query_new->the_post();
 
                 $loop_post_id = get_the_id();
 
@@ -76,7 +72,7 @@ function related_post_main_post_loop($post_id){
                 <?php
             endwhile;
 
-            wp_reset_query();
+            //wp_reset_query();
             wp_reset_postdata();
 
         }
@@ -125,7 +121,7 @@ function related_post_loop_item_element_post_title($loop_post_id, $elementData){
 
     ?>
 
-    <a class="title post_title" href="<?php echo $post_link; ?>">
+    <a class="title post_title" <?php echo apply_filters('related_post_element_link_attrs', 'post_title', $elementData); ?>  href="<?php echo $post_link; ?>">
         <?php
         if(!empty($icon)):
             ?>
@@ -145,7 +141,7 @@ function related_post_loop_item_element_post_thumb($loop_post_id, $elementData){
     $thumb_size = isset($elementData['thumb_size']) ? $elementData['thumb_size'] : 'full';
 
     $post_thumb = wp_get_attachment_image_src( get_post_thumbnail_id($loop_post_id), $thumb_size );
-    $thumb_url = $post_thumb['0'];
+    $thumb_url = isset($post_thumb['0']) ? $post_thumb['0'] : '';
     $post_link = get_permalink($loop_post_id);
 
     $related_post_settings = get_option( 'related_post_settings' );
@@ -156,7 +152,7 @@ function related_post_loop_item_element_post_thumb($loop_post_id, $elementData){
 
     ?>
     <div class="thumb post_thumb">
-        <a href="<?php echo $post_link; ?>"><img src="<?php echo $thumb_url; ?>"></a>
+        <a <?php echo apply_filters('related_post_element_link_attrs', 'post_thumb', $elementData); ?> href="<?php echo $post_link; ?>"><img src="<?php echo $thumb_url; ?>"></a>
     </div>
     <?php
 }
@@ -183,7 +179,7 @@ function related_post_loop_item_element_post_excerpt($loop_post_id, $elementData
     $post_excerpt = $post->post_excerpt;
     $post_content = $post->post_content;
     $post_excerpt = !empty($post_excerpt) ? strip_tags($post_excerpt) : strip_tags($post_content);
-    $post_excerpt = wp_trim_words( $post_excerpt , $word_count, ' <a class="read-more" href="'.$post_link.'"> '.$read_more_text.'</a>' );
+    $post_excerpt = wp_trim_words( $post_excerpt , $word_count, ' <a '.apply_filters('related_post_element_link_attrs', 'post_excerpt', $elementData).' class="read-more" href="'.$post_link.'"> '.$read_more_text.'</a>' );
 
 
 
