@@ -198,18 +198,11 @@ add_action('related_post_main' ,'related_post_main_css');
 
 function related_post_main_css($post_id){
 
-    //delete_option('related_post_settings');
-
     $related_post_settings = get_option( 'related_post_settings' );
 
     $elements = isset($related_post_settings['elements']) ? $related_post_settings['elements'] : array();
     $layout_type = isset($related_post_settings['layout_type']) ? $related_post_settings['layout_type'] : 'grid';
-
     $item_width = isset($related_post_settings['item_width']) ? $related_post_settings['item_width'] : array();
-    $item_width_large = isset($item_width['large']) ? $item_width['large'] : '45%';
-    $item_width_medium = isset($item_width['medium']) ? $item_width['medium'] : '45%';
-    $item_width_small = isset($item_width['small']) ? $item_width['small'] : '90%';
-
     $grid_item_margin = isset($related_post_settings['grid_item_margin']) ? $related_post_settings['grid_item_margin'] : '10px';
     $grid_item_padding = isset($related_post_settings['grid_item_padding']) ? $related_post_settings['grid_item_padding'] : '0px';
     $grid_item_align = isset($related_post_settings['grid_item_align']) ? $related_post_settings['grid_item_align'] : 'left';
@@ -218,7 +211,7 @@ function related_post_main_css($post_id){
     $headline_text_color = isset($related_post_settings['headline_text_style']['color']) ? $related_post_settings['headline_text_style']['color'] : '';
     $headline_text_custom_css = isset($related_post_settings['headline_text_style']['custom_css']) ? $related_post_settings['headline_text_style']['custom_css'] : '';
 
-    //var_dump($related_post_settings);
+    //var_dump($item_width);
 
     ?>
 
@@ -229,7 +222,17 @@ function related_post_main_css($post_id){
             text-align:<?php echo $grid_item_align; ?>;
         <?php endif; ?>
         }
-
+        .related-post .post-list .item{
+        <?php if(!empty($grid_item_width) && $layout_type == 'grid'):?>
+            width:<?php echo $grid_item_width; ?>;
+        <?php endif; ?>
+        <?php if(!empty($grid_item_margin)):?>
+            margin:<?php echo $grid_item_margin; ?>;
+        <?php endif; ?>
+        <?php if(!empty($grid_item_padding)):?>
+            padding:<?php echo $grid_item_padding; ?>;
+        <?php endif; ?>
+        }
         .related-post .headline{
         <?php if(!empty($headline_text_font_size)): ?>
             font-size:<?php echo $headline_text_font_size; ?>;
@@ -241,14 +244,7 @@ function related_post_main_css($post_id){
             <?php echo $headline_text_custom_css; ?>
         <?php endif; ?>
         }
-        .related-post .post-list .item{
-        <?php if(!empty($grid_item_margin)):?>
-            margin:<?php echo $grid_item_margin; ?>;
-        <?php endif; ?>
-        <?php if(!empty($grid_item_padding)):?>
-            padding:<?php echo $grid_item_padding; ?>;
-        <?php endif; ?>
-        }
+
         <?php
 
 
@@ -258,7 +254,7 @@ function related_post_main_css($post_id){
 
                 $font_size = isset($elementData['font_size']) ? $elementData['font_size'] : '14px';
                 $font_color = isset($elementData['font_color']) ? $elementData['font_color'] : '#999';
-                $margin = isset($elementData['margin']) ? $elementData['margin'] : '5px';
+                $margin = isset($elementData['margin']) ? $elementData['margin'] : '10px';
                 $padding = isset($elementData['padding']) ? $elementData['padding'] : '0px';
                 $line_height = isset($elementData['line_height']) ? $elementData['line_height'] : '';
 
@@ -369,19 +365,19 @@ function related_post_main_css($post_id){
             ?>
             @media only screen and (min-width: 1024px ){
                 .related-post .post-list .item{
-                    width: <?php echo $item_width_large; ?>;
+                    width: <?php echo isset($item_width['large']) ?  $item_width['large'] : ''; ?>;
                 }
             }
 
             @media only screen and ( min-width: 768px ) and ( max-width: 1023px ) {
                 .related-post .post-list .item{
-                    width: <?php echo $item_width_medium; ?>;
+                    width: <?php echo isset($item_width['medium']) ?  $item_width['medium'] : ''; ?>;
                 }
             }
 
             @media only screen and ( min-width: 0px ) and ( max-width: 767px ){
                 .related-post .post-list .item{
-                    width: <?php echo $item_width_small; ?>;
+                    width: <?php echo isset($item_width['small']) ?  $item_width['small'] : ''; ?>;
                 }
             }
 
@@ -421,8 +417,8 @@ function related_post_main_slider_scripts($post_id){
     $slider_stop_on_hover = isset($related_post_settings['slider']['stop_on_hover']) ? $related_post_settings['slider']['stop_on_hover'] : 'true';
     $slider_navigation = isset($related_post_settings['slider']['navigation']) ? $related_post_settings['slider']['navigation'] : 'true';
     $slider_pagination = isset($related_post_settings['slider']['pagination']) ? $related_post_settings['slider']['pagination'] : 'true';
-    $slider_pagination_count = isset($related_post_settings['slider']['pagination_count']) ? $related_post_settings['slider']['pagination_count'] : 'false';
-    $slider_rtl = isset($related_post_settings['slider']['rtl']) ? $related_post_settings['slider']['rtl'] : 'false';
+    $slider_pagination_count = isset($related_post_settings['slider']['pagination_count']) ? $related_post_settings['slider']['pagination_count'] : 'true';
+    $slider_rtl = isset($related_post_settings['slider']['rtl']) ? $related_post_settings['slider']['rtl'] : 'true';
 
     if($layout_type=='slider'):
         ?>
@@ -453,8 +449,6 @@ function related_post_main_slider_scripts($post_id){
                 <?php endif;?>
                 <?php if(!empty($slider_auto_play)): ?>
                 autoplay: <?php echo $slider_auto_play; ?>,
-                <?php endif;?>
-                <?php if(!empty($slider_stop_on_hover)): ?>
                 autoplayHoverPause: <?php echo $slider_stop_on_hover; ?>,
                 <?php endif;?>
                 <?php if(!empty($slider_navigation)): ?>

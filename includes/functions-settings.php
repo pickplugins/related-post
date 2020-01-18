@@ -238,8 +238,8 @@ if(!function_exists('related_post_settings_content_style')) {
         $related_post_settings = get_option( 'related_post_settings' );
 
         $layout_type = isset($related_post_settings['layout_type']) ? $related_post_settings['layout_type'] : 'grid';
-        $grid_item_margin = isset($related_post_settings['grid_item_margin']) ? $related_post_settings['grid_item_margin'] : '5px';
-        $grid_item_padding = isset($related_post_settings['grid_item_padding']) ? $related_post_settings['grid_item_padding'] : '0px';
+        $grid_item_margin = isset($related_post_settings['grid_item_margin']) ? $related_post_settings['grid_item_margin'] : '10px';
+        $grid_item_padding = isset($related_post_settings['grid_item_padding']) ? $related_post_settings['grid_item_padding'] : '10px';
         $grid_item_align = isset($related_post_settings['grid_item_align']) ? $related_post_settings['grid_item_align'] : 'left';
 
         $item_width_large = isset($related_post_settings['item_width']['large']) ? $related_post_settings['item_width']['large'] : '45%';
@@ -314,6 +314,14 @@ if(!function_exists('related_post_settings_content_style')) {
 
             $settings_tabs_field->generate_field($args);
 
+
+
+
+
+
+
+
+
             $args = array(
                 'id'		=> 'grid_item_margin',
                 'parent'		=> 'related_post_settings',
@@ -334,7 +342,7 @@ if(!function_exists('related_post_settings_content_style')) {
                 'details'	=> __('Set item padding. ex: 5px 10px','related-post'),
                 'type'		=> 'text',
                 'value'		=> $grid_item_padding,
-                'default'		=> '0px',
+                'default'		=> '5px',
                 'placeholder'   => '5px 10px',
             );
 
@@ -548,7 +556,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'details'	    => __('Set custom font size. ex: 14px','related-post'),
                                 'type'		    => 'text',
                                 'value'		=> isset($elements['post_title']['font_size']) ? $elements['post_title']['font_size'] : '',
-                                'default'		=> '16px',
+                                'default'		=> '',
                                 'placeholder'   => '14px',
                             ),
                             array(
@@ -559,8 +567,8 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'details'	    => __('Choose font color.','related-post'),
                                 'type'		    => 'colorpicker',
                                 'value'		=> isset($elements['post_title']['font_color']) ? $elements['post_title']['font_color'] : '',
-                                'default'		=> '#3f51b5',
-                                'placeholder'   => '16px',
+                                'default'		=> '',
+                                'placeholder'   => '14px',
                             ),
                             array(
                                 'id'		    => 'line_height',
@@ -580,7 +588,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'details'	    => __('Set margin. ex: 5px 10px','related-post'),
                                 'type'		    => 'text',
                                 'value'		=> isset($elements['post_title']['margin']) ? $elements['post_title']['margin'] : '',
-                                'default'		=> '10px 0px',
+                                'default'		=> '',
                                 'placeholder'   => '10px',
                             ),
 
@@ -684,7 +692,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'details'	    => __('Set max height','related-post'),
                                 'type'		    => 'text',
                                 'value'		=> isset($elements['post_thumb']['max_height']) ? $elements['post_thumb']['max_height'] : '',
-                                'default'		=> '180px',
+                                'default'		=> '',
                                 'placeholder'   => '200px',
                             ),
                             array(
@@ -776,7 +784,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'details'	    => __('Set custom font size. ex: 14px','related-post'),
                                 'type'		    => 'text',
                                 'value'		=> isset($elements['post_excerpt']['font_size']) ? $elements['post_excerpt']['font_size'] : '',
-                                'default'		=> '14px',
+                                'default'		=> '',
                                 'placeholder'   => '14px',
                             ),
                             array(
@@ -787,8 +795,8 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'details'	    => __('Choose font color.','related-post'),
                                 'type'		    => 'colorpicker',
                                 'value'		=> isset($elements['post_excerpt']['font_color']) ? $elements['post_excerpt']['font_color'] : '',
-                                'default'		=> '#5e5e5e',
-                                'placeholder'   => '#5e5e5e',
+                                'default'		=> '',
+                                'placeholder'   => '14px',
                             ),
                             array(
                                 'id'		    => 'line_height',
@@ -808,7 +816,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'details'	    => __('Set margin. ex: 5px 10px','related-post'),
                                 'type'		    => 'text',
                                 'value'		=> isset($elements['post_excerpt']['margin']) ? $elements['post_excerpt']['margin'] : '',
-                                'default'		=> '10px 0px',
+                                'default'		=> '',
                                 'placeholder'   => '10px',
                             ),
 
@@ -867,7 +875,7 @@ if(!function_exists('related_post_settings_content_slider')) {
         $settings_tabs_field = new settings_tabs_field();
 
         $related_post_settings = get_option( 'related_post_settings' );
-        $slider_column_number_desktop = isset($related_post_settings['slider']['column_desktop']) ? $related_post_settings['slider']['column_desktop'] : 2;
+        $slider_column_number_desktop = isset($related_post_settings['slider']['column_desktop']) ? $related_post_settings['slider']['column_desktop'] : 3;
         $slider_column_number_tablet = isset($related_post_settings['slider']['column_tablet']) ? $related_post_settings['slider']['column_tablet'] : 2;
         $slider_column_number_mobile = isset($related_post_settings['slider']['column_mobile']) ? $related_post_settings['slider']['column_mobile'] : 1;
 
@@ -883,7 +891,7 @@ if(!function_exists('related_post_settings_content_slider')) {
         $slider_navigation = isset($related_post_settings['slider']['navigation']) ? $related_post_settings['slider']['navigation'] : 'true';
         $slider_pagination = isset($related_post_settings['slider']['pagination']) ? $related_post_settings['slider']['pagination'] : 'true';
         $slider_pagination_count = isset($related_post_settings['slider']['pagination_count']) ? $related_post_settings['slider']['pagination_count'] : 'true';
-        $slider_rtl = isset($related_post_settings['slider']['rtl']) ? $related_post_settings['slider']['rtl'] : 'false';
+        $slider_rtl = isset($related_post_settings['slider']['rtl']) ? $related_post_settings['slider']['rtl'] : 'true';
 
         //echo '<pre>'.var_export($display_auto, true).'</pre>';
 

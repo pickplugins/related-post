@@ -26,13 +26,6 @@ $related_post_settings_tab[] = array(
 );
 
 $related_post_settings_tab[] = array(
-    'id' => 'slider',
-    'title' => sprintf(__('%s Slider','job-board-manager'),'<i class="fas fa-palette"></i>'),
-    'priority' => 3,
-    'active' => false,
-);
-
-$related_post_settings_tab[] = array(
     'id' => 'elements',
     'title' => sprintf(__('%s Elements','job-board-manager'),'<i class="fab fa-buffer"></i>'),
     'priority' => 4,

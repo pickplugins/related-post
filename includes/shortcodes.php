@@ -20,18 +20,9 @@ function related_post_display($atts,$content = null) {
 
     $related_post_settings = get_option( 'related_post_settings' );
     $layout_type = isset($related_post_settings['layout_type']) ? $related_post_settings['layout_type'] : 'grid';
-
+    wp_enqueue_style('related-post');
     require_once( related_post_plugin_dir . 'templates/related-post-hook.php');
 
-    wp_enqueue_style('related-post');
-
-    if($layout_type == 'slider'){
-        wp_enqueue_script('owl.carousel');
-        wp_enqueue_style('owl.carousel');
-    }
-
-
-    wp_enqueue_style('font-awesome-5');
 
     ob_start();
 
@@ -45,7 +36,13 @@ function related_post_display($atts,$content = null) {
     </div>
     <?php
 
+    if($layout_type == 'slider'){
+        wp_enqueue_script('owl.carousel');
+        wp_enqueue_style('owl.carousel');
+    }
 
+
+    wp_enqueue_style('font-awesome-5');
 
     return ob_get_clean();
 
