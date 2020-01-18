@@ -18,8 +18,6 @@
 	overflow: hidden;
 	display: inline-block;
 	vertical-align: top;
-	margin: 0px;
-	padding: 0px;
 }
 
 .related-post .post-list .item .thumb{overflow: hidden;}
