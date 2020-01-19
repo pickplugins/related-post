@@ -6,49 +6,57 @@ $related_post_settings_tab = array();
 
 $related_post_settings_tab[] = array(
     'id' => 'general',
-    'title' => sprintf(__('%s General','job-board-manager'),'<i class="fas fa-list-ul"></i>'),
+    'title' => sprintf(__('%s General','related-post'),'<i class="fas fa-list-ul"></i>'),
     'priority' => 1,
     'active' => true,
 );
 
 $related_post_settings_tab[] = array(
     'id' => 'query',
-    'title' => sprintf(__('%s Query','job-board-manager'),'<i class="fas fa-filter"></i>'),
+    'title' => sprintf(__('%s Query','related-post'),'<i class="fas fa-filter"></i>'),
     'priority' => 2,
     'active' => false,
 );
 
 $related_post_settings_tab[] = array(
     'id' => 'style',
-    'title' => sprintf(__('%s Style','job-board-manager'),'<i class="fas fa-palette"></i>'),
+    'title' => sprintf(__('%s Style','related-post'),'<i class="fas fa-palette"></i>'),
     'priority' => 3,
     'active' => false,
 );
 
 $related_post_settings_tab[] = array(
     'id' => 'elements',
-    'title' => sprintf(__('%s Elements','job-board-manager'),'<i class="fab fa-buffer"></i>'),
+    'title' => sprintf(__('%s Elements','related-post'),'<i class="fab fa-buffer"></i>'),
     'priority' => 4,
     'active' => false,
 );
 
 $related_post_settings_tab[] = array(
+    'id' => 'slider',
+    'title' => sprintf(__('%s Slider','related-post'),'<i class="fas fa-palette"></i>'),
+    'priority' => 5,
+    'active' => false,
+);
+
+
+$related_post_settings_tab[] = array(
     'id' => 'shortcodes',
-    'title' => sprintf(__('%s Shortcodes','job-board-manager'),'<i class="fas fa-code"></i>'),
+    'title' => sprintf(__('%s Shortcodes','related-post'),'<i class="fas fa-code"></i>'),
     'priority' => 6,
     'active' => false,
 );
 
 $related_post_settings_tab[] = array(
     'id' => 'stats',
-    'title' => sprintf(__('%s Stats','job-board-manager'),'<i class="fas fa-tachometer-alt"></i>'),
+    'title' => sprintf(__('%s Stats','related-post'),'<i class="fas fa-tachometer-alt"></i>'),
     'priority' => 7,
     'active' => false,
 );
 
 $related_post_settings_tab[] = array(
     'id' => 'help_support',
-    'title' => sprintf(__('%s Help & Support','job-board-manager'),'<i class="fas fa-hands-helping"></i>'),
+    'title' => sprintf(__('%s Help & Support','related-post'),'<i class="fas fa-hands-helping"></i>'),
     'priority' => 8,
     'active' => false,
 );
@@ -70,7 +78,7 @@ wp_enqueue_script('settings-tabs');
 
 ?>
 <div class="wrap">
-	<div id="icon-tools" class="icon32"><br></div><h2><?php echo sprintf(__('%s Settings', 'job-board-manager'), related_post_plugin_name)?></h2>
+	<div id="icon-tools" class="icon32"><br></div><h2><?php echo sprintf(__('%s Settings', 'related-post'), related_post_plugin_name)?></h2>
 		<form  method="post" action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>">
 
 
@@ -92,7 +100,7 @@ wp_enqueue_script('settings-tabs');
                     do_action('related_post_settings_save');
 
                     ?>
-                    <div class="updated notice  is-dismissible"><p><strong><?php _e('Changes Saved.', 'job-board-manager' ); ?></strong></p></div>
+                    <div class="updated notice  is-dismissible"><p><strong><?php _e('Changes Saved.', 'related-post' ); ?></strong></p></div>
 
                     <?php
                 }
@@ -176,7 +184,7 @@ wp_enqueue_script('settings-tabs');
             <div class="clear clearfix"></div>
             <p class="submit">
                 <?php wp_nonce_field( 'related_post_nonce' ); ?>
-                <input class="button button-primary" type="submit" name="Submit" value="<?php _e('Save Changes','job-board-manager' ); ?>" />
+                <input class="button button-primary" type="submit" name="Submit" value="<?php _e('Save Changes','related-post' ); ?>" />
             </p>
 		</form>
 </div>

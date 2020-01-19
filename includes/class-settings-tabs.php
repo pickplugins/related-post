@@ -420,8 +420,8 @@ class settings_tabs_field{
                 ?>
             </div>
             <input type="text" placeholder="<?php echo $placeholder; ?>" name="<?php echo $field_name; ?>" id="media_input_<?php echo $css_id; ?>" value="<?php echo $value; ?>" />
-            <div class="media-upload button" id="media_upload_<?php echo $css_id; ?>"><?php echo __('Upload','job-board-manager');?></div>
-            <div class="clear button" id="media_clear_<?php echo $css_id; ?>"><?php echo __('Clear','job-board-manager');?></div>
+            <div class="media-upload button" id="media_upload_<?php echo $css_id; ?>"><?php echo __('Upload','related-post');?></div>
+            <div class="clear button" id="media_clear_<?php echo $css_id; ?>"><?php echo __('Clear','related-post');?></div>
             <div class="error-mgs"></div>
         </div>
 

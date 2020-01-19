@@ -890,8 +890,8 @@ if(!function_exists('related_post_settings_content_slider')) {
         $slider_stop_on_hover = isset($related_post_settings['slider']['stop_on_hover']) ? $related_post_settings['slider']['stop_on_hover'] : 'true';
         $slider_navigation = isset($related_post_settings['slider']['navigation']) ? $related_post_settings['slider']['navigation'] : 'true';
         $slider_pagination = isset($related_post_settings['slider']['pagination']) ? $related_post_settings['slider']['pagination'] : 'true';
-        $slider_pagination_count = isset($related_post_settings['slider']['pagination_count']) ? $related_post_settings['slider']['pagination_count'] : 'true';
-        $slider_rtl = isset($related_post_settings['slider']['rtl']) ? $related_post_settings['slider']['rtl'] : 'true';
+        $slider_pagination_count = isset($related_post_settings['slider']['pagination_count']) ? $related_post_settings['slider']['pagination_count'] : 'false';
+        $slider_rtl = isset($related_post_settings['slider']['rtl']) ? $related_post_settings['slider']['rtl'] : 'false';
 
         //echo '<pre>'.var_export($display_auto, true).'</pre>';
 
