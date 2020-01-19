@@ -239,7 +239,7 @@ if(!function_exists('related_post_settings_content_style')) {
 
         $layout_type = isset($related_post_settings['layout_type']) ? $related_post_settings['layout_type'] : 'grid';
         $grid_item_margin = isset($related_post_settings['grid_item_margin']) ? $related_post_settings['grid_item_margin'] : '10px';
-        $grid_item_padding = isset($related_post_settings['grid_item_padding']) ? $related_post_settings['grid_item_padding'] : '10px';
+        $grid_item_padding = isset($related_post_settings['grid_item_padding']) ? $related_post_settings['grid_item_padding'] : '0px';
         $grid_item_align = isset($related_post_settings['grid_item_align']) ? $related_post_settings['grid_item_align'] : 'left';
 
         $item_width_large = isset($related_post_settings['item_width']['large']) ? $related_post_settings['item_width']['large'] : '45%';
@@ -247,7 +247,7 @@ if(!function_exists('related_post_settings_content_style')) {
         $item_width_small = isset($related_post_settings['item_width']['small']) ? $related_post_settings['item_width']['small'] : '90%';
 
         //echo '<pre>'.var_export($related_post_settings, true).'</pre>';
-
+        //delete_option('related_post_settings');
         ?>
         <div class="section">
             <div class="section-title"><?php echo __('General settings', 'related-post'); ?></div>
@@ -342,7 +342,7 @@ if(!function_exists('related_post_settings_content_style')) {
                 'details'	=> __('Set item padding. ex: 5px 10px','related-post'),
                 'type'		=> 'text',
                 'value'		=> $grid_item_padding,
-                'default'		=> '5px',
+                'default'		=> '0px',
                 'placeholder'   => '5px 10px',
             );
 
@@ -389,7 +389,7 @@ if(!function_exists('related_post_settings_content_query')) {
         $max_post_count = isset($related_post_settings['max_post_count']) ? $related_post_settings['max_post_count'] : 4;
 
         //echo '<pre>'.var_export($display_auto, true).'</pre>';
-
+        //delete_option('related_post_settings');
         ?>
         <div class="section">
             <div class="section-title"><?php echo __('Post query settings', 'related-post'); ?></div>
@@ -485,7 +485,7 @@ if(!function_exists('related_post_settings_content_elements')) {
 
         //$layout_items= $related_post_settings['layout_items'];
 
-
+        //delete_option('related_post_settings');
         //echo '<pre>'.var_export($get_intermediate_image_sizes, true).'</pre>';
 
         ?>
@@ -556,7 +556,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'details'	    => __('Set custom font size. ex: 14px','related-post'),
                                 'type'		    => 'text',
                                 'value'		=> isset($elements['post_title']['font_size']) ? $elements['post_title']['font_size'] : '',
-                                'default'		=> '',
+                                'default'		=> '16px',
                                 'placeholder'   => '14px',
                             ),
                             array(
@@ -567,7 +567,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'details'	    => __('Choose font color.','related-post'),
                                 'type'		    => 'colorpicker',
                                 'value'		=> isset($elements['post_title']['font_color']) ? $elements['post_title']['font_color'] : '',
-                                'default'		=> '',
+                                'default'		=> '#3f3f3f',
                                 'placeholder'   => '14px',
                             ),
                             array(
@@ -588,7 +588,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'details'	    => __('Set margin. ex: 5px 10px','related-post'),
                                 'type'		    => 'text',
                                 'value'		=> isset($elements['post_title']['margin']) ? $elements['post_title']['margin'] : '',
-                                'default'		=> '',
+                                'default'		=> '10px 0px',
                                 'placeholder'   => '10px',
                             ),
 
@@ -599,7 +599,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'details'	    => __('Set padding. ex: 5px 10px','related-post'),
                                 'type'		    => 'text',
                                 'value'		=> isset($elements['post_title']['padding']) ? $elements['post_title']['padding'] : '',
-                                'default'		=> '',
+                                'default'		=> '0px',
                                 'placeholder'   => '10px',
                             ),
                             array(
@@ -671,8 +671,8 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'title'		    => __('Thumbnail size','related-post'),
                                 'details'	    => __('Choose thumbnail size','related-post'),
                                 'type'		    => 'select',
-                                'value'		=> isset($elements['post_thumb']['thumb_size']) ? $elements['post_thumb']['thumb_size'] : '',
-                                'default'		=> '',
+                                'value'		=> isset($elements['post_thumb']['thumb_size']) ? $elements['post_thumb']['thumb_size'] : 'full',
+                                'default'		=> 'full',
                                 'args'   => $image_sizes,
                             ),
                             array(
@@ -692,7 +692,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'details'	    => __('Set max height','related-post'),
                                 'type'		    => 'text',
                                 'value'		=> isset($elements['post_thumb']['max_height']) ? $elements['post_thumb']['max_height'] : '',
-                                'default'		=> '',
+                                'default'		=> '220px',
                                 'placeholder'   => '200px',
                             ),
                             array(
@@ -702,7 +702,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'details'	    => __('Set margin. ex: 5px 10px','related-post'),
                                 'type'		    => 'text',
                                 'value'		=> isset($elements['post_thumb']['margin']) ? $elements['post_thumb']['margin'] : '',
-                                'default'		=> '',
+                                'default'		=> '10px 0px',
                                 'placeholder'   => '10px',
                             ),
 
@@ -713,7 +713,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'details'	    => __('Set padding. ex: 5px 10px','related-post'),
                                 'type'		    => 'text',
                                 'value'		=> isset($elements['post_thumb']['padding']) ? $elements['post_thumb']['padding'] : '',
-                                'default'		=> '',
+                                'default'		=> '0px',
                                 'placeholder'   => '10px',
                             ),
                             array(
@@ -772,8 +772,8 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'details'	    => __('Set custom raed more text for excerpt.','related-post'),
                                 'type'		    => 'text',
                                 'value'		=> isset($elements['post_excerpt']['read_more_text']) ? $elements['post_excerpt']['read_more_text'] : '',
-                                'default'		=> 'Read more',
-                                'placeholder'   => 'Read more',
+                                'default'		=> __('Read more', 'related-post'),
+                                'placeholder'   => __('Read more', 'related-post'),
                             ),
 
 
@@ -784,7 +784,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'details'	    => __('Set custom font size. ex: 14px','related-post'),
                                 'type'		    => 'text',
                                 'value'		=> isset($elements['post_excerpt']['font_size']) ? $elements['post_excerpt']['font_size'] : '',
-                                'default'		=> '',
+                                'default'		=> '13px',
                                 'placeholder'   => '14px',
                             ),
                             array(
@@ -795,7 +795,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'details'	    => __('Choose font color.','related-post'),
                                 'type'		    => 'colorpicker',
                                 'value'		=> isset($elements['post_excerpt']['font_color']) ? $elements['post_excerpt']['font_color'] : '',
-                                'default'		=> '',
+                                'default'		=> '#3f3f3f',
                                 'placeholder'   => '14px',
                             ),
                             array(
@@ -816,7 +816,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'details'	    => __('Set margin. ex: 5px 10px','related-post'),
                                 'type'		    => 'text',
                                 'value'		=> isset($elements['post_excerpt']['margin']) ? $elements['post_excerpt']['margin'] : '',
-                                'default'		=> '',
+                                'default'		=> '10px 0px',
                                 'placeholder'   => '10px',
                             ),
 
@@ -827,7 +827,7 @@ if(!function_exists('related_post_settings_content_elements')) {
                                 'details'	    => __('Set padding. ex: 5px 10px','related-post'),
                                 'type'		    => 'text',
                                 'value'		=> isset($elements['post_excerpt']['padding']) ? $elements['post_excerpt']['padding'] : '',
-                                'default'		=> '',
+                                'default'		=> '0px',
                                 'placeholder'   => '10px',
                             ),
                             array(

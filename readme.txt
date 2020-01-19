@@ -1,10 +1,10 @@
 === Related Post ===
 	Contributors: PickPlugins
 	Donate link: http://pickplugins.com
-	Tags: related post, related posts, related content, related post list, related, similar posts
+	Tags: related post, related posts, related content, inline related post,  similar posts
 	Requires at least: 3.8
 	Tested up to: 5.3
-	Stable tag: 2.0.13
+	Stable tag: 2.0.14
 	License: GPLv2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -106,6 +106,9 @@ echo do_shortcode( '[related_post post_id=""]' );
 
 
 == Changelog ==
+
+	= 2.0.14 =
+    * 19/01/2020 update - update default value for settings.
 
 	= 2.0.13 =
     * 16/01/2020 fix - manually added post query issue fixed.
