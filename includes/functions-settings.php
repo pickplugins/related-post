@@ -1295,12 +1295,6 @@ if(!function_exists('related_post_settings_content_help_support')) {
 
         $settings_tabs_field = new settings_tabs_field();
 
-        $related_post_settings = get_option( 'related_post_settings' );
-
-        $enable_stats = isset($related_post_settings['enable_stats']) ? $related_post_settings['enable_stats'] : 'no';
-
-        //echo '<pre>'.var_export($display_auto, true).'</pre>';
-
         ?>
         <div class="section">
             <div class="section-title"><?php echo __('Get support', 'related-post'); ?></div>
@@ -1349,3 +1343,243 @@ if(!function_exists('related_post_settings_content_help_support')) {
     }
 }
 
+
+
+add_action('related_post_settings_content_buy_pro', 'related_post_settings_content_buy_pro');
+
+if(!function_exists('related_post_settings_content_buy_pro')) {
+    function related_post_settings_content_buy_pro($tab){
+
+        $settings_tabs_field = new settings_tabs_field();
+
+
+        ?>
+        <div class="section">
+            <div class="section-title"><?php echo __('Get Premium', 'related-post'); ?></div>
+            <p class="description section-description"><?php echo __('Thansk for using our plugin, if you looking for some advance feature please buy premium version.', 'related-post'); ?></p>
+
+            <?php
+
+
+            ob_start();
+            ?>
+
+            <p><?php echo __('If you love our plugin and want more feature please consider to buy pro version.', 'related-post'); ?></p>
+            <a class="button" href="https://www.pickplugins.com/item/related-post-for-wordpress/"><?php echo __('Buy premium', 'related-post'); ?></a>
+
+            <table class="pro-features">
+                <thead>
+                <tr>
+                    <th class="col-features">Features</th>
+                    <th class="col-free">Free</th>
+                    <th class="col-pro">Premium</th>
+                </tr>
+                </thead>
+
+                <tr>
+                    <td>Popup related post</td>
+                    <td><i class="fas fa-times"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td>Custom HTML after post title</td>
+                    <td><i class="fas fa-times"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td>Custom HTML after post excerpt</td>
+                    <td><i class="fas fa-times"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td>Custom HTML after post thumbnail</td>
+                    <td><i class="fas fa-times"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+
+                <tr>
+                    <td>Link target for post title</td>
+                    <td><i class="fas fa-times"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td>Link target for post excerpt</td>
+                    <td><i class="fas fa-times"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td>Link target for post thumbnail</td>
+                    <td><i class="fas fa-times"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+
+                <tr>
+                    <td>Display on custom post type</td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td>Display on categories</td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td>Display on tags</td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td>Display on author page</td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td>Display on month page</td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td>Display on date page</td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td>Display on year page</td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td>Display on Front page</td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td>Display on Blog page</td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td>Display on Home page</td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td>Display on custom taxonomies</td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td>Display before/after content</td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td>Display before/after excerpt</td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td>N'th paragraph on content</td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td>Custom headline text</td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td>Click tracking</td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td>Related post on slider</td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td>Slider custom column number</td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+
+            </table>
+
+
+
+            <?php
+
+            $html = ob_get_clean();
+
+            $args = array(
+                'id'		=> 'get_pro',
+                'parent'		=> 'related_post_settings',
+                'title'		=> __('Get pro version','related-post'),
+                'details'	=> '',
+                'type'		=> 'custom_html',
+                'html'		=> $html,
+
+            );
+
+            $settings_tabs_field->generate_field($args);
+
+
+            ?>
+
+
+        </div>
+
+        <style type="text/css">
+            .pro-features{
+                margin: 30px 0;
+                border-collapse: collapse;
+            }
+            .pro-features th{
+                width: 120px;
+                background: #ddd;
+                padding: 10px;
+            }
+            .pro-features tr{
+            }
+            .pro-features td{
+                border-bottom: 1px solid #ddd;
+                padding: 10px 10px;
+                text-align: center;
+            }
+            .pro-features .col-features{
+                width: 230px;
+            }
+
+            .pro-features .col-free{
+            }
+            .pro-features .col-pro{
+            }
+
+        </style>
+        <?php
+
+
+    }
+}

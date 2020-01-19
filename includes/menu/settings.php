@@ -61,7 +61,12 @@ $related_post_settings_tab[] = array(
     'active' => false,
 );
 
-
+$related_post_settings_tab[] = array(
+    'id' => 'buy_pro',
+    'title' => sprintf(__('%s Buy Pro','related-post'),'<i class="fas fa-hands-helping"></i>'),
+    'priority' => 9,
+    'active' => false,
+);
 
 
 $related_post_settings_tab = apply_filters('related_post_settings_tabs', $related_post_settings_tab);
