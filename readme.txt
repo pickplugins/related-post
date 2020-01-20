@@ -110,6 +110,7 @@ echo do_shortcode( '[related_post post_id=""]' );
 	= 2.0.17 =
     * 20/01/2020 update - remove shortcode tabs, move to help & support tabs
 
+
 	= 2.0.16 =
     * 20/01/2020 update - responsive issue fixed for settings page
 
