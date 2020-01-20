@@ -4,7 +4,7 @@
 	Tags: related post, related posts, related content, inline related post,  similar posts
 	Requires at least: 3.8
 	Tested up to: 5.3
-	Stable tag: 2.0.16
+	Stable tag: 2.0.17
 	License: GPLv2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -106,6 +106,9 @@ echo do_shortcode( '[related_post post_id=""]' );
 
 
 == Changelog ==
+
+	= 2.0.17 =
+    * 20/01/2020 update - remove shortcode tabs, move to help & support tabs
 
 	= 2.0.16 =
     * 20/01/2020 update - responsive issue fixed for settings page

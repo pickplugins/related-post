@@ -1227,23 +1227,19 @@ if(!function_exists('related_post_settings_content_stats')) {
 }
 
 
-add_action('related_post_settings_content_shortcodes', 'related_post_settings_content_shortcodes');
 
-if(!function_exists('related_post_settings_content_shortcodes')) {
-    function related_post_settings_content_shortcodes($tab){
+
+add_action('related_post_settings_content_help_support', 'related_post_settings_content_help_support');
+
+if(!function_exists('related_post_settings_content_help_support')) {
+    function related_post_settings_content_help_support($tab){
 
         $settings_tabs_field = new settings_tabs_field();
 
-        $related_post_settings = get_option( 'related_post_settings' );
-
-        $enable_stats = isset($related_post_settings['enable_stats']) ? $related_post_settings['enable_stats'] : 'no';
-
-        //echo '<pre>'.var_export($display_auto, true).'</pre>';
-
         ?>
         <div class="section">
-            <div class="section-title"><?php echo __('Shortcodes', 'related-post'); ?></div>
-            <p class="description section-description"><?php echo __('Get shortcode and use anywhere you want.', 'related-post'); ?></p>
+            <div class="section-title"><?php echo __('Get support', 'related-post'); ?></div>
+            <p class="description section-description"><?php echo __('Use following to get help and support from our expert team.', 'related-post'); ?></p>
 
             <?php
 
@@ -1276,32 +1272,6 @@ if(!function_exists('related_post_settings_content_shortcodes')) {
             $settings_tabs_field->generate_field($args);
 
 
-            ?>
-
-
-        </div>
-        <?php
-
-
-    }
-}
-
-
-
-add_action('related_post_settings_content_help_support', 'related_post_settings_content_help_support');
-
-if(!function_exists('related_post_settings_content_help_support')) {
-    function related_post_settings_content_help_support($tab){
-
-        $settings_tabs_field = new settings_tabs_field();
-
-        ?>
-        <div class="section">
-            <div class="section-title"><?php echo __('Get support', 'related-post'); ?></div>
-            <p class="description section-description"><?php echo __('Use following to get help and support from our expert team.', 'related-post'); ?></p>
-
-            <?php
-
 
             ob_start();
             ?>
@@ -1332,6 +1302,30 @@ if(!function_exists('related_post_settings_content_help_support')) {
 
             $settings_tabs_field->generate_field($args);
 
+
+            ob_start();
+            ?>
+
+            <p class="">We wish your 2 minutes to write your feedback about the related post plugin. give us <span style="color: #ffae19"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
+
+            <a target="_blank" href="https://wordpress.org/support/plugin/related-post/reviews/#new-post" class="button"><i class="fab fa-wordpress"></i> Write a review</a>
+
+
+            <?php
+
+            $html = ob_get_clean();
+
+            $args = array(
+                'id'		=> 'reviews',
+                'parent'		=> 'related_post_settings',
+                'title'		=> __('Submit rviews','related-post'),
+                'details'	=> '',
+                'type'		=> 'custom_html',
+                'html'		=> $html,
+
+            );
+
+            $settings_tabs_field->generate_field($args);
 
             ?>
 

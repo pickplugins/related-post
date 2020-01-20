@@ -34,37 +34,29 @@ $related_post_settings_tab[] = array(
 
 $related_post_settings_tab[] = array(
     'id' => 'slider',
-    'title' => sprintf(__('%s Slider','related-post'),'<i class="fas fa-palette"></i>'),
+    'title' => sprintf(__('%s Slider','related-post'),'<i class="fas fa-photo-video"></i>'),
     'priority' => 5,
-    'active' => false,
-);
-
-
-$related_post_settings_tab[] = array(
-    'id' => 'shortcodes',
-    'title' => sprintf(__('%s Shortcodes','related-post'),'<i class="fas fa-code"></i>'),
-    'priority' => 6,
     'active' => false,
 );
 
 $related_post_settings_tab[] = array(
     'id' => 'stats',
     'title' => sprintf(__('%s Stats','related-post'),'<i class="fas fa-tachometer-alt"></i>'),
-    'priority' => 7,
+    'priority' => 6,
     'active' => false,
 );
 
 $related_post_settings_tab[] = array(
     'id' => 'help_support',
     'title' => sprintf(__('%s Help & Support','related-post'),'<i class="fas fa-hands-helping"></i>'),
-    'priority' => 8,
+    'priority' => 7,
     'active' => false,
 );
 
 $related_post_settings_tab[] = array(
     'id' => 'buy_pro',
     'title' => sprintf(__('%s Buy Pro','related-post'),'<i class="fas fa-store"></i>'),
-    'priority' => 9,
+    'priority' => 8,
     'active' => false,
 );
 

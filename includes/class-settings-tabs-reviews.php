@@ -28,12 +28,15 @@ if( ! class_exists( 'settings_tabs_reviews' ) ) {
             $today_date = date('Y-m-d H:i:s', strtotime('+'.$gmt_offset.' hour'));
 
 
+            if(!empty($review_status)){
+                if($review_status == 'done'){ return;}
+                if($review_status == 'remind_later' && (strtotime($today_date) < strtotime($remind_date)) ){ return;}
 
-            if($review_status == 'done'){ return;}
-            if($review_status == 'remind_later' && (strtotime($today_date) < strtotime($remind_date)) ){ return;}
-
-
-
+            }else{
+                $related_post_info['review_status'] = 'remind_later';
+                $related_post_info['remind_date'] = date('Y-m-d H:i:s', strtotime('+30 days'));
+                update_option('related_post_info', $related_post_info);
+            }
 
             ?>
             <div class="settings-tabs-reviews">
