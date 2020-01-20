@@ -18,7 +18,7 @@ class class_related_post_data_upgrade{
         $related_post_settings = get_option('related_post_settings');
 
         $related_post_info = get_option('related_post_info');
-        $data_update_status = isset($related_post_info['data_update_status']) ? $related_post_info['data_update_status'] : 'success';
+        $data_update_status = isset($related_post_info['data_update_status']) ? $related_post_info['data_update_status'] : '';
 
         $admin_url = get_admin_url();
 
@@ -26,7 +26,7 @@ class class_related_post_data_upgrade{
 
         ob_start();
 
-        if(!empty($related_post_settings) && $data_update_status != 'success'):
+        if(!empty($related_post_settings) && !empty($data_update_status) && $data_update_status != 'success'):
         ?>
         <div class="update-nag">
             <?php

@@ -76,14 +76,6 @@ $review_status = isset($_GET['review_status']) ? sanitize_text_field($_GET['revi
 $related_post_info = get_option('related_post_info');
 $related_post_settings = get_option('related_post_settings');
 
-
-
-//delete_option('related_post_info');
-//delete_option('related_post_settings');
-
-//echo '<pre>'.var_export($related_post_info, true).'</pre>';
-//echo '<pre>'.var_export($related_post_settings, true).'</pre>';
-
 ?>
 <div class="wrap">
 	<div id="icon-tools" class="icon32"><br></div><h2><?php echo sprintf(__('%s Settings', 'related-post'), related_post_plugin_name)?></h2>

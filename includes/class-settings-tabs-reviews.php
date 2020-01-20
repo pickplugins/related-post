@@ -33,7 +33,7 @@ if( ! class_exists( 'settings_tabs_reviews' ) ) {
 
             }else{
                 $related_post_info['review_status'] = 'remind_later';
-                $related_post_info['remind_date'] = date('Y-m-d H:i:s', strtotime('+30 days'));
+                $related_post_info['remind_date'] = date('Y-m-d H:i:s', strtotime('+7 days'));
                 update_option('related_post_info', $related_post_info);
 
                 return;
