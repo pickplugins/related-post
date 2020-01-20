@@ -1421,6 +1421,30 @@ if(!function_exists('related_post_settings_content_buy_pro')) {
                     <td><i class="fas fa-check"></i></td>
                 </tr>
 
+                <tr>
+                    <td class="col-features">4 Popup visible action</td>
+                    <td><i class="fas fa-times"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td class="col-features">8 Popup positions</td>
+                    <td><i class="fas fa-times"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td class="col-features">Popup custom width</td>
+                    <td><i class="fas fa-times"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+
+                <tr>
+                    <td class="col-features">Popup custom delay</td>
+                    <td><i class="fas fa-times"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
 
                 <tr>
                     <td class="col-features">Display on custom post type</td>
@@ -1535,7 +1559,7 @@ if(!function_exists('related_post_settings_content_buy_pro')) {
                     <td> </td>
                     <td><a class="button" href="https://www.pickplugins.com/item/related-post-for-wordpress/"><?php echo __('Buy premium', 'related-post'); ?></a></td>
                 </tr>
-                
+
             </table>
 
 

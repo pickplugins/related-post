@@ -17,6 +17,12 @@
 }
 
 
+.settings-tabs .loading{}
+.settings-tabs .submit{
+    padding: 15px 20px;
+}
+
+
 
 /* Collapsible */
 
@@ -428,9 +434,61 @@
 
 
 
+@media only screen and (min-width: 1024px ){
+
+}
+
+@media only screen and ( min-width: 768px ) and ( max-width: 1023px ) {
+
+}
+
+@media only screen and ( min-width: 0px ) and ( max-width: 767px ){
+
+    .settings-tabs .tab-navs{
+        float: none;
+        position: relative;
+        top: 0;
+        padding: 0 20px;
+    }
+
+    .settings-tabs .tab-navs .tab-nav{
+        display: inline-block;
+        float: left;
+        width: auto;
+        border-right: 1px solid #ddd;
+        padding: 10px 20px;
+    }
+
+    .settings-tabs .tab-navs .tab-nav:last-child{
+        border-right: 1px solid rgba(0,0,0,0);
+    }
 
 
+    .settings-tabs .tab-content{
+        margin-left: 0;
+        /*clear: both;*/
+        padding: 0 20px;
+        clear: both;
+    }
 
+
+    .settings-tabs-right-panel {
+        width: 100%;
+        float: none;
+        padding: 15px;
+        border-left: none;
+        background: #fff;
+    }
+
+    .settings-tabs.has-right-panel .tab-content {
+        margin-right: 0px;
+    }
+
+    input[type=checkbox], input[type=radio] {
+        margin: 6px 7px 0 0;
+    }
+
+}
 
 
 

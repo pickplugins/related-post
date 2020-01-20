@@ -1,5 +1,8 @@
 jQuery(document).ready(function($){
 
+    $( ".settings-tabs-loading").fadeOut();
+    $( ".settings-tabs").fadeIn();
+
     accordion = $( ".settings-tabs .accordion").accordion({
         heightStyle:'content',
         active: 99,

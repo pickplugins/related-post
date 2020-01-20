@@ -63,7 +63,7 @@ $related_post_settings_tab[] = array(
 
 $related_post_settings_tab[] = array(
     'id' => 'buy_pro',
-    'title' => sprintf(__('%s Buy Pro','related-post'),'<i class="fas fa-hands-helping"></i>'),
+    'title' => sprintf(__('%s Buy Pro','related-post'),'<i class="fas fa-store"></i>'),
     'priority' => 9,
     'active' => false,
 );
@@ -111,7 +111,10 @@ wp_enqueue_script('settings-tabs');
                 }
             }
             ?>
-            <div class="settings-tabs vertical has-right-panel">
+
+            <div class="settings-tabs-loading" style="">Loading...</div>
+            <div class="settings-tabs vertical has-right-panel" style="display: none">
+
 
                 <div class="settings-tabs-right-panel">
                     <?php
@@ -184,12 +187,14 @@ wp_enqueue_script('settings-tabs');
                 }
                 ?>
 
+                <div class="clear clearfix"></div>
+                <p class="submit">
+                    <?php wp_nonce_field( 'related_post_nonce' ); ?>
+                    <input class="button button-primary" type="submit" name="Submit" value="<?php _e('Save Changes','related-post' ); ?>" />
+                </p>
+
             </div>
 
-            <div class="clear clearfix"></div>
-            <p class="submit">
-                <?php wp_nonce_field( 'related_post_nonce' ); ?>
-                <input class="button button-primary" type="submit" name="Submit" value="<?php _e('Save Changes','related-post' ); ?>" />
-            </p>
+
 		</form>
 </div>

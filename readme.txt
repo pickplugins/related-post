@@ -4,7 +4,7 @@
 	Tags: related post, related posts, related content, inline related post,  similar posts
 	Requires at least: 3.8
 	Tested up to: 5.3
-	Stable tag: 2.0.15
+	Stable tag: 2.0.16
 	License: GPLv2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,9 +17,9 @@
 
 ### Related Post by http://pickplugins.com
 
-* [Documentation! &raquo;](https://www.pickplugins.com/documentation/related-post/ref=wordpress.org)
-* [Live Demo! &raquo;](https://www.pickplugins.com/demo/related-post/ref=wordpress.org)
-* [Buy Pro! &raquo;](https://www.pickplugins.com/item/related-post-for-wordpress/ref=wordpress.org)
+* [Documentation! &raquo;](https://www.pickplugins.com/documentation/related-post/?ref=wordpress.org)
+* [Live Demo! &raquo;](https://www.pickplugins.com/demo/related-post/?ref=wordpress.org)
+* [Buy Pro! &raquo;](https://www.pickplugins.com/item/related-post-for-wordpress/?ref=wordpress.org)
 
 
 **Related post under every paragraph**
@@ -107,8 +107,12 @@ echo do_shortcode( '[related_post post_id=""]' );
 
 == Changelog ==
 
+	= 2.0.16 =
+    * 20/01/2020 update - responsive issue fixed for settings page
+
 	= 2.0.15 =
     * 20/01/2020 update - missing slider options added
+    * 20/01/2020 add - added help & support menu.
 
 	= 2.0.14 =
     * 19/01/2020 update - update default value for settings.
