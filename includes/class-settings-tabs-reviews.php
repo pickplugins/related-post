@@ -17,6 +17,24 @@ if( ! class_exists( 'settings_tabs_reviews' ) ) {
 
             wp_enqueue_style('font-awesome-5');
 
+            $related_post_info = get_option('related_post_info');
+            $data_update_status = isset($related_post_info['data_update_status']) ? $related_post_info['data_update_status'] : '';
+            $review_status = isset($related_post_info['review_status']) ? $related_post_info['review_status'] : '';
+            $remind_date = isset($related_post_info['remind_date']) ? $related_post_info['remind_date'] : '';
+
+            $admin_url = get_admin_url();
+
+            $gmt_offset = get_option('gmt_offset');
+            $today_date = date('Y-m-d H:i:s', strtotime('+'.$gmt_offset.' hour'));
+
+
+
+            if($review_status == 'done'){ return;}
+            if($review_status == 'remind_later' && (strtotime($today_date) < strtotime($remind_date)) ){ return;}
+
+
+
+
             ?>
             <div class="settings-tabs-reviews">
                 <div class="actions">
@@ -27,14 +45,20 @@ if( ! class_exists( 'settings_tabs_reviews' ) ) {
                 <div class="title">
                     Hope you enjoy <strong>Related Post</strong> plugin <i class="far fa-smile"></i>
                 </div>
-                <div class="content">
-                    <p class="">We wish your 2 minutes to write your feedback about the related post plugin.</p>
 
-                    <a target="_blank" href="https://wordpress.org/support/plugin/related-post/reviews/#new-post" class="button">Write a review</a>
-                    <a target="_blank" href="" class="button">Already did</a>
+                <?php
+                //echo '<pre>'.var_export(strtotime($today_date) > strtotime($remind_date), true).'</pre>';
+                ?>
+
+                <div class="content">
+                    <p class="">We wish your 2 minutes to write your feedback about the related post plugin. give us <span style="color: #ffae19"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
+
+                    <a target="_blank" href="https://wordpress.org/support/plugin/related-post/reviews/#new-post" class="button"><i class="fab fa-wordpress"></i> Write a review</a>
+                    <a href="<?php echo wp_nonce_url($admin_url.'admin.php?page=related_post_settings&review_status=done', 'related_post_review_notice', '_wpnonce'); ?>" class="button"><i class="far fa-thumbs-up"></i> Already did</a>
+                    <a  href="<?php echo wp_nonce_url($admin_url.'admin.php?page=related_post_settings&review_status=remind_later', 'related_post_review_notice', '_wpnonce'); ?>" class="button"><i class="far fa-bell"></i> Remind me later</a>
 
                     <p>Do you have any issue, please contact our support team by creating a support ticket.</p>
-                    <a target="_blank" href="https://www.pickplugins.com/create-support-ticket/" class="button">Create support ticket</a> <a target="_blank" href="https://www.pickplugins.com/documentation/related-post/?ref=dashboard" class="button">Documentation</a> <a target="_blank" href="https://www.pickplugins.com/documentation/related-post/tutorials/" class="button">Tutorials</a>
+                    <a target="_blank" href="https://www.pickplugins.com/create-support-ticket/?ref=dashboard" class="button"><i class="far fa-question-circle"></i> Create support ticket</a> <a target="_blank" href="https://www.pickplugins.com/documentation/related-post/?ref=dashboard" class="button"><i class="far fa-file-code"></i> Documentation</a> <a target="_blank" href="https://www.pickplugins.com/documentation/related-post/tutorials/?ref=dashboard" class="button"><i class="fab fa-youtube"></i> Tutorials</a>
                 </div>
 
 
@@ -92,7 +116,13 @@ if( ! class_exists( 'settings_tabs_reviews' ) ) {
                     right: 0;
                 }
 
-
+                @media only screen and ( min-width: 0px ) and ( max-width: 767px ){
+                    .settings-tabs-reviews{
+                        width: 100%;
+                        right: 0;
+                        bottom: 0;
+                    }
+                }
 
 
             </style>

@@ -80,15 +80,49 @@ wp_enqueue_style('font-awesome-5');
 wp_enqueue_style('settings-tabs');
 wp_enqueue_script('settings-tabs');
 
+$review_status = isset($_GET['review_status']) ? sanitize_text_field($_GET['review_status']) : '';
+$related_post_info = get_option('related_post_info');
+
+//echo '<pre>'.var_export($related_post_info, true).'</pre>';
 
 ?>
 <div class="wrap">
 	<div id="icon-tools" class="icon32"><br></div><h2><?php echo sprintf(__('%s Settings', 'related-post'), related_post_plugin_name)?></h2>
+
+
+    <?php
+    $gmt_offset = get_option('gmt_offset');
+    $current_date = date('Y-m-d H:i:s', strtotime('+'.$gmt_offset.' hour'));
+    //echo '<pre>'.var_export($current_date, true).'</pre>';
+
+
+    if($review_status =='remind_later'):
+
+        $related_post_info['review_status'] = 'remind_later';
+        $related_post_info['remind_date'] = date('Y-m-d H:i:s', strtotime('+30 days'));
+
+
+        ?>
+        <div class="update-nag is-dismissible">We will remind you later.</div>
+        <?php
+        update_option('related_post_info', $related_post_info);
+
+    elseif ($review_status =='done'):
+
+        $related_post_info['review_status'] = 'done';
+        ?>
+        <div class="update-nag notice is-dismissible">Thanks for your time and feedback.</div>
+        <?php
+
+        update_option('related_post_info', $related_post_info);
+
+    endif;
+
+    ?>
+
+
+
 		<form  method="post" action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>">
-
-
-
-
 	        <input type="hidden" name="related_post_hidden" value="Y">
             <?php
             if(!empty($_POST['related_post_hidden'])){
