@@ -4,7 +4,7 @@
 	Tags: related post, related posts, related content, inline related post,  similar posts
 	Requires at least: 3.8
 	Tested up to: 5.3
-	Stable tag: 2.0.14
+	Stable tag: 2.0.15
 	License: GPLv2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,7 +22,7 @@
 * [Buy Pro! &raquo;](https://www.pickplugins.com/item/related-post-for-wordpress/ref=wordpress.org)
 
 
-**Related post under paragraph**
+**Related post under every paragraph**
 
 You can choose paragraph position like first, second, third and before last paragraph to display related post.
 
@@ -106,6 +106,9 @@ echo do_shortcode( '[related_post post_id=""]' );
 
 
 == Changelog ==
+
+	= 2.0.15 =
+    * 20/01/2020 update - missing slider options added
 
 	= 2.0.14 =
     * 19/01/2020 update - update default value for settings.
