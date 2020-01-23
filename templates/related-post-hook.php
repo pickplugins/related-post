@@ -459,7 +459,6 @@ function related_post_main_slider_scripts($post_id){
                 <?php if(!empty($slider_pagination)): ?>
                 dots: <?php echo $slider_pagination; ?>,
                 dotsSpeed: <?php echo $slider_pagination_speed; ?>,
-                navText : ["",""],
                 <?php endif;?>
                 <?php if(!empty($slider_touch_drag)): ?>
                 touchDrag: <?php echo $slider_touch_drag; ?>,

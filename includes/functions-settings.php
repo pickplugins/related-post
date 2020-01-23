@@ -17,15 +17,15 @@ if(!function_exists('related_post_settings_content_general')) {
         $related_post_settings = get_option( 'related_post_settings' );
 
         $display_auto = isset($related_post_settings['display_auto']) ? $related_post_settings['display_auto'] : 'yes';
-        $post_types = isset($related_post_settings['post_types']) ? $related_post_settings['post_types'] : array('post');
+        $post_types = isset($related_post_settings['post_types']) ? $related_post_settings['post_types'] : array();
         $headline_text = isset($related_post_settings['headline_text']) ? $related_post_settings['headline_text'] : __('Related Post','');
         $headline_text_font_size = isset($related_post_settings['headline_text_style']['font_size']) ? $related_post_settings['headline_text_style']['font_size'] : '';
         $headline_text_color = isset($related_post_settings['headline_text_style']['color']) ? $related_post_settings['headline_text_style']['color'] : '';
         $headline_text_custom_css = isset($related_post_settings['headline_text_style']['custom_css']) ? $related_post_settings['headline_text_style']['custom_css'] : '';
 
 
-        $content_positions = isset($related_post_settings['content_positions']) ? $related_post_settings['content_positions'] : array('after');
-        $excerpt_positions = isset($related_post_settings['excerpt_positions']) ? $related_post_settings['excerpt_positions'] : array('after');
+        $content_positions = isset($related_post_settings['content_positions']) ? $related_post_settings['content_positions'] : array();
+        $excerpt_positions = isset($related_post_settings['excerpt_positions']) ? $related_post_settings['excerpt_positions'] : array();
 
         $paragraph_positions = isset($related_post_settings['paragraph_positions']) ? $related_post_settings['paragraph_positions'] : array();
 
@@ -86,7 +86,7 @@ if(!function_exists('related_post_settings_content_general')) {
                 'details'	=> __('Display related post automatically under selected post types.','related-post'),
                 'type'		=> 'checkbox',
                 'value'		=> $post_types,
-                'default'		=> array('post'),
+                'default'		=> array(),
                 'style'		=> array('inline' => false),
                 'args'		=> $post_types_array,
             );
