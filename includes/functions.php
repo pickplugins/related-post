@@ -16,25 +16,26 @@ add_filter('wp_head','related_post_count_stats');
 function related_post_count_stats() {
 	
 	$related_post_settings = get_option( 'related_post_settings' );	
-	$post_types= isset($related_post_settings['post_types']) ? $related_post_settings['post_types'] : array();
 	$enable_stats = isset($related_post_settings['enable_stats']) ? $related_post_settings['enable_stats'] : 'disable';
-	
+
+	if($enable_stats != 'enable' ) return;
+
 	$gmt_offset = get_option('gmt_offset');
 	$date = date('Y-m-d', strtotime('+'.$gmt_offset.' hour'));
 	
 	
-	if(is_singular() && !empty($_GET['to_id']) && !empty($_GET['from_id'])){
-		
-		$from_id = sanitize_text_field($_GET['from_id']);
-		$to_id = sanitize_text_field($_GET['to_id']);
-		
+	if(is_singular() && !empty($_GET['related_post_from'])){
+
+        $to_id = get_the_id();
+		$related_post_from = sanitize_text_field($_GET['related_post_from']);
+
 		global $wpdb;
 		$table = $wpdb->prefix . "related_post_stats";	
 		
 		$wpdb->query( $wpdb->prepare("INSERT INTO $table 
 									( id, from_id, to_id, date )
 									VALUES	( %d, %d, %d, %s )",
-									array	( '', $from_id, $to_id, $date)
+									array	( '', $related_post_from, $to_id, $date)
 									
 									));
 									

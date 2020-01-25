@@ -34,6 +34,8 @@ jQuery(document).ready(function($){
         $(this).addClass('active');
 
         id = $(this).attr('data-id');
+        $('input[name="tab"]').val(id);
+
 
 		//console.log('Hello click');
         //console.log(id);

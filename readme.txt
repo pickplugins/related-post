@@ -4,7 +4,7 @@
 	Tags: related post, related posts, related content, inline related post,  similar posts
 	Requires at least: 3.8
 	Tested up to: 5.3
-	Stable tag: 2.0.17
+	Stable tag: 2.0.18
 	License: GPLv2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,6 +20,20 @@
 * [Documentation! &raquo;](https://www.pickplugins.com/documentation/related-post/?ref=wordpress.org)
 * [Live Demo! &raquo;](https://www.pickplugins.com/demo/related-post/?ref=wordpress.org)
 * [Buy Pro! &raquo;](https://www.pickplugins.com/item/related-post-for-wordpress/?ref=wordpress.org)
+
+**Tutorials**
+
+* [How to install & setup](https://www.youtube.com/watch?v=9SZKa0QYgsc)
+* [Display on archive pages](https://www.youtube.com/watch?v=tXBLwC3PQBI)
+* [Customize elements](https://www.youtube.com/watch?v=_kWh4mP-eso)
+* [Manually selected post](https://www.youtube.com/watch?v=5G7o_zFKUhE)
+* [Display custom html after elements](https://www.youtube.com/watch?v=pztzF9R2yRQ)
+* [Customize column count](https://www.youtube.com/watch?v=qudCJcqjlCk)
+* [Related post as slider layout](https://www.youtube.com/watch?v=KUtBCyFoARk)
+* [Related posts as list layout](https://www.youtube.com/watch?v=uo2v9U9kUCc)
+* [Display on popups (Premium) ](https://www.youtube.com/watch?v=siMFvhy95Wo)
+* [Display custom html after elements (Premium) ](https://www.youtube.com/watch?v=pztzF9R2yRQ)
+* [Customize link target (Premium) ](https://www.youtube.com/watch?v=qFZPMoqEHxs)
 
 
 **Related post under every paragraph**
@@ -107,8 +121,12 @@ echo do_shortcode( '[related_post post_id=""]' );
 
 == Changelog ==
 
+	= 2.0.18 =
+    * 26/01/2020 add - added tutorials under help & support tabs
+
+
 	= 2.0.17 =
-    * 20/01/2020 update - remove shortcode tabs, move to help & support tabs
+    * 25/01/2020 update - remove shortcode tabs, move to help & support tabs
 
 
 	= 2.0.16 =

@@ -2,62 +2,65 @@
 if ( ! defined('ABSPATH')) exit;  // if direct access
 
 
+$current_tab = isset($_POST['tab']) ? $_POST['tab'] : 'general';
+
 $related_post_settings_tab = array();
 
 $related_post_settings_tab[] = array(
     'id' => 'general',
     'title' => sprintf(__('%s General','related-post'),'<i class="fas fa-list-ul"></i>'),
     'priority' => 1,
-    'active' => true,
+    'active' => ($current_tab == 'general') ? true : false,
+
 );
 
 $related_post_settings_tab[] = array(
     'id' => 'query',
     'title' => sprintf(__('%s Query','related-post'),'<i class="fas fa-filter"></i>'),
     'priority' => 2,
-    'active' => false,
+    'active' => ($current_tab == 'query') ? true : false,
 );
 
 $related_post_settings_tab[] = array(
     'id' => 'style',
     'title' => sprintf(__('%s Style','related-post'),'<i class="fas fa-palette"></i>'),
     'priority' => 3,
-    'active' => false,
+    'active' => ($current_tab == 'style') ? true : false,
 );
 
 $related_post_settings_tab[] = array(
     'id' => 'elements',
     'title' => sprintf(__('%s Elements','related-post'),'<i class="fab fa-buffer"></i>'),
     'priority' => 4,
-    'active' => false,
+    'active' => ($current_tab == 'elements') ? true : false,
 );
 
 $related_post_settings_tab[] = array(
     'id' => 'slider',
     'title' => sprintf(__('%s Slider','related-post'),'<i class="fas fa-photo-video"></i>'),
     'priority' => 5,
-    'active' => false,
+    'active' => ($current_tab == 'slider') ? true : false,
 );
 
 $related_post_settings_tab[] = array(
     'id' => 'stats',
     'title' => sprintf(__('%s Stats','related-post'),'<i class="fas fa-tachometer-alt"></i>'),
     'priority' => 6,
-    'active' => false,
+    'active' => ($current_tab == 'stats') ? true : false,
 );
 
 $related_post_settings_tab[] = array(
     'id' => 'help_support',
     'title' => sprintf(__('%s Help & Support','related-post'),'<i class="fas fa-hands-helping"></i>'),
     'priority' => 7,
-    'active' => false,
+    'active' => ($current_tab == 'help_support') ? true : false,
 );
 
 $related_post_settings_tab[] = array(
     'id' => 'buy_pro',
     'title' => sprintf(__('%s Buy Pro','related-post'),'<i class="fas fa-store"></i>'),
     'priority' => 8,
-    'active' => false,
+    'active' => ($current_tab == 'buy_pro') ? true : false,
 );
 
 
@@ -68,9 +71,16 @@ foreach ($related_post_settings_tab as $page_key => $tab) $tabs_sorted[$page_key
 array_multisort($tabs_sorted, SORT_ASC, $related_post_settings_tab);
 
 
+wp_enqueue_script('jquery');
+wp_enqueue_script('jquery-ui-sortable');
+wp_enqueue_script( 'jquery-ui-core' );
+wp_enqueue_script('jquery-ui-accordion');
+wp_enqueue_style( 'wp-color-picker' );
+wp_enqueue_script('wp-color-picker');
 wp_enqueue_style('font-awesome-5');
 wp_enqueue_style('settings-tabs');
 wp_enqueue_script('settings-tabs');
+
 
 $review_status = isset($_GET['review_status']) ? sanitize_text_field($_GET['review_status']) : '';
 $related_post_info = get_option('related_post_info');
@@ -115,6 +125,8 @@ $related_post_settings = get_option('related_post_settings');
 
 		<form  method="post" action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>">
 	        <input type="hidden" name="related_post_hidden" value="Y">
+            <input type="hidden" name="tab" value="<?php echo $current_tab; ?>">
+
             <?php
             if(!empty($_POST['related_post_hidden'])){
 

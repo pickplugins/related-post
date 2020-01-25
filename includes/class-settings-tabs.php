@@ -4,6 +4,12 @@ if ( ! defined('ABSPATH')) exit;  // if direct access
 if( ! class_exists( 'settings_tabs_field' ) ) {
 class settings_tabs_field{
 
+    public function __construct(){
+        //add_action( 'wp_enqueue_scripts', array( $this, '_front_scripts' ) );
+        add_action( 'admin_enqueue_scripts', array( $this, '_admin_scripts' ) );
+    }
+
+
 
     function field_template(){
 
@@ -19,6 +25,13 @@ class settings_tabs_field{
         <?php
 
         return ob_get_clean();
+
+    }
+
+
+
+    function _admin_scripts(){
+
 
     }
 
@@ -1491,9 +1504,6 @@ class settings_tabs_field{
         $details 			= isset( $option['details'] ) ? $option['details'] : "";
 
         $field_name = !empty($parent) ? $parent.'['.$id.']' : $id;
-
-
-
 
         ob_start();
         ?>

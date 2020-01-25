@@ -116,7 +116,7 @@ function related_post_loop_item_element_post_title($loop_post_id, $elementData){
     $related_post_settings = get_option( 'related_post_settings' );
     $enable_stats = isset($related_post_settings['enable_stats']) ? $related_post_settings['enable_stats'] : 'disable';
 
-    $post_link = ($enable_stats == 'enable') ? $post_link.'?to_id='.get_the_ID().'&from_id='.$loop_post_id : $post_link ;
+    $post_link = ($enable_stats == 'enable') ? $post_link.'?related_post_from='.$loop_post_id : $post_link ;
 
 
     ?>
@@ -147,7 +147,7 @@ function related_post_loop_item_element_post_thumb($loop_post_id, $elementData){
     $related_post_settings = get_option( 'related_post_settings' );
     $enable_stats = isset($related_post_settings['enable_stats']) ? $related_post_settings['enable_stats'] : 'disable';
 
-    $post_link = ($enable_stats == 'enable') ? $post_link.'?to_id='.get_the_ID().'&from_id='.$loop_post_id : $post_link;
+    $post_link = ($enable_stats == 'enable') ? $post_link.'?related_post_from='.$loop_post_id : $post_link;
 
 
     ?>
@@ -172,7 +172,7 @@ function related_post_loop_item_element_post_excerpt($loop_post_id, $elementData
     $related_post_settings = get_option( 'related_post_settings' );
     $enable_stats = isset($related_post_settings['enable_stats']) ? $related_post_settings['enable_stats'] : 'disable';
 
-    $post_link = ($enable_stats == 'enable') ? $post_link.'?to_id='.get_the_ID().'&from_id='.$loop_post_id : $post_link;
+    $post_link = ($enable_stats == 'enable') ? $post_link.'?related_post_from='.$loop_post_id : $post_link;
 
 
     $post = get_post($loop_post_id);

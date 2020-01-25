@@ -250,8 +250,8 @@ if(!function_exists('related_post_settings_content_style')) {
         //delete_option('related_post_settings');
         ?>
         <div class="section">
-            <div class="section-title"><?php echo __('General settings', 'related-post'); ?></div>
-            <p class="description section-description"><?php echo __('Choose some general option to getting started.', 'related-post'); ?></p>
+            <div class="section-title"><?php echo __('Style settings', 'related-post'); ?></div>
+            <p class="description section-description"><?php echo __('Choose & customize style settings.', 'related-post'); ?></p>
 
             <?php
 
@@ -1283,7 +1283,21 @@ if(!function_exists('related_post_settings_content_help_support')) {
             <a class="button" href="https://www.pickplugins.com/documentation/related-post/"><?php echo __('Documentation', 'related-post'); ?></a>
 
             <p><?php echo __('Watch video tutorials.', 'related-post'); ?></p>
-            <a class="button" href="https://www.youtube.com/playlist?list=PL0QP7T2SN94aXEA_fguVn2ZpdizEeNmsx"><?php echo __('Tutorials', 'related-post'); ?></a>
+            <a class="button" href="https://www.youtube.com/playlist?list=PL0QP7T2SN94aXEA_fguVn2ZpdizEeNmsx"><i class="fab fa-youtube"></i> <?php echo __('All tutorials', 'related-post'); ?></a>
+
+            <ul>
+                <li><i class="far fa-dot-circle"></i> <a href="https://www.youtube.com/watch?v=9SZKa0QYgsc">How to install & setup</a></li>
+                <li><i class="far fa-dot-circle"></i> <a href="https://www.youtube.com/watch?v=tXBLwC3PQBI">Display on archive pages</a></li>
+                <li><i class="far fa-dot-circle"></i> <a href="https://www.youtube.com/watch?v=_kWh4mP-eso">Customize elements</a></li>
+                <li><i class="far fa-dot-circle"></i> <a href="https://www.youtube.com/watch?v=5G7o_zFKUhE">Manually selected post</a></li>
+                <li><i class="far fa-dot-circle"></i> <a href="https://www.youtube.com/watch?v=KUtBCyFoARk">Related post slider layout</a></li>
+                <li><i class="far fa-dot-circle"></i> <a href="https://www.youtube.com/watch?v=qudCJcqjlCk">Customize column count</a></li>
+                <li><i class="far fa-dot-circle"></i> <a href="https://www.youtube.com/watch?v=uo2v9U9kUCc">Related posts as list layout</a></li>
+                <li><i class="fas fa-dot-circle"></i> <a href="https://www.youtube.com/watch?v=pztzF9R2yRQ">Display custom html after elements</a> [ Premium ]</li>
+                <li><i class="fas fa-dot-circle"></i> <a href="https://www.youtube.com/watch?v=siMFvhy95Wo">Display on popups</a> [ Premium ]</li>
+                <li><i class="fas fa-dot-circle"></i> <a href="https://www.youtube.com/watch?v=qFZPMoqEHxs">Customize link target</a> [ Premium ]</li>
+            </ul>
+
 
 
             <?php
@@ -1318,7 +1332,7 @@ if(!function_exists('related_post_settings_content_help_support')) {
             $args = array(
                 'id'		=> 'reviews',
                 'parent'		=> 'related_post_settings',
-                'title'		=> __('Submit rviews','related-post'),
+                'title'		=> __('Submit reviews','related-post'),
                 'details'	=> '',
                 'type'		=> 'custom_html',
                 'html'		=> $html,
