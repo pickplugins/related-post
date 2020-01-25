@@ -4,7 +4,7 @@
 	Tags: related post, related posts, related content, inline related post,  similar posts
 	Requires at least: 3.8
 	Tested up to: 5.3
-	Stable tag: 2.0.18
+	Stable tag: 2.0.19
 	License: GPLv2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -145,6 +145,11 @@ echo do_shortcode( '[related_post post_id=""]' );
 
 
 == Changelog ==
+
+	= 2.0.19 =
+    * 26/01/2020 add - help and support added on settings page sidebar
+
+
 
 	= 2.0.18 =
     * 26/01/2020 add - added tutorials under help & support tabs

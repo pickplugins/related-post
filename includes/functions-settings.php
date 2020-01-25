@@ -1229,6 +1229,61 @@ if(!function_exists('related_post_settings_content_stats')) {
 
 
 
+
+add_action('related_post_settings_tabs_right_panel_general', 'related_post_settings_tabs_right_panel_general');
+
+add_action('related_post_settings_tabs_right_panel_query', 'related_post_settings_tabs_right_panel_general');
+add_action('related_post_settings_tabs_right_panel_style', 'related_post_settings_tabs_right_panel_general');
+add_action('related_post_settings_tabs_right_panel_elements', 'related_post_settings_tabs_right_panel_general');
+add_action('related_post_settings_tabs_right_panel_slider', 'related_post_settings_tabs_right_panel_general');
+add_action('related_post_settings_tabs_right_panel_stats', 'related_post_settings_tabs_right_panel_general');
+add_action('related_post_settings_tabs_right_panel_buy_pro', 'related_post_settings_tabs_right_panel_general');
+
+
+
+
+if(!function_exists('related_post_settings_tabs_right_panel_general')) {
+    function related_post_settings_tabs_right_panel_general($tab){
+
+        ?>
+        <h3>Help & Support</h3>
+        <p><?php echo __('Ask question for free on our forum and get quick reply from our expert team members.', 'related-post'); ?></p>
+        <a class="button" href="https://www.pickplugins.com/create-support-ticket/"><?php echo __('Create support ticket', 'related-post'); ?></a>
+
+        <p><?php echo __('Read our documentation before asking your question.', 'related-post'); ?></p>
+        <a class="button" href="https://www.pickplugins.com/documentation/related-post/"><?php echo __('Documentation', 'related-post'); ?></a>
+
+        <p><?php echo __('Watch video tutorials.', 'related-post'); ?></p>
+        <a class="button" href="https://www.youtube.com/playlist?list=PL0QP7T2SN94aXEA_fguVn2ZpdizEeNmsx"><i class="fab fa-youtube"></i> <?php echo __('All tutorials', 'related-post'); ?></a>
+
+        <ul>
+            <li><i class="far fa-dot-circle"></i> <a href="https://www.youtube.com/watch?v=9SZKa0QYgsc">How to install & setup</a></li>
+            <li><i class="far fa-dot-circle"></i> <a href="https://www.youtube.com/watch?v=tXBLwC3PQBI">Display on archive pages</a></li>
+            <li><i class="far fa-dot-circle"></i> <a href="https://www.youtube.com/watch?v=_kWh4mP-eso">Customize elements</a></li>
+            <li><i class="far fa-dot-circle"></i> <a href="https://www.youtube.com/watch?v=5G7o_zFKUhE">Manually selected post</a></li>
+            <li><i class="far fa-dot-circle"></i> <a href="https://www.youtube.com/watch?v=KUtBCyFoARk">Related post slider layout</a></li>
+            <li><i class="far fa-dot-circle"></i> <a href="https://www.youtube.com/watch?v=qudCJcqjlCk">Customize column count</a></li>
+            <li><i class="far fa-dot-circle"></i> <a href="https://www.youtube.com/watch?v=uo2v9U9kUCc">Related posts as list layout</a></li>
+            <li><i class="fas fa-dot-circle"></i> <a href="https://www.youtube.com/watch?v=pztzF9R2yRQ">Custom html after elements</a> [Premium]</li>
+            <li><i class="fas fa-dot-circle"></i> <a href="https://www.youtube.com/watch?v=siMFvhy95Wo">Display on popups</a> [Premium]</li>
+            <li><i class="fas fa-dot-circle"></i> <a href="https://www.youtube.com/watch?v=qFZPMoqEHxs">Customize link target</a> [Premium]</li>
+        </ul>
+
+        <h3>Submit Reviews</h3>
+        <p class="">We wish your 2 minutes to write your feedback about the related post plugin. give us <span style="color: #ffae19"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
+
+        <a target="_blank" href="https://wordpress.org/support/plugin/related-post/reviews/#new-post" class="button"><i class="fab fa-wordpress"></i> Write a review</a>
+
+
+        <?php
+
+    }
+}
+
+
+
+
+
 add_action('related_post_settings_content_help_support', 'related_post_settings_content_help_support');
 
 if(!function_exists('related_post_settings_content_help_support')) {
