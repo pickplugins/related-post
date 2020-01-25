@@ -27,7 +27,6 @@
 * [Display on archive pages](https://www.youtube.com/watch?v=tXBLwC3PQBI)
 * [Customize elements](https://www.youtube.com/watch?v=_kWh4mP-eso)
 * [Manually selected post](https://www.youtube.com/watch?v=5G7o_zFKUhE)
-* [Display custom html after elements](https://www.youtube.com/watch?v=pztzF9R2yRQ)
 * [Customize column count](https://www.youtube.com/watch?v=qudCJcqjlCk)
 * [Related post as slider layout](https://www.youtube.com/watch?v=KUtBCyFoARk)
 * [Related posts as list layout](https://www.youtube.com/watch?v=uo2v9U9kUCc)
@@ -77,6 +76,32 @@ You can set custom font size, font color, padding, margin for post title, post e
 **Track click**
 
 You can enable tracking click on related post, this will help you understand which post getting more attention from related posts. you will see top 10 post from stats page.
+
+### Premium Features
+
+**Popup related post**
+You can display related post on popups under single blog post or custom post types,
+
+**Popup positions**
+you can set 8 ready position for popups
+
+**Popup custom delay**
+You can set custom delay to display popup, so popup will be hidden until certain amount of time and then it will display.
+
+**Popup display on scroll**
+You can choose to display popup based on scroll down, popup will be hidden until certain amount of scroll down.
+
+**Popup display scroll down to article**
+Popup will display when user scroll down to reached end of the article class or content.
+
+**Popup display scroll down to page**
+Popup will display when user scroll down to reached end of the page or footer.
+
+**Custom HTML after each elements**
+You can display custom HTML under each elements like post title, post excerpt and post thumbnails. you can also display 3rd party shrotcode as output after each elements.
+
+**Link Target**
+You can set custom link target for each elements link like post title, post thumbnail and read more link, you can set _blank, _parent or etc for each link.
 
 **Display via shortcode**
 

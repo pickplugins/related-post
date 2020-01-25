@@ -1,13 +1,5 @@
 <?php
-
-
-
-
 if ( ! defined('ABSPATH')) exit; // if direct access 
-
-
-
-
 
 
 add_filter('wp_head','related_post_count_stats');

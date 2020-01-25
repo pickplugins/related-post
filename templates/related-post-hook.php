@@ -341,23 +341,18 @@ function related_post_main_css($post_id){
         <?php
 
         if($layout_type=='slider'):
-        ?>
-        .related-post .owl-dots .owl-dot {
-        <?php if(!empty($slider_pagination_bg)):?>
-            background:<?php echo $slider_pagination_bg; ?>;
-        <?php endif; ?>
-        <?php if(!empty($slider_pagination_text_color)):?>
-            color:<?php echo $slider_pagination_text_color; ?>;
-        <?php endif; ?>
-        }
-        <?php
+
+            ?>
+            .related-post .owl-dots .owl-dot {
+            <?php if(!empty($slider_pagination_bg)):?>
+                background:<?php echo $slider_pagination_bg; ?>;
+            <?php endif; ?>
+            <?php if(!empty($slider_pagination_text_color)):?>
+                color:<?php echo $slider_pagination_text_color; ?>;
+            <?php endif; ?>
+            }
+            <?php
         endif;
-
-        ?>
-
-
-
-        <?php
 
 
         if($layout_type == 'grid' || $layout_type == 'list'){
