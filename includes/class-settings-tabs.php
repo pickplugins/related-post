@@ -1170,13 +1170,18 @@ class settings_tabs_field{
         <textarea name="<?php echo $field_name; ?>" id="<?php echo $css_id; ?>" cols="40" rows="5" placeholder="<?php echo $placeholder; ?>"><?php echo $value; ?></textarea>
         <script>
 
-            var editor = CodeMirror.fromTextArea(document.getElementById("<?php echo $css_id; ?>"), {
-                lineNumbers: true,
-                value: "",
-                viewportMargin: Infinity,
 
-                //scrollbarStyle: "simple"
-            });
+            jQuery(document).ready(function($){
+
+                var editor = CodeMirror.fromTextArea(document.getElementById("<?php echo $css_id; ?>"), {
+                    lineNumbers: true,
+                    value: "",
+                    viewportMargin: Infinity,
+
+                    //scrollbarStyle: "simple"
+                });
+            })
+
 
 
 

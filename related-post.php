@@ -18,8 +18,6 @@ class RelatedPost{
 	
 	public function __construct(){
 
-	    //delete_option('related_post_info');
-
         define('related_post_plugin_url', plugins_url('/', __FILE__)  );
         define('related_post_plugin_dir', plugin_dir_path( __FILE__ ) );
         define('related_post_wp_url', 'http://wordpress.org/plugins/related-post/' );
