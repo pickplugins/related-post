@@ -423,10 +423,10 @@ function related_post_main_slider_scripts($post_id){
                 items :<?php echo $slider_column_number_desktop; ?>,
                 responsiveClass:true,
                 responsive:{
-                    576:{
+                    0:{
                         items:<?php echo $slider_column_number_mobile; ?>,
                     },
-                    992:{
+                    768:{
                         items:<?php echo $slider_column_number_tablet; ?>,
                     },
                     1200:{
