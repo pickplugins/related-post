@@ -241,6 +241,7 @@ if(!function_exists('related_post_settings_content_style')) {
         $grid_item_margin = isset($related_post_settings['grid_item_margin']) ? $related_post_settings['grid_item_margin'] : '10px';
         $grid_item_padding = isset($related_post_settings['grid_item_padding']) ? $related_post_settings['grid_item_padding'] : '0px';
         $grid_item_align = isset($related_post_settings['grid_item_align']) ? $related_post_settings['grid_item_align'] : 'left';
+        $font_aw_version = isset($related_post_settings['font_aw_version']) ? $related_post_settings['font_aw_version'] : 'none';
 
         $item_width_large = isset($related_post_settings['item_width']['large']) ? $related_post_settings['item_width']['large'] : '45%';
         $item_width_medium = isset($related_post_settings['item_width']['medium']) ? $related_post_settings['item_width']['medium'] : '90%';
@@ -361,7 +362,18 @@ if(!function_exists('related_post_settings_content_style')) {
 
             $settings_tabs_field->generate_field($args);
 
+            $args = array(
+                'id'		=> 'font_aw_version',
+                'parent'		=> 'related_post_settings',
+                'title'		=> __('Font-awesome version','related-post'),
+                'details'	=> __('Choose font awesome version you want to load.','related-post'),
+                'type'		=> 'select',
+                'value'		=> $font_aw_version,
+                'default'		=> 'none',
+                'args'		=> array('v_5'=>__('Version 5+','related-post'), 'v_4'=>__('Version 4+','related-post'), 'none'=>__('None','related-post')  ),
+            );
 
+            $settings_tabs_field->generate_field($args);
 
 
             ?>
@@ -889,6 +901,8 @@ if(!function_exists('related_post_settings_content_slider')) {
         $slider_center = isset($related_post_settings['slider']['center']) ? $related_post_settings['slider']['center'] : 'true';
         $slider_stop_on_hover = isset($related_post_settings['slider']['stop_on_hover']) ? $related_post_settings['slider']['stop_on_hover'] : 'true';
         $slider_navigation = isset($related_post_settings['slider']['navigation']) ? $related_post_settings['slider']['navigation'] : 'true';
+        $navigation_position = isset($related_post_settings['slider']['navigation_position']) ? $related_post_settings['slider']['navigation_position'] : '';
+
         $slider_pagination = isset($related_post_settings['slider']['pagination']) ? $related_post_settings['slider']['pagination'] : 'true';
         $slider_pagination_count = isset($related_post_settings['slider']['pagination_count']) ? $related_post_settings['slider']['pagination_count'] : 'false';
         $slider_rtl = isset($related_post_settings['slider']['rtl']) ? $related_post_settings['slider']['rtl'] : 'false';
@@ -1007,7 +1021,7 @@ if(!function_exists('related_post_settings_content_slider')) {
                 'title'		=> __('Slider loop','related-post'),
                 'details'	=> __('Choose slider loop.','related-post'),
                 'type'		=> 'select',
-                'value'		=> $slider_rewind,
+                'value'		=> $slider_loop,
                 'default'		=> 'true',
                 'args'		=> array('true'=>__('True','related-post'), 'false'=>__('False','related-post')),
             );
@@ -1064,7 +1078,7 @@ if(!function_exists('related_post_settings_content_slider')) {
                 'title'		=> __('Slider navigation position','related-post'),
                 'details'	=> __('Choose slider navigation position.','related-post'),
                 'type'		=> 'select',
-                'value'		=> $slider_navigation,
+                'value'		=> $navigation_position,
                 'default'		=> 'topright',
                 'args'		=> array('topright'=>__('Top-right','related-post'),  ), //'middle'=>__('Middle','related-post') , 'middle-fixed'=>__('Middle-fixed','related-post')
             );
@@ -1107,7 +1121,7 @@ if(!function_exists('related_post_settings_content_slider')) {
                 'details'	=> __('Choose slider rtl.','related-post'),
                 'type'		=> 'select',
                 'value'		=> $slider_rtl,
-                'default'		=> 'true',
+                'default'		=> 'false',
                 'args'		=> array('true'=>__('True','related-post'), 'false'=>__('False','related-post')),
             );
 

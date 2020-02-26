@@ -20,6 +20,8 @@ function related_post_display($atts,$content = null) {
 
     $related_post_settings = get_option( 'related_post_settings' );
     $layout_type = isset($related_post_settings['layout_type']) ? $related_post_settings['layout_type'] : 'grid';
+    $font_aw_version = isset($related_post_settings['font_aw_version']) ? $related_post_settings['font_aw_version'] : 'none';
+
     wp_enqueue_style('related-post');
     require_once( related_post_plugin_dir . 'templates/related-post-hook.php');
 
@@ -42,7 +44,12 @@ function related_post_display($atts,$content = null) {
     }
 
 
-    wp_enqueue_style('font-awesome-5');
+    if($font_aw_version == 'v_5'){
+        wp_enqueue_style('font-awesome-5');
+    }elseif ($font_aw_version == 'v_4'){
+        wp_enqueue_style('font-awesome-4');
+    }
+
 
     return ob_get_clean();
 
