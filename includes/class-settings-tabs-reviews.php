@@ -18,7 +18,6 @@ if( ! class_exists( 'settings_tabs_reviews' ) ) {
             wp_enqueue_style('font-awesome-5');
 
             $related_post_info = get_option('related_post_info');
-            $data_update_status = isset($related_post_info['data_update_status']) ? $related_post_info['data_update_status'] : '';
             $review_status = isset($related_post_info['review_status']) ? $related_post_info['review_status'] : '';
             $remind_date = isset($related_post_info['remind_date']) ? $related_post_info['remind_date'] : '';
 
@@ -36,6 +35,8 @@ if( ! class_exists( 'settings_tabs_reviews' ) ) {
                 $related_post_info['review_status'] = 'remind_later';
                 $related_post_info['remind_date'] = date('Y-m-d H:i:s', strtotime('+30 days'));
                 update_option('related_post_info', $related_post_info);
+
+                return;
             }
 
             ?>

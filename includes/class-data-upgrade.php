@@ -15,9 +15,10 @@ class class_related_post_data_upgrade{
 
         //delete_option('related_post_info');
 
+        $related_post_settings = get_option('related_post_settings');
 
         $related_post_info = get_option('related_post_info');
-        $data_update_status = isset($related_post_info['data_update_status']) ? $related_post_info['data_update_status'] : '';
+        $data_update_status = isset($related_post_info['data_update_status']) ? $related_post_info['data_update_status'] : 'success';
 
         $admin_url = get_admin_url();
 
@@ -25,7 +26,7 @@ class class_related_post_data_upgrade{
 
         ob_start();
 
-        if($data_update_status != 'success'):
+        if(!empty($related_post_settings) && $data_update_status != 'success'):
         ?>
         <div class="update-nag">
             <?php
@@ -43,7 +44,7 @@ class class_related_post_data_upgrade{
         $related_post_info = get_option('related_post_info');
         $data_update_status = isset($related_post_info['data_update_status']) ? $related_post_info['data_update_status'] : '';
 
-        if($data_update_status != 'success'):
+        if(!empty($related_post_settings) && $data_update_status != 'success'):
             add_submenu_page('related_post_settings', __('Data upgrade', 'related-post'), __('Data upgrade', 'related-post'), 'manage_options', 'related_post_data_upgrade', array( $this, 'data_update_process' ));
         endif;
 

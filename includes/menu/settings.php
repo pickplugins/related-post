@@ -74,8 +74,15 @@ wp_enqueue_script('settings-tabs');
 
 $review_status = isset($_GET['review_status']) ? sanitize_text_field($_GET['review_status']) : '';
 $related_post_info = get_option('related_post_info');
+$related_post_settings = get_option('related_post_settings');
+
+
+
+//delete_option('related_post_info');
+//delete_option('related_post_settings');
 
 //echo '<pre>'.var_export($related_post_info, true).'</pre>';
+//echo '<pre>'.var_export($related_post_settings, true).'</pre>';
 
 ?>
 <div class="wrap">
