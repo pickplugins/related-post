@@ -4,7 +4,7 @@
 	Tags: related post, related posts, related content, inline related post,  similar posts
 	Requires at least: 3.8
 	Tested up to: 5.3
-	Stable tag: 2.0.22
+	Stable tag: 2.0.24
 	License: GPLv2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -145,6 +145,13 @@ echo do_shortcode( '[related_post post_id=""]' );
 
 
 == Changelog ==
+
+	= 2.0.24 =
+    * 2020-03-05 fix - font-awesome icon issue for slider navigation
+
+
+	= 2.0.23 =
+    * 2020-02-28 fix - minor php error issue fixed.
 
 	= 2.0.22 =
     * 2020-02-26 add - Font awesome version load option added.

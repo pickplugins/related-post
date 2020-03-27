@@ -415,6 +415,21 @@ function related_post_main_slider_scripts($post_id){
     $slider_pagination_count = isset($related_post_settings['slider']['pagination_count']) ? $related_post_settings['slider']['pagination_count'] : 'true';
     $slider_rtl = isset($related_post_settings['slider']['rtl']) ? $related_post_settings['slider']['rtl'] : 'true';
 
+    $font_aw_version = isset($related_post_settings['font_aw_version']) ? $related_post_settings['font_aw_version'] : 'none';
+
+
+    if($font_aw_version == 'v_5'){
+        $navigation_text_prev = '<i class="fas fa-chevron-left"></i>';
+        $navigation_text_next = '<i class="fas fa-chevron-right"></i>';
+    }elseif ($font_aw_version == 'v_4'){
+        $navigation_text_prev = '<i class="fa fa-chevron-left"></i>';
+        $navigation_text_next = '<i class="fa fa-chevron-right"></i>';
+    }else{
+        $navigation_text_prev = '<i class="fas fa-chevron-left"></i>';
+        $navigation_text_next = '<i class="fas fa-chevron-right"></i>';
+    }
+
+
     if($layout_type=='slider'):
         ?>
         <script>
@@ -449,7 +464,7 @@ function related_post_main_slider_scripts($post_id){
                 <?php if(!empty($slider_navigation)): ?>
                 nav: <?php echo $slider_navigation; ?>,
                 navSpeed: <?php echo $slider_slide_speed; ?>,
-                navText : ['<i class="fas fa-chevron-left"></i>','<i class="fas fa-chevron-right"></i>'],
+                navText : ['<?php echo $navigation_text_prev; ?>','<?php echo $navigation_text_next; ?>'],
                 <?php endif;?>
                 <?php if(!empty($slider_pagination)): ?>
                 dots: <?php echo $slider_pagination; ?>,
