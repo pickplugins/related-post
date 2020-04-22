@@ -3,7 +3,7 @@
 Plugin Name: Related Post
 Plugin URI: http://wordpress.org/plugins/related-post/
 Description: Display related posts under post content on single page and excerpt on archive pages.
-Version: 2.0.24
+Version: 2.0.25
 Author: PickPlugins
 Author URI: http://pickplugins.com
 License: GPLv2 or later
@@ -107,16 +107,15 @@ class RelatedPost{
 	function _admin_scripts(){
 
 
-
-
 		wp_enqueue_script('related_post_js', related_post_plugin_url.'assets/admin/js/scripts.js' , array( 'jquery' ));
 		wp_localize_script('related_post_js', 'related_post_ajax', array( 'related_post_ajaxurl' => admin_url( 'admin-ajax.php')));
 
         wp_register_style('font-awesome-5', related_post_plugin_url.'assets/front/css/font-awesome-5.css');
 
 		// settings-tabs framework
-        wp_register_script('settings-tabs', related_post_plugin_url.'assets/admin/js/settings-tabs.js' , array( 'jquery' ));
-        wp_register_style('settings-tabs', related_post_plugin_url.'assets/admin/css/settings-tabs.css');
+        wp_register_script('settings-tabs', related_post_plugin_url.'assets/settings-tabs/settings-tabs.js' , array( 'jquery' ));
+        wp_register_style('settings-tabs', related_post_plugin_url.'assets/settings-tabs/settings-tabs.css');
+
 
 
 	}

@@ -413,7 +413,7 @@ if(!function_exists('related_post_settings_content_query')) {
                 'id'		=> 'orderby',
                 'parent'		=> 'related_post_settings',
                 'title'		=> __('Query orderby','related-post'),
-                'details'	=> __('Choose related post query orderby','related-post'),
+                'details'	=> __('Choose related post query orderby, this will override by <code>post__in</code> if manually selected post is not empty.','related-post'),
                 'type'		=> 'select',
                 'value'		=> $orderby,
                 'multiple'		=> true,

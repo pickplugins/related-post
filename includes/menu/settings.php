@@ -71,15 +71,8 @@ foreach ($related_post_settings_tab as $page_key => $tab) $tabs_sorted[$page_key
 array_multisort($tabs_sorted, SORT_ASC, $related_post_settings_tab);
 
 
-wp_enqueue_script('jquery');
-wp_enqueue_script('jquery-ui-sortable');
-wp_enqueue_script( 'jquery-ui-core' );
-wp_enqueue_script('jquery-ui-accordion');
-wp_enqueue_style( 'wp-color-picker' );
-wp_enqueue_script('wp-color-picker');
-wp_enqueue_style('font-awesome-5');
-wp_enqueue_style('settings-tabs');
-wp_enqueue_script('settings-tabs');
+$settings_tabs_field = new settings_tabs_field();
+$settings_tabs_field->admin_scripts();
 
 
 $review_status = isset($_GET['review_status']) ? sanitize_text_field($_GET['review_status']) : '';

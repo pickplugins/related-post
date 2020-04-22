@@ -10,6 +10,17 @@ jQuery(document).ready(function($){
         collapsible: true,
     });
 
+
+
+
+        //console.log(typeof(wpColorPicker));
+
+        //if(typeof(wpColorPicker) != 'undefined'){
+            $( ".settings-tabs [colorPicker]").wpColorPicker();
+        //}
+
+
+
     $( ".settings-tabs .accordion[sortable='true']").sortable({
         axis: "y",
         handle: "h3",
@@ -27,6 +38,31 @@ jQuery(document).ready(function($){
 
     $(".settings-tabs .sortable" ).sortable({ handle: ".sort" });
 
+    $(document).on('click','.settings-tabs .textarea-editor',function(){
+
+        id = $(this).attr('id');
+        editor_enabled = $(this).attr('editor_enabled');
+
+
+        console.log(typeof wp.editor);
+
+        if(editor_enabled == 'no' && typeof wp.editor != 'undefined'){
+            wp.editor.initialize( id, {
+                mediaButtons: true,
+                tinymce:      {
+                    toolbar1: 'bold,italic,bullist,numlist,link,blockquote,alignleft,aligncenter,alignright,strikethrough,hr,forecolor,pastetext,removeformat,codeformat,undo,redo'
+                },
+                quicktags:    true,
+            } );
+
+            $(this).attr('editor_enabled','yes');
+        }
+
+
+
+
+    })
+
 	$(document).on('click','.settings-tabs .tab-nav',function(){
 
 		$(this).parent().parent().children('.tab-navs').children('.tab-nav').removeClass('active');
@@ -34,7 +70,7 @@ jQuery(document).ready(function($){
         $(this).addClass('active');
 
         id = $(this).attr('data-id');
-        $('input[name="tab"]').val(id);
+        $('input[name="tab"], input.current_tab').val(id);
 
 
 		//console.log('Hello click');
@@ -74,7 +110,16 @@ jQuery(document).ready(function($){
     //     $("#media_preview_<?php echo $id; ?>").attr("src","");
     // })
 
+    $(document).on('click','.settings-tabs .field-media-wrapper .clear ',function(e){
 
+        $(this).parent().children().children('.media-preview').attr('src', '');
+        $(this).parent().children().children('.media-title').html('');
+        $(this).parent().children('.media-input-value').val('');
+
+        placeholder = $(this).attr('placeholder');
+        $(this).parent().children().children('.media-preview').attr('src', placeholder);
+
+    })
 
     $(document).on('click','.settings-tabs .field-media-wrapper .media-upload',function(e){
         var side_uploader;
@@ -99,13 +144,16 @@ jQuery(document).ready(function($){
             attachment = side_uploader.state().get('selection').first().toJSON();
 
             attachmentId = attachment.id;
+
             src_url = attachment.url;
+            src_filename = attachment.filename;
+
             //console.log(attachment);
 
             $(this_).prev().val(attachmentId);
 
             $(this_).parent().children('.media-preview-wrap').children('img').attr('src',src_url);
-
+            $(this_).parent().children().children('.media-title').html(src_filename);
         });
 
         //Open the uploader dialog
@@ -207,6 +255,11 @@ jQuery(document).ready(function($){
 
 
 
+    jQuery(document).on("click", ".settings-tabs .select-reset", function() {
+
+        $(this).prev('select').val('');
+
+    })
 
 
 
@@ -221,20 +274,20 @@ jQuery(document).ready(function($){
 
 
 
-
-    $(document).on('click', '.settings-tabs .expandable .expand', function()
-    {
-        if($(this).parent().parent().hasClass('active'))
-        {
-            $(this).parent().parent().removeClass('active');
-        }
-        else
-        {
-            $(this).parent().parent().addClass('active');
+    $(document).on('click', '.settings-tabs .expandable .expand', function(){
+        if($(this).parent().parent().children('.options').hasClass('active')){
+            //$(this).parent().parent().removeClass('active');
+            $(this).parent().parent().children('.options').removeClass('active');
+        }else {
+            //$(this).parent().parent().addClass('active');
+            $(this).parent().parent().children('.options').addClass('active');
         }
 
 
     })
+
+
+
 
 
  		

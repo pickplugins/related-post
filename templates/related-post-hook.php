@@ -25,17 +25,21 @@ function related_post_main_post_loop($post_id){
     $post_ids = get_post_ids_by_taxonomy_terms($post_id);
 
     $orderby = isset($related_post_settings['orderby']) ? $related_post_settings['orderby'] : array('post__in');
+
     $order = isset($related_post_settings['order']) ? $related_post_settings['order'] : 'DESC';
     $max_post_count= isset($related_post_settings['max_post_count']) ? $related_post_settings['max_post_count'] : 5;
     $layout_type = isset($related_post_settings['layout_type']) ? $related_post_settings['layout_type'] : 'grid';
 
     $related_post_ids = get_post_meta( $post_id, 'related_post_ids', true );
 
-    if(!empty($related_post_ids))
+    if(!empty($related_post_ids)){
         $post_ids = array_merge($related_post_ids, $post_ids);
-
+        $orderby = array('post__in');
+    }
 
     $orderby = (!empty($orderby) && is_array($orderby)) ? implode(' ', $orderby) : '';
+
+
 
     $args = array(
         'post_type' => $post_type,
