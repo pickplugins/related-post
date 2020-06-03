@@ -173,7 +173,7 @@ class class_related_post_post_meta{
 	public function meta_boxes_related_post_save($post_id){
 	 
 		if (!isset($_POST['related_post_nonce_check_value'])) return $post_id;
-		$nonce = $_POST['related_post_nonce_check_value'];
+		$nonce = isset($_POST['related_post_nonce_check_value']) ? $_POST['related_post_nonce_check_value'] : '';
 		if (!wp_verify_nonce($nonce, 'related_post_nonce_check')) return $post_id;
 
 		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return $post_id;

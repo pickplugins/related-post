@@ -2,6 +2,8 @@
 if ( ! defined('ABSPATH')) exit; // if direct access 
 
 
+
+
 add_filter('wp_head','related_post_count_stats');
 
 
@@ -128,6 +130,7 @@ function related_post_excerpt_display_auto($excerpt) {
 
     $is_archive_display = related_post_is_archive_display($archives);
     //echo '<pre>'.var_export($is_archive_display, true).'</pre>';
+    //echo '<pre>'.var_export($display_auto, true).'</pre>';
 
     $html = '';
 
@@ -238,8 +241,8 @@ function related_post_display_auto($content) {
 function related_post_ajax_get_post_ids(){
 
 			$response = array();
-			$post_id 	= (int)sanitize_text_field($_POST['post_id']);
-			$title 	= sanitize_text_field($_POST['title']);
+			$post_id 	= isset($_POST['post_id']) ? (int)sanitize_text_field($_POST['post_id']) : '';
+			$title 	= isset($_POST['title']) ? sanitize_text_field($_POST['title']) : '';
 			$post_type = get_post_type($post_id);
 			$args = array('post_type'=> array($post_type), 's'=> $title, 'post__not_in'=> array($post_id), 'posts_per_page'=>10);
 			$wp_query = new WP_Query($args);

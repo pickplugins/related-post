@@ -52,7 +52,7 @@ class class_related_post_data_upgrade{
 
     public function data_update_process(){
 
-        $nonce = isset($_GET['_wpnonce']) ? $_GET['_wpnonce'] : '';
+        $nonce = isset($_GET['_wpnonce']) ? sanitize_text_field($_GET['_wpnonce']) : '';
         $related_post_info = get_option('related_post_info');
         ?>
         <div class="wrap">

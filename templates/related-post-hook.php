@@ -9,7 +9,7 @@ function related_post_main_title($post_id){
 
     $related_post_settings = get_option( 'related_post_settings' );
 
-    $headline_text= isset($related_post_settings['headline_text']) ? $related_post_settings['headline_text'] : '';
+    $headline_text= !empty($related_post_settings['headline_text']) ? $related_post_settings['headline_text'] : __('Related Posts','related-post');
     ?>
     <div  class="headline" ><?php echo $headline_text; ?></div>
     <?php
@@ -169,7 +169,7 @@ function related_post_loop_item_element_post_excerpt($loop_post_id, $elementData
     //echo '<pre>'.var_export($elementData, true).'</pre>';
     $post_link = get_permalink($loop_post_id);
     $word_count = isset($elementData['word_count']) ? $elementData['word_count'] : 20;
-    $read_more_text = isset($elementData['read_more_text']) ? $elementData['read_more_text'] : __('Read more', '');
+    $read_more_text = !empty($elementData['read_more_text']) ? $elementData['read_more_text'] : __('Read more', 'related-post');
     $after_html = isset($elementData['after_html']) ? $elementData['after_html'] : '';
 
 

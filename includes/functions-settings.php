@@ -18,7 +18,7 @@ if(!function_exists('related_post_settings_content_general')) {
 
         $display_auto = isset($related_post_settings['display_auto']) ? $related_post_settings['display_auto'] : 'yes';
         $post_types = isset($related_post_settings['post_types']) ? $related_post_settings['post_types'] : array();
-        $headline_text = isset($related_post_settings['headline_text']) ? $related_post_settings['headline_text'] : __('Related Post','');
+        $headline_text = isset($related_post_settings['headline_text']) ? $related_post_settings['headline_text'] : __('Related Posts','related-post');
         $headline_text_font_size = isset($related_post_settings['headline_text_style']['font_size']) ? $related_post_settings['headline_text_style']['font_size'] : '';
         $headline_text_color = isset($related_post_settings['headline_text_style']['color']) ? $related_post_settings['headline_text_style']['color'] : '';
         $headline_text_custom_css = isset($related_post_settings['headline_text_style']['custom_css']) ? $related_post_settings['headline_text_style']['custom_css'] : '';
@@ -31,7 +31,7 @@ if(!function_exists('related_post_settings_content_general')) {
 
         $archives = isset($related_post_settings['archives']) ? $related_post_settings['archives'] : array();
 
-        $archives_array = array('front_page'=>'Front page', 'home' => 'Home', 'blog' => 'Blog', 'author' => 'Author', 'search' => 'Search', 'year' => 'Year', 'month' => 'Month', 'date' => 'Date');
+        $archives_array = array('front_page'=>__('Front page','related-post'), 'home' => __('Home','related-post'), 'blog' => __('Blog','related-post'), 'author' => __('Author ','related-post'), 'search' => __('Search','related-post'), 'year' => __('Year','related-post'), 'month' => __('Month','related-post'), 'date' => __('Date','related-post'));
         $all_post_types = get_post_types();
         $taxonomies = get_object_taxonomies( $all_post_types );
 
@@ -162,7 +162,7 @@ if(!function_exists('related_post_settings_content_general')) {
                 'details'	=> __('Custom text for related post headline.','related-post'),
                 'type'		=> 'text',
                 'value'		=> $headline_text,
-                'default'		=> __('Related Post',''),
+                'default'		=> __('Related Post','related-post'),
             );
 
             $settings_tabs_field->generate_field($args);

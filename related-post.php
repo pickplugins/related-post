@@ -3,7 +3,7 @@
 Plugin Name: Related Post
 Plugin URI: http://wordpress.org/plugins/related-post/
 Description: Display related posts under post content on single page and excerpt on archive pages.
-Version: 2.0.25
+Version: 2.0.26
 Author: PickPlugins
 Author URI: http://pickplugins.com
 License: GPLv2 or later
@@ -50,7 +50,19 @@ class RelatedPost{
 		add_action( 'plugins_loaded', array( $this, '_textdomain' ));
 
 		register_activation_hook( __FILE__, array( $this, '_activation' ) );
-		
+
+
+        $args = array(
+            'title' => 'Hope you enjoy <b>Related post</b> plugin ',
+            'option' => 'related_post_info',
+            'review_link' => 'https://wordpress.org/support/plugin/related-post/reviews/#new-post',
+            'support_link' => 'https://www.pickplugins.com/forum/',
+            'documentation_link' => 'https://www.pickplugins.com/documentation/related-post/',
+            'tutorials_link' => 'https://www.youtube.com/watch?v=9SZKa0QYgsc&list=PL0QP7T2SN94aXEA_fguVn2ZpdizEeNmsx',
+        );
+
+        new settings_tabs_reviews($args);
+
 		}
 
 	public function _activation() {

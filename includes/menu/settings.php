@@ -2,7 +2,7 @@
 if ( ! defined('ABSPATH')) exit;  // if direct access
 
 
-$current_tab = isset($_POST['tab']) ? $_POST['tab'] : 'general';
+$current_tab = isset($_POST['tab']) ? sanitize_text_field($_POST['tab']) : 'general';
 
 $related_post_settings_tab = array();
 
