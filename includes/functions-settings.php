@@ -18,6 +18,8 @@ if(!function_exists('related_post_settings_content_general')) {
 
         $display_auto = isset($related_post_settings['display_auto']) ? $related_post_settings['display_auto'] : 'yes';
         $post_types = isset($related_post_settings['post_types']) ? $related_post_settings['post_types'] : array();
+        $post_types_display = isset($related_post_settings['post_types_display']) ? $related_post_settings['post_types_display'] : array();
+
         $headline_text = isset($related_post_settings['headline_text']) ? $related_post_settings['headline_text'] : __('Related Posts','related-post');
         $headline_text_font_size = isset($related_post_settings['headline_text_style']['font_size']) ? $related_post_settings['headline_text_style']['font_size'] : '';
         $headline_text_color = isset($related_post_settings['headline_text_style']['color']) ? $related_post_settings['headline_text_style']['color'] : '';
@@ -54,18 +56,6 @@ if(!function_exists('related_post_settings_content_general')) {
 
             <?php
 
-            $args = array(
-                'id'		=> 'display_auto',
-                'parent'		=> 'related_post_settings',
-                'title'		=> __('Display automatically','related-post'),
-                'details'	=> __('Display automatically related post under post content.','related-post'),
-                'type'		=> 'select',
-                'value'		=> $display_auto,
-                'default'		=> 'yes',
-                'args'		=> array('yes'=>__('Yes','related-post'), 'no'=>__('No','related-post')),
-            );
-
-            $settings_tabs_field->generate_field($args);
 
             $post_types_list = get_post_types( '', 'names' );
             $post_types_array = array();
@@ -79,93 +69,214 @@ if(!function_exists('related_post_settings_content_general')) {
 
             //echo '<pre>'.var_export($post_types_array, true).'</pre>';
 
+
+
+
+
+            ob_start();
+
+
+            ?>
+            <div class="templates_editor expandable">
+                <?php
+
+                //$post_types = apply_filters('wishlist_posttypes', array('post'=>'Post', 'page' => 'Page'));
+                //$post_types = $post_types_list;
+
+                unset($post_types_list['nav_menu_item']);
+                unset($post_types_list['custom_css']);
+                unset($post_types_list['customize_changeset']);
+                unset($post_types_list['oembed_cache']);
+                unset($post_types_list['user_request']);
+                unset($post_types_list['wp_block']);
+                unset($post_types_list['revision']);
+
+                if(!empty($post_types_list))
+                    foreach($post_types_list as $post_type => $post_name){
+
+
+                        $enable = isset($post_types_display[$post_type]['enable']) ? $post_types_display[$post_type]['enable'] : 'no';
+                        $content_position = isset($post_types_display[$post_type]['content_position']) ? $post_types_display[$post_type]['content_position'] : array();
+                        $excerpt_position = isset($post_types_display[$post_type]['excerpt_position']) ? $post_types_display[$post_type]['excerpt_position'] : array();
+
+                        $description = isset($post_types_display[$post_type]['description']) ? $post_types_display[$post_type]['description'] : '';
+
+
+                        $paragraph_positions = isset($post_types_display[$post_type]['paragraph_positions']) ? $post_types_display[$post_type]['paragraph_positions'] : '';
+                        $view_type = isset($post_types_display[$post_type]['view_type']) ? $post_types_display[$post_type]['view_type'] : '';
+                        $headline_text = isset($post_types_display[$post_type]['headline_text']) ? $post_types_display[$post_type]['headline_text'] : '';
+
+
+
+                        //echo '<pre>'.var_export($enable).'</pre>';
+
+                        ?>
+                        <div class="item template <?php //echo $post_type; ?>">
+                            <div class="header">
+                                <span title="<?php echo __('Click to expand', 'job-board-manager'); ?>" class="expand ">
+                                    <i class="fa fa-expand"></i>
+                                    <i class="fa fa-compress"></i>
+                                </span>
+
+                                <?php
+                                if($enable =='yes'):
+                                    ?>
+                                    <span title="<?php echo __('Enable', 'job-board-manager'); ?>" class="is-enable ">
+                                        <i class="fa fa-check-square"></i>
+                                    </span>
+                                        <?php
+                                else:
+                                    ?>
+                                    <span title="<?php echo __('Disabled', 'job-board-manager'); ?>" class="is-enable ">
+                                    <i class="fa fa-times-circle"></i>
+                                    </span>
+                                    <?php
+                                endif;
+                                ?>
+
+
+                                <?php echo $post_name; ?>
+                            </div>
+                            <input type="hidden" name="wishlist_settings[post_types_display][<?php echo $post_type; ?>][name]" value="<?php echo $post_type; ?>" />
+                            <div class="options">
+                                <div class="description"><?php echo $description; ?></div><br/><br/>
+
+                                <?php
+
+                                $args = array(
+                                    'id'		=> 'enable',
+                                    'parent'		=> 'related_post_settings[post_types_display]['.$post_type.']',
+                                    'title'		=> __('Enable?','related-post'),
+                                    'details'	=> sprintf(__('Enable or disable related post automatically for %s.','related-post'), $post_type),
+                                    'type'		=> 'select',
+                                    'value'		=> $enable,
+                                    'default'		=> 'no',
+                                    'style'		=> array('inline' => true),
+                                    'args'		=> array('yes' => 'Yes', 'no'=> 'No'),
+
+                                );
+
+                                $settings_tabs_field->generate_field($args);
+
+
+                                $args = array(
+                                    'id'		=> 'content_position',
+                                    'parent'		=> 'related_post_settings[post_types_display]['.$post_type.']',
+                                    'title'		=> __('Content positions','related-post'),
+                                    'details'	=> __('Display before or after content.','related-post'),
+                                    'type'		=> 'checkbox',
+                                    'value'		=> $content_position,
+                                    'default'		=> array(),
+                                    'style'		=> array('inline' => true),
+                                    'args'		=> array('before' => 'Before', 'after'=> 'After'),
+
+                                );
+
+                                $settings_tabs_field->generate_field($args);
+
+                                $args = array(
+                                    'id'		=> 'excerpt_position',
+                                    'parent'		=> 'related_post_settings[post_types_display]['.$post_type.']',
+                                    'title'		=> __('Excerpt positions','related-post'),
+                                    'details'	=> __('Display before or after excerpt.','related-post'),
+                                    'type'		=> 'checkbox',
+                                    'value'		=> $excerpt_position,
+                                    'default'		=> array(),
+                                    'style'		=> array('inline' => true),
+                                    'args'		=> array('before' => 'Before', 'after'=> 'After'),
+
+                                );
+
+                                $settings_tabs_field->generate_field($args);
+
+
+
+
+
+
+
+
+
+                                $args = array(
+                                    'id'		=> 'view_type',
+                                    'parent'		=> 'related_post_settings[post_types_display]['.$post_type.']',
+                                    'title'		=> __('View type','related-post'),
+                                    'details'	=> __('Choose view type.','related-post'),
+                                    'type'		=> 'select',
+                                    'value'		=> $view_type,
+                                    'default'		=> array(),
+                                    'style'		=> array('inline' => true),
+                                    'args'		=> array('grid' => 'Grid', 'slider'=> 'Slider'),
+
+                                );
+
+                                $settings_tabs_field->generate_field($args);
+
+
+                                $args = array(
+                                    'id'		=> 'paragraph_positions',
+                                    'parent'		=> 'related_post_settings[post_types_display]['.$post_type.']',
+                                    'title'		=> __('Paragraph positions','related-post'),
+                                    'details'	=> __('Display related post after n\'th paragraph. N is total paragraph count, use comma to separate.','related-post'),
+                                    'type'		=> 'text',
+                                    'value'		=> $paragraph_positions,
+                                    'default'		=> '',
+                                    'placeholder'		=> '1,2,N-1',
+                                );
+
+                                $settings_tabs_field->generate_field($args);
+
+
+
+                                $args = array(
+                                    'id'		=> 'headline_text',
+                                    'parent'		=> 'related_post_settings[post_types_display]['.$post_type.']',
+                                    'title'		=> __('Headline text','related-post'),
+                                    'details'	=> __('Custom text for related post headline..','related-post'),
+                                    'type'		=> 'text',
+                                    'value'		=> $headline_text,
+                                    'default'		=> '',
+                                    'placeholder'		=> '',
+                                );
+
+                                $settings_tabs_field->generate_field($args);
+
+
+                                ?>
+
+
+                            </div>
+
+                        </div>
+                        <?php
+
+                    }
+
+
+                ?>
+
+
+            </div>
+            <?php
+
+
+            $html = ob_get_clean();
+
+
+
+
             $args = array(
                 'id'		=> 'post_types',
-                'parent'		=> 'related_post_settings',
-                'title'		=> __('Choose post types','related-post'),
-                'details'	=> __('Display related post automatically under selected post types.','related-post'),
-                'type'		=> 'checkbox',
-                'value'		=> $post_types,
-                'default'		=> array(),
-                'style'		=> array('inline' => false),
-                'args'		=> $post_types_array,
+                //'parent'		=> '',
+                'title'		=> __('Post types display','job-board-manager'),
+                'details'	=> __('Display automatically wishlist under following post types content and excerpt.','job-board-manager'),
+                'type'		=> 'custom_html',
+                //'multiple'		=> true,
+                'html'		=> $html,
             );
 
             $settings_tabs_field->generate_field($args);
 
-            $args = array(
-                'id'		=> 'archives',
-                'parent'		=> 'related_post_settings',
-                'title'		=> __('Choose archive','related-post'),
-                'details'	=> __('Display related post automatically following archive page.','related-post'),
-                'type'		=> 'checkbox',
-                'value'		=> $archives,
-                'default'		=> array(),
-                'style'		=> array('inline' => false),
-                'args'		=> $archives_array,
-            );
-
-            $settings_tabs_field->generate_field($args);
-
-
-
-
-            $args = array(
-                'id'		=> 'content_positions',
-                'parent'		=> 'related_post_settings',
-                'title'		=> __('Content positions','related-post'),
-                'details'	=> __('Display before or after content.','related-post'),
-                'type'		=> 'checkbox',
-                'value'		=> $content_positions,
-                'default'		=> array(),
-                'style'		=> array('inline' => false),
-                'args'		=> array('before' => 'Before', 'after'=> 'After'),
-
-            );
-
-            $settings_tabs_field->generate_field($args);
-
-            $args = array(
-                'id'		=> 'excerpt_positions',
-                'parent'		=> 'related_post_settings',
-                'title'		=> __('Excerpt positions','related-post'),
-                'details'	=> __('Display before or after excerpt.','related-post'),
-                'type'		=> 'checkbox',
-                'value'		=> $excerpt_positions,
-                'default'		=> array(),
-                'style'		=> array('inline' => false),
-                'args'		=> array('before' => 'Before', 'after'=> 'After'),
-
-            );
-
-            $settings_tabs_field->generate_field($args);
-
-            $args = array(
-                'id'		=> 'paragraph_positions',
-                'parent'		=> 'related_post_settings',
-                'title'		=> __('Paragraph positions','related-post'),
-                'details'	=> __('Display related post after n\'th paragraph. N is total paragraph count, use comma to separate.','related-post'),
-                'type'		=> 'text',
-                'value'		=> $paragraph_positions,
-                'default'		=> '',
-                'placeholder'   => '1,2,N-1',
-            );
-
-            $settings_tabs_field->generate_field($args);
-
-
-
-            $args = array(
-                'id'		=> 'headline_text',
-                'parent'		=> 'related_post_settings',
-                'title'		=> __('Headline text','related-post'),
-                'details'	=> __('Custom text for related post headline.','related-post'),
-                'type'		=> 'text',
-                'value'		=> $headline_text,
-                'default'		=> __('Related Post','related-post'),
-            );
-
-            $settings_tabs_field->generate_field($args);
 
 
             $args = array(
@@ -200,11 +311,13 @@ if(!function_exists('related_post_settings_content_general')) {
                         'id'		=> 'custom_css',
                         'parent'		=> 'related_post_settings[headline_text_style]',
                         'title'		=> __('Custom CSS','related-post'),
-                        'details'	=> __('Set custom css, do not use &lt;style>&lt;/style> tag or selector(.class-name)','related-post'),
+                        'details'	=> __('Set custom css, do not use &lt;style>&lt;/style> tag,use <strong>!important</strong> to override.','related-post'),
                         'type'		=> 'textarea',
                         'value'		=> $headline_text_custom_css,
                         'default'		=> '',
-                        'placeholder'   => 'border:1px solid #999',
+                        'placeholder'   => '.related-post .headline{
+border:1px solid #999;
+}',
                     ),
 
 

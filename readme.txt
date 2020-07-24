@@ -4,7 +4,7 @@
 	Tags: related post, related posts, related content, inline related post,  similar posts
 	Requires at least: 3.8
 	Tested up to: 5.4
-	Stable tag: 2.0.26
+	Stable tag: 2.0.29
 	License: GPLv2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -131,8 +131,6 @@ echo do_shortcode( '[related_post post_id=""]' );
 ?>
 `
 
-`Themes: text, flat`
-
 == Screenshots ==
 
 1. screenshot-1
@@ -145,6 +143,18 @@ echo do_shortcode( '[related_post post_id=""]' );
 
 
 == Changelog ==
+
+	= 2.0.29 =
+    * 2020-07-24 fix - headline custom CSS issue fixed.
+    * 2020-07-24 add - advance display by post types.
+
+
+	= 2.0.28 =
+    * 2020-06-26 add - manually selected post any post types
+
+
+	= 2.0.27 =
+    * 2020-06-16 remove - remove popup for reviews.
 
 	= 2.0.26 =
     * 2020-05-01 fix - translation for headline and read more added.

@@ -3,7 +3,7 @@
 Plugin Name: Related Post
 Plugin URI: http://wordpress.org/plugins/related-post/
 Description: Display related posts under post content on single page and excerpt on archive pages.
-Version: 2.0.26
+Version: 2.0.29
 Author: PickPlugins
 Author URI: http://pickplugins.com
 License: GPLv2 or later
@@ -30,7 +30,6 @@ class RelatedPost{
         //require_once( related_post_plugin_dir . 'includes/class-notices.php');
         require_once( related_post_plugin_dir . 'includes/class-post-meta.php');
         require_once( related_post_plugin_dir . 'includes/class-settings-tabs.php');
-        require_once( related_post_plugin_dir . 'includes/class-settings-tabs-reviews.php');
 
 
         require_once( related_post_plugin_dir . 'includes/class-data-upgrade.php');
@@ -52,20 +51,46 @@ class RelatedPost{
 		register_activation_hook( __FILE__, array( $this, '_activation' ) );
 
 
-        $args = array(
-            'title' => 'Hope you enjoy <b>Related post</b> plugin ',
-            'option' => 'related_post_info',
-            'review_link' => 'https://wordpress.org/support/plugin/related-post/reviews/#new-post',
-            'support_link' => 'https://www.pickplugins.com/forum/',
-            'documentation_link' => 'https://www.pickplugins.com/documentation/related-post/',
-            'tutorials_link' => 'https://www.youtube.com/watch?v=9SZKa0QYgsc&list=PL0QP7T2SN94aXEA_fguVn2ZpdizEeNmsx',
-        );
 
-        new settings_tabs_reviews($args);
 
 		}
 
 	public function _activation() {
+
+        $related_post_settings = get_option('related_post_settings');
+        $post_types_display = isset($related_post_settings['post_types_display']) ? $related_post_settings['post_types_display'] : array();
+
+
+        if(empty($post_types_display)){
+            $post_types = isset($related_post_settings['post_types']) ? $related_post_settings['post_types'] : array();
+            $content_positions = isset($related_post_settings['content_positions']) ? $related_post_settings['content_positions'] : array();
+            $excerpt_positions = isset($related_post_settings['excerpt_positions']) ? $related_post_settings['excerpt_positions'] : array();
+            $paragraph_positions = isset($related_post_settings['paragraph_positions']) ? $related_post_settings['paragraph_positions'] : "";
+            $headline_text = isset($related_post_settings['headline_text']) ? $related_post_settings['headline_text'] : "";
+            $layout_type = isset($related_post_settings['layout_type']) ? $related_post_settings['layout_type'] : "";
+
+
+            foreach ($post_types as $post_type){
+
+                $related_post_settings['post_types_display'][$post_type]['enable'] = 'yes';
+
+                $related_post_settings['post_types_display'][$post_type]['content_position'] = $content_positions;
+                $related_post_settings['post_types_display'][$post_type]['excerpt_position'] = $excerpt_positions;
+                $related_post_settings['post_types_display'][$post_type]['paragraph_positions'] = $paragraph_positions;
+                $related_post_settings['post_types_display'][$post_type]['headline_text'] = $headline_text;
+                $related_post_settings['post_types_display'][$post_type]['view_type'] = $layout_type;
+
+            }
+
+
+
+
+
+            update_option('related_post_settings', $related_post_settings);
+
+        }
+
+
 
 		global $wpdb;
 		$charset_collate = $wpdb->get_charset_collate();

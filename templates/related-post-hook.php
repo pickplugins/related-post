@@ -42,7 +42,7 @@ function related_post_main_post_loop($post_id){
 
 
     $args = array(
-        'post_type' => $post_type,
+        'post_type' => !empty($related_post_ids) ? 'any' : $post_type,
         'post_status' => 'publish',
         'post__in'=> $post_ids,
         'post__not_in' => array($post_id),
@@ -156,7 +156,9 @@ function related_post_loop_item_element_post_thumb($loop_post_id, $elementData){
 
     ?>
     <div class="thumb post_thumb">
-        <a <?php echo apply_filters('related_post_element_link_attrs', 'post_thumb', $elementData); ?> href="<?php echo $post_link; ?>"><img src="<?php echo $thumb_url; ?>"></a>
+        <a <?php echo apply_filters('related_post_element_link_attrs', 'post_thumb', $elementData); ?> href="<?php echo $post_link; ?>">
+            <?php echo get_the_post_thumbnail($loop_post_id, $thumb_size); ?>
+        </a>
     </div>
     <?php
 }
@@ -239,16 +241,16 @@ function related_post_main_css($post_id){
         }
         .related-post .headline{
         <?php if(!empty($headline_text_font_size)): ?>
-            font-size:<?php echo $headline_text_font_size; ?>;
+            font-size:<?php echo $headline_text_font_size; ?> !important;
         <?php endif; ?>
         <?php if(!empty($headline_text_color)): ?>
-            color:<?php echo $headline_text_color; ?>;
-        <?php endif; ?>
-        <?php if(!empty($headline_text_custom_css)): ?>
-            <?php echo $headline_text_custom_css; ?>
+            color:<?php echo $headline_text_color; ?> !important;
         <?php endif; ?>
         }
 
+        <?php if(!empty($headline_text_custom_css)): ?>
+        <?php echo $headline_text_custom_css; ?>
+        <?php endif; ?>
         <?php
 
 

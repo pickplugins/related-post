@@ -100,6 +100,7 @@ class class_related_post_post_meta{
         
         	<br>
 			<input placeholder="Start typing..." type="text" class="related_post_get_ids" post_id="<?php echo $post->ID; ?>" name="related_post_get_ids" value="" />
+            <label><input type="checkbox" id="any_posttypes" name="any_posttypes" value="any" >Any post types</label>
         
     		<div class="suggest-post-list">
             
