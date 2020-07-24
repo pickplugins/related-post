@@ -90,6 +90,7 @@ class RelatedPost{
 
         }
 
+        
 
 
 		global $wpdb;
