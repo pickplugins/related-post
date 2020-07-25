@@ -13,13 +13,22 @@ function related_post_display($atts,$content = null) {
     $atts = shortcode_atts(
         array(
             'post_id' => "",
+            'headline' => "",
+            'view_type' => "",
+
+
         ), $atts);
 
-    $post_id = isset($atts['post_id']) ? (int) $atts['post_id'] : get_the_ID();
-    $post_type = get_post_type( $post_id );
-
     $related_post_settings = get_option( 'related_post_settings' );
-    $layout_type = isset($related_post_settings['layout_type']) ? $related_post_settings['layout_type'] : 'grid';
+
+
+    $atts['settings'] = $related_post_settings;
+
+    $atts = apply_filters('related_post_atts', $atts);
+
+    $view_type = isset($atts['view_type']) ?  $atts['view_type'] : 'grid';
+    $layout_type = !empty($view_type) ? $view_type :  $related_post_settings['layout_type'];
+
     $font_aw_version = isset($related_post_settings['font_aw_version']) ? $related_post_settings['font_aw_version'] : 'none';
 
 
@@ -32,7 +41,7 @@ function related_post_display($atts,$content = null) {
     <div class="related-post <?php echo $layout_type; ?>">
         <?php
 
-        do_action('related_post_main', $post_id);
+        do_action('related_post_main', $atts);
 
         ?>
     </div>

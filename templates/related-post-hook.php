@@ -5,30 +5,44 @@ if ( ! defined('ABSPATH')) exit; // if direct access
 
 add_action('related_post_main' ,'related_post_main_title');
 
-function related_post_main_title($post_id){
+function related_post_main_title($atts){
 
-    $related_post_settings = get_option( 'related_post_settings' );
 
-    $headline_text= !empty($related_post_settings['headline_text']) ? $related_post_settings['headline_text'] : __('Related Posts','related-post');
-    ?>
-    <div  class="headline" ><?php echo $headline_text; ?></div>
-    <?php
+    $settings = isset($atts['settings']) ? $atts['settings'] : array();
+
+
+    $headline_text= !empty($settings['headline_text']) ? $settings['headline_text'] : '';
+    $headline_text = isset($atts['headline']) ?  $atts['headline'] : $headline_text;
+
+    if(!empty($headline_text)):
+        ?>
+        <div  class="headline" ><?php echo $headline_text; ?></div>
+        <?php
+    endif;
+
 
 }
 
 add_action('related_post_main' ,'related_post_main_post_loop');
 
-function related_post_main_post_loop($post_id){
+function related_post_main_post_loop($atts){
 
-    $related_post_settings = get_option( 'related_post_settings' );
+    $post_id = isset($atts['post_id']) ? (int) $atts['post_id'] : get_the_ID();
+    $settings = isset($atts['settings']) ?  $atts['settings'] : array();
+
+
+    $view_type = isset($atts['view_type']) ?  $atts['view_type'] : 'grid';
+
+    $layout_type = !empty($view_type) ? $view_type :  $settings['layout_type'];
+
+
     $post_type = get_post_type( $post_id );
     $post_ids = get_post_ids_by_taxonomy_terms($post_id);
 
-    $orderby = isset($related_post_settings['orderby']) ? $related_post_settings['orderby'] : array('post__in');
+    $orderby = isset($settings['orderby']) ? $settings['orderby'] : array('post__in');
 
-    $order = isset($related_post_settings['order']) ? $related_post_settings['order'] : 'DESC';
-    $max_post_count= isset($related_post_settings['max_post_count']) ? $related_post_settings['max_post_count'] : 5;
-    $layout_type = isset($related_post_settings['layout_type']) ? $related_post_settings['layout_type'] : 'grid';
+    $order = isset($settings['order']) ? $settings['order'] : 'DESC';
+    $max_post_count= isset($settings['max_post_count']) ? $settings['max_post_count'] : 5;
 
     $related_post_ids = get_post_meta( $post_id, 'related_post_ids', true );
 
@@ -68,10 +82,11 @@ function related_post_main_post_loop($post_id){
             while ($wp_query_new->have_posts()) : $wp_query_new->the_post();
 
                 $loop_post_id = get_the_id();
+                $atts['loop_post_id'] = get_the_id();
 
                 ?>
                 <div class="item">
-                    <?php do_action('related_post_loop_item', $loop_post_id); ?>
+                    <?php do_action('related_post_loop_item', $atts); ?>
                 </div>
                 <?php
             endwhile;
@@ -91,14 +106,17 @@ function related_post_main_post_loop($post_id){
 
 add_action('related_post_loop_item' ,'related_post_loop_item');
 
-function related_post_loop_item($loop_post_id){
+function related_post_loop_item($atts){
 
-    $related_post_settings = get_option( 'related_post_settings' );
-    $elements = isset($related_post_settings['elements']) ? $related_post_settings['elements'] : array();
+    $loop_post_id = isset($atts['loop_post_id']) ? (int) $atts['loop_post_id'] : get_the_ID();
+    $settings = isset($atts['settings']) ?  $atts['settings'] : array();
+
+    $elements = isset($settings['elements']) ? $settings['elements'] : array();
 
     foreach ($elements as $elementIndex=> $elementData){
 
         $hide = isset($elementData['hide']) ? $elementData['hide'] : 'no';
+        $elementData['settings'] = $settings;
 
         if($hide != 'yes'){
             do_action('related_post_loop_item_element_'.$elementIndex, $loop_post_id, $elementData);
@@ -113,12 +131,14 @@ function related_post_loop_item($loop_post_id){
 add_action('related_post_loop_item_element_post_title', 'related_post_loop_item_element_post_title', 10, 2);
 function related_post_loop_item_element_post_title($loop_post_id, $elementData){
 
+    $settings = isset($elementData['settings']) ?  $elementData['settings'] : array();
+
+
     $post_link = get_permalink($loop_post_id);
     $post_title = get_the_title($loop_post_id);
     $icon = isset($elementData['icon']) ? $elementData['icon'] : '';
 
-    $related_post_settings = get_option( 'related_post_settings' );
-    $enable_stats = isset($related_post_settings['enable_stats']) ? $related_post_settings['enable_stats'] : 'disable';
+    $enable_stats = isset($settings['enable_stats']) ? $settings['enable_stats'] : 'disable';
 
     $post_link = ($enable_stats == 'enable') ? $post_link.'?related_post_from='.$loop_post_id : $post_link ;
 
@@ -141,6 +161,7 @@ function related_post_loop_item_element_post_title($loop_post_id, $elementData){
 
 add_action('related_post_loop_item_element_post_thumb', 'related_post_loop_item_element_post_thumb', 10, 2);
 function related_post_loop_item_element_post_thumb($loop_post_id, $elementData){
+    $settings = isset($elementData['settings']) ?  $elementData['settings'] : array();
 
     $thumb_size = isset($elementData['thumb_size']) ? $elementData['thumb_size'] : 'full';
 
@@ -148,8 +169,7 @@ function related_post_loop_item_element_post_thumb($loop_post_id, $elementData){
     $thumb_url = isset($post_thumb['0']) ? $post_thumb['0'] : '';
     $post_link = get_permalink($loop_post_id);
 
-    $related_post_settings = get_option( 'related_post_settings' );
-    $enable_stats = isset($related_post_settings['enable_stats']) ? $related_post_settings['enable_stats'] : 'disable';
+    $enable_stats = isset($settings['enable_stats']) ? $settings['enable_stats'] : 'disable';
 
     $post_link = ($enable_stats == 'enable') ? $post_link.'?related_post_from='.$loop_post_id : $post_link;
 
@@ -167,6 +187,7 @@ function related_post_loop_item_element_post_thumb($loop_post_id, $elementData){
 add_action('related_post_loop_item_element_post_excerpt', 'related_post_loop_item_element_post_excerpt', 10, 2);
 function related_post_loop_item_element_post_excerpt($loop_post_id, $elementData){
 
+    $settings = isset($elementData['settings']) ?  $elementData['settings'] : array();
 
     //echo '<pre>'.var_export($elementData, true).'</pre>';
     $post_link = get_permalink($loop_post_id);
@@ -175,8 +196,7 @@ function related_post_loop_item_element_post_excerpt($loop_post_id, $elementData
     $after_html = isset($elementData['after_html']) ? $elementData['after_html'] : '';
 
 
-    $related_post_settings = get_option( 'related_post_settings' );
-    $enable_stats = isset($related_post_settings['enable_stats']) ? $related_post_settings['enable_stats'] : 'disable';
+    $enable_stats = isset($settings['enable_stats']) ? $settings['enable_stats'] : 'disable';
 
     $post_link = ($enable_stats == 'enable') ? $post_link.'?related_post_from='.$loop_post_id : $post_link;
 
@@ -202,20 +222,22 @@ function related_post_loop_item_element_post_excerpt($loop_post_id, $elementData
 
 add_action('related_post_main' ,'related_post_main_css');
 
-function related_post_main_css($post_id){
+function related_post_main_css($atts){
 
-    $related_post_settings = get_option( 'related_post_settings' );
+    $settings = isset($atts['settings']) ? $atts['settings'] : array();
 
-    $elements = isset($related_post_settings['elements']) ? $related_post_settings['elements'] : array();
-    $layout_type = isset($related_post_settings['layout_type']) ? $related_post_settings['layout_type'] : 'grid';
-    $item_width = isset($related_post_settings['item_width']) ? $related_post_settings['item_width'] : array();
-    $grid_item_margin = isset($related_post_settings['grid_item_margin']) ? $related_post_settings['grid_item_margin'] : '10px';
-    $grid_item_padding = isset($related_post_settings['grid_item_padding']) ? $related_post_settings['grid_item_padding'] : '0px';
-    $grid_item_align = isset($related_post_settings['grid_item_align']) ? $related_post_settings['grid_item_align'] : 'left';
+    $view_type = isset($atts['view_type']) ?  $atts['view_type'] : 'grid';
+    $layout_type = !empty($view_type) ? $view_type :  $settings['layout_type'];
 
-    $headline_text_font_size = isset($related_post_settings['headline_text_style']['font_size']) ? $related_post_settings['headline_text_style']['font_size'] : '';
-    $headline_text_color = isset($related_post_settings['headline_text_style']['color']) ? $related_post_settings['headline_text_style']['color'] : '';
-    $headline_text_custom_css = isset($related_post_settings['headline_text_style']['custom_css']) ? $related_post_settings['headline_text_style']['custom_css'] : '';
+    $elements = isset($settings['elements']) ? $settings['elements'] : array();
+    $item_width = isset($settings['item_width']) ? $settings['item_width'] : array();
+    $grid_item_margin = isset($settings['grid_item_margin']) ? $settings['grid_item_margin'] : '10px';
+    $grid_item_padding = isset($settings['grid_item_padding']) ? $settings['grid_item_padding'] : '0px';
+    $grid_item_align = isset($settings['grid_item_align']) ? $settings['grid_item_align'] : 'left';
+
+    $headline_text_font_size = isset($settings['headline_text_style']['font_size']) ? $settings['headline_text_style']['font_size'] : '';
+    $headline_text_color = isset($settings['headline_text_style']['color']) ? $settings['headline_text_style']['color'] : '';
+    $headline_text_custom_css = isset($settings['headline_text_style']['custom_css']) ? $settings['headline_text_style']['custom_css'] : '';
 
     //var_dump($item_width);
 
@@ -402,26 +424,29 @@ function related_post_main_css($post_id){
 
 add_action('related_post_main' ,'related_post_main_slider_scripts');
 
-function related_post_main_slider_scripts($post_id){
+function related_post_main_slider_scripts($atts){
 
-    $related_post_settings = get_option( 'related_post_settings' );
-    $layout_type = isset($related_post_settings['layout_type']) ? $related_post_settings['layout_type'] : 'grid';
-    $slider_column_number_desktop = isset($related_post_settings['slider']['column_desktop']) ? $related_post_settings['slider']['column_desktop'] : 3;
-    $slider_column_number_tablet = isset($related_post_settings['slider']['column_tablet']) ? $related_post_settings['slider']['column_tablet'] : 2;
-    $slider_column_number_mobile = isset($related_post_settings['slider']['column_mobile']) ? $related_post_settings['slider']['column_mobile'] : 1;
-    $slider_slide_speed = isset($related_post_settings['slider']['slide_speed']) ? $related_post_settings['slider']['slide_speed'] : 1000;
-    $slider_pagination_speed = isset($related_post_settings['slider']['pagination_speed']) ? $related_post_settings['slider']['pagination_speed'] : 1200;
-    $slider_auto_play = isset($related_post_settings['slider']['auto_play']) ? $related_post_settings['slider']['auto_play'] : 'true';
-    $slider_rewind = isset($related_post_settings['slider']['rewind']) ? $related_post_settings['slider']['rewind'] : 'true';
-    $slider_loop = isset($related_post_settings['slider']['loop']) ? $related_post_settings['slider']['loop'] : 'true';
-    $slider_center = isset($related_post_settings['slider']['center']) ? $related_post_settings['slider']['center'] : 'true';
-    $slider_stop_on_hover = isset($related_post_settings['slider']['stop_on_hover']) ? $related_post_settings['slider']['stop_on_hover'] : 'true';
-    $slider_navigation = isset($related_post_settings['slider']['navigation']) ? $related_post_settings['slider']['navigation'] : 'true';
-    $slider_pagination = isset($related_post_settings['slider']['pagination']) ? $related_post_settings['slider']['pagination'] : 'true';
-    $slider_pagination_count = isset($related_post_settings['slider']['pagination_count']) ? $related_post_settings['slider']['pagination_count'] : 'true';
-    $slider_rtl = isset($related_post_settings['slider']['rtl']) ? $related_post_settings['slider']['rtl'] : 'true';
+    $settings = isset($atts['settings']) ? $atts['settings'] : array();
 
-    $font_aw_version = isset($related_post_settings['font_aw_version']) ? $related_post_settings['font_aw_version'] : 'none';
+    $view_type = isset($atts['view_type']) ?  $atts['view_type'] : 'grid';
+    $layout_type = !empty($view_type) ? $view_type :  $settings['layout_type'];
+
+    $slider_column_number_desktop = isset($settings['slider']['column_desktop']) ? $settings['slider']['column_desktop'] : 3;
+    $slider_column_number_tablet = isset($settings['slider']['column_tablet']) ? $settings['slider']['column_tablet'] : 2;
+    $slider_column_number_mobile = isset($settings['slider']['column_mobile']) ? $settings['slider']['column_mobile'] : 1;
+    $slider_slide_speed = isset($settings['slider']['slide_speed']) ? $settings['slider']['slide_speed'] : 1000;
+    $slider_pagination_speed = isset($settings['slider']['pagination_speed']) ? $settings['slider']['pagination_speed'] : 1200;
+    $slider_auto_play = isset($settings['slider']['auto_play']) ? $settings['slider']['auto_play'] : 'true';
+    $slider_rewind = isset($settings['slider']['rewind']) ? $settings['slider']['rewind'] : 'true';
+    $slider_loop = isset($settings['slider']['loop']) ? $settings['slider']['loop'] : 'true';
+    $slider_center = isset($settings['slider']['center']) ? $settings['slider']['center'] : 'true';
+    $slider_stop_on_hover = isset($settings['slider']['stop_on_hover']) ? $settings['slider']['stop_on_hover'] : 'true';
+    $slider_navigation = isset($settings['slider']['navigation']) ? $settings['slider']['navigation'] : 'true';
+    $slider_pagination = isset($settings['slider']['pagination']) ? $settings['slider']['pagination'] : 'true';
+    $slider_pagination_count = isset($settings['slider']['pagination_count']) ? $settings['slider']['pagination_count'] : 'true';
+    $slider_rtl = isset($settings['slider']['rtl']) ? $settings['slider']['rtl'] : 'true';
+
+    $font_aw_version = isset($settings['font_aw_version']) ? $settings['font_aw_version'] : 'none';
 
 
     if($font_aw_version == 'v_5'){

@@ -32,7 +32,7 @@ function related_post_display_auto($content){
         $view_type = isset($post_types_display[$posttype]['view_type']) ? $post_types_display[$posttype]['view_type'] : '';
         $headline_text = isset($post_types_display[$posttype]['headline_text']) ? $post_types_display[$posttype]['headline_text'] : '';
 
-        $related_post_html  = do_shortcode('[related_post post_id="'.$post_id.'"]');
+        $related_post_html  = do_shortcode('[related_post post_id="'.$post_id.'" view_type="'.$view_type.'" headline="'.$headline_text.'"]');
 
         $paragraph_positions = !empty($paragraph_positions) ? explode(',', $paragraph_positions) : array();
 
@@ -43,7 +43,7 @@ function related_post_display_auto($content){
 
         if( in_array('before', $content_position)){
 
-            $html .= do_shortcode('[related_post post_id="'.get_the_id().'"]');
+            $html .= do_shortcode('[related_post post_id="'.get_the_id().'" view_type="'.$view_type.'" headline="'.$headline_text.'"]');
         }
 
 
@@ -105,7 +105,7 @@ function related_post_display_auto($content){
 
         if( in_array('after', $content_position)){
 
-            $html .= do_shortcode('[related_post post_id="'.get_the_id().'"]');
+            $html .= do_shortcode('[related_post post_id="'.get_the_id().'" view_type="'.$view_type.'" headline="'.$headline_text.'"]');
 
         }
 
@@ -141,19 +141,21 @@ function related_post_display_on_excerpt($excerpt){
     if($enable == 'yes'){
 
         $excerpt_position = isset($post_types_display[$posttype]['excerpt_position']) ? $post_types_display[$posttype]['excerpt_position'] : 'none';
+        $headline_text = isset($post_types_display[$posttype]['headline_text']) ? $post_types_display[$posttype]['headline_text'] : '';
+        $view_type = isset($post_types_display[$posttype]['view_type']) ? $post_types_display[$posttype]['view_type'] : '';
 
 
         $html = '';
 
         if( in_array('before', $excerpt_position)){
 
-            $html .= do_shortcode('[related_post post_id="'.get_the_id().'"]');
+            $html .= do_shortcode('[related_post post_id="'.get_the_id().'" view_type="'.$view_type.'" headline="'.$headline_text.'"]');
         }
         $html .= $excerpt;
 
         if( in_array('after', $excerpt_position)){
 
-            $html .= do_shortcode('[related_post post_id="'.get_the_id().'"]');
+            $html .= do_shortcode('[related_post post_id="'.get_the_id().'" view_type="'.$view_type.'" headline="'.$headline_text.'"]');
 
         }
 
