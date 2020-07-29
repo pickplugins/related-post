@@ -11,6 +11,11 @@ jQuery(document).ready(function($){
     });
 
 
+    tabs = $(".settings-tabs .tabs" ).tabs({
+        collapsible: true,
+        event: "click",
+        active: 0,
+    });
 
 
         //console.log(typeof(wpColorPicker));

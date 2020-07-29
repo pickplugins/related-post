@@ -979,6 +979,349 @@ if(!function_exists('related_post_settings_content_elements')) {
 
 
 
+            $args = array(
+                'id'		    => 'elements',
+                'title'		    => __('Elements settings','related-post'),
+                'details'	    => __('Customize elements.','related-post'),
+                'type'		    => 'option_group_tabs',
+                'value'		    => $elements,
+                'sortable'		=> true,
+                'default'		=> array(),
+                'args_index'	=> $elements_index,
+                'args_index_default'    => apply_filters('related_post_elements_index', array('post_title', 'post_thumb', 'post_excerpt')),
+                'args_index_hide'	=>  array('post_title' => false, 'post_thumb' => false , 'post_excerpt' => false),
+
+                'args'          => apply_filters('related_post_elements_args', array(
+                    'post_title'    => array(
+                        'title'     =>'Post title',
+                        'options'   =>array(
+                            array(
+                                'id'		    => 'post_title',
+                                'parent'		=> 'related_post_settings[elements_index]',
+                                'title'		    => '',
+                                'details'	    => '',
+                                'type'		    => 'hidden',
+                                'value'		=> 'post_title',
+                                'default'		=> 'post_title',
+                            ),
+                            array(
+                                'id'		=> 'hide',
+                                'parent'		=> 'related_post_settings[elements][post_title]',
+                                'title'		=> __('Hide','related-post'),
+                                'details'	=> __('You can hide this element.','related-post'),
+                                'type'		=> 'select',
+                                'value'		=> isset($elements['post_title']['hide']) ? $elements['post_title']['hide'] : 'no',
+                                //'multiple'		=> true,
+                                'default'		=> 'no',
+                                'args'		=> array(
+                                    'no'=>__('No','related-post'),
+                                    'yes'=>__('Yes','related-post'),
+                                ),
+                            ),
+
+                            array(
+                                'id'		    => 'font_size',
+                                'parent'		=> 'related_post_settings[elements][post_title]',
+                                'title'		    => __('Font size','related-post'),
+                                'details'	    => __('Set custom font size. ex: 14px','related-post'),
+                                'type'		    => 'text',
+                                'value'		=> isset($elements['post_title']['font_size']) ? $elements['post_title']['font_size'] : '',
+                                'default'		=> '16px',
+                                'placeholder'   => '14px',
+                            ),
+                            array(
+                                'id'		    => 'font_color',
+                                'css_id'		    => 'post_title_font_color',
+                                'parent'		=> 'related_post_settings[elements][post_title]',
+                                'title'		    => __('Font color','related-post'),
+                                'details'	    => __('Choose font color.','related-post'),
+                                'type'		    => 'colorpicker',
+                                'value'		=> isset($elements['post_title']['font_color']) ? $elements['post_title']['font_color'] : '',
+                                'default'		=> '#3f3f3f',
+                                'placeholder'   => '14px',
+                            ),
+                            array(
+                                'id'		    => 'line_height',
+                                'parent'		=> 'related_post_settings[elements][post_title]',
+                                'title'		    => __('Line height','related-post'),
+                                'details'	    => __('Set line height.','related-post'),
+                                'type'		    => 'text',
+                                'value'		=> isset($elements['post_title']['line_height']) ? $elements['post_title']['line_height'] : '',
+                                'default'		=> '',
+                                'placeholder'   => 'normal',
+                            ),
+
+                            array(
+                                'id'		    => 'margin',
+                                'parent'		=> 'related_post_settings[elements][post_title]',
+                                'title'		    => __('Margin','related-post'),
+                                'details'	    => __('Set margin. ex: 5px 10px','related-post'),
+                                'type'		    => 'text',
+                                'value'		=> isset($elements['post_title']['margin']) ? $elements['post_title']['margin'] : '',
+                                'default'		=> '10px 0px',
+                                'placeholder'   => '10px',
+                            ),
+
+                            array(
+                                'id'		    => 'padding',
+                                'parent'		=> 'related_post_settings[elements][post_title]',
+                                'title'		    => __('Padding','related-post'),
+                                'details'	    => __('Set padding. ex: 5px 10px','related-post'),
+                                'type'		    => 'text',
+                                'value'		=> isset($elements['post_title']['padding']) ? $elements['post_title']['padding'] : '',
+                                'default'		=> '0px',
+                                'placeholder'   => '10px',
+                            ),
+                            array(
+                                'id'		    => 'icon',
+                                'parent'		=> 'related_post_settings[elements][post_title]',
+                                'title'		    => __('Icon','related-post'),
+                                'details'	    => __('Set icon. use font awesome icon HTML, ex: <code>&lt;i class="fas fa-dot-circle">&lt;/i></code>','related-post'),
+                                'type'		    => 'text',
+                                'value'		=> isset($elements['post_title']['icon']) ? $elements['post_title']['icon'] : '',
+                                'default'		=> '',
+                                'placeholder'   => esc_attr('<i class="fas fa-dot-circle"></i>'),
+                            ),
+                            array(
+                                'id'		    => 'icon_font_size',
+                                'parent'		=> 'related_post_settings[elements][post_title]',
+                                'title'		    => __('Icon font size','related-post'),
+                                'details'	    => __('Set icon font size.','related-post'),
+                                'type'		    => 'text',
+                                'value'		=> isset($elements['post_title']['icon_font_size']) ? $elements['post_title']['icon_font_size'] : '',
+                                'default'		=> '',
+                                'placeholder'   => '16px',
+                            ),
+                            array(
+                                'id'		    => 'custom_css',
+                                'parent'		=> 'related_post_settings[elements][post_title]',
+                                'title'		    => __('Custom CSS','related-post'),
+                                'details'	    => __('Write custom CSS, do not write &lt;style>&lt;/style> tag, do not use selector(.class-name{})','related-post'),
+                                'type'		    => 'textarea',
+                                'value'		=> isset($elements['post_title']['custom_css']) ? $elements['post_title']['custom_css'] : '',
+                                'placeholder'   => 'color:#999999;',
+                            ),
+
+
+
+
+
+                        ),
+                    ),
+                    'post_thumb' => array(
+                        'title'=>'Post thumbnail',
+                        'options'=>array(
+                            array(
+                                'id'		    => 'post_thumb',
+                                'parent'		=> 'related_post_settings[elements_index]',
+                                'title'		    => '',
+                                'details'	    => '',
+                                'type'		    => 'hidden',
+                                'value'		=> 'post_thumb',
+                                'default'		=> 'post_thumb',
+                            ),
+                            array(
+                                'id'		=> 'hide',
+                                'parent'		=> 'related_post_settings[elements][post_thumb]',
+                                'title'		=> __('Hide','related-post'),
+                                'details'	=> __('You can hide this element.','related-post'),
+                                'type'		=> 'select',
+                                'value'		=> isset($elements['post_thumb']['hide']) ? $elements['post_thumb']['hide'] : 'no',
+                                //'multiple'		=> true,
+                                'default'		=> 'no',
+                                'args'		=> array(
+                                    'no'=>__('No','related-post'),
+                                    'yes'=>__('Yes','related-post'),
+                                ),
+                            ),
+
+                            array(
+                                'id'		    => 'thumb_size',
+                                'parent'		=> 'related_post_settings[elements][post_thumb]',
+                                'title'		    => __('Thumbnail size','related-post'),
+                                'details'	    => __('Choose thumbnail size','related-post'),
+                                'type'		    => 'select',
+                                'value'		=> isset($elements['post_thumb']['thumb_size']) ? $elements['post_thumb']['thumb_size'] : 'full',
+                                'default'		=> 'full',
+                                'args'   => $image_sizes,
+                            ),
+                            array(
+                                'id'		    => 'default_img',
+                                'parent'		=> 'related_post_settings[elements][post_thumb]',
+                                'title'		    => __('Default thumbnail','related-post'),
+                                'details'	    => __('Set default thumbnail','related-post'),
+                                'type'		    => 'media_url',
+                                'value'		=> isset($elements['post_thumb']['default_img']) ? $elements['post_thumb']['default_img'] : '',
+                                'default'		=> '',
+                            ),
+
+                            array(
+                                'id'		    => 'max_height',
+                                'parent'		=> 'related_post_settings[elements][post_thumb]',
+                                'title'		    => __('Max height','related-post'),
+                                'details'	    => __('Set max height','related-post'),
+                                'type'		    => 'text',
+                                'value'		=> isset($elements['post_thumb']['max_height']) ? $elements['post_thumb']['max_height'] : '',
+                                'default'		=> '220px',
+                                'placeholder'   => '200px',
+                            ),
+                            array(
+                                'id'		    => 'margin',
+                                'parent'		=> 'related_post_settings[elements][post_thumb]',
+                                'title'		    => __('Margin','related-post'),
+                                'details'	    => __('Set margin. ex: 5px 10px','related-post'),
+                                'type'		    => 'text',
+                                'value'		=> isset($elements['post_thumb']['margin']) ? $elements['post_thumb']['margin'] : '',
+                                'default'		=> '10px 0px',
+                                'placeholder'   => '10px',
+                            ),
+
+                            array(
+                                'id'		    => 'padding',
+                                'parent'		=> 'related_post_settings[elements][post_thumb]',
+                                'title'		    => __('Padding','related-post'),
+                                'details'	    => __('Set padding. ex: 5px 10px','related-post'),
+                                'type'		    => 'text',
+                                'value'		=> isset($elements['post_thumb']['padding']) ? $elements['post_thumb']['padding'] : '',
+                                'default'		=> '0px',
+                                'placeholder'   => '10px',
+                            ),
+                            array(
+                                'id'		    => 'custom_css',
+                                'parent'		=> 'related_post_settings[elements][post_thumb]',
+                                'title'		    => __('Custom CSS','related-post'),
+                                'details'	    => __('Write custom CSS, do not write &lt;style>&lt;/style> tag, do not use selector(.class-name{})','related-post'),
+                                'type'		    => 'textarea',
+                                'value'		=> isset($elements['post_thumb']['custom_css']) ? $elements['post_thumb']['custom_css'] : '',
+                                'placeholder'   => 'font-size:16px;',
+                            ),
+
+                        ),
+                    ),
+                    'post_excerpt' => array(
+                        'title'=>'Post excerpt',
+                        'options'=>array(
+                            array(
+                                'id'		    => 'post_excerpt',
+                                'parent'		=> 'related_post_settings[elements_index]',
+                                'title'		    => '',
+                                'details'	    => '',
+                                'type'		    => 'hidden',
+                                'value'		=> 'post_excerpt',
+                                'default'		=> 'post_excerpt',
+                            ),
+                            array(
+                                'id'		=> 'hide',
+                                'parent'		=> 'related_post_settings[elements][post_excerpt]',
+                                'title'		=> __('Hide','related-post'),
+                                'details'	=> __('You can hide this element.','related-post'),
+                                'type'		=> 'select',
+                                'value'		=> isset($elements['post_excerpt']['hide']) ? $elements['post_excerpt']['hide'] : 'no',
+                                //'multiple'		=> true,
+                                'default'		=> 'no',
+                                'args'		=> array(
+                                    'no'=>__('No','related-post'),
+                                    'yes'=>__('Yes','related-post'),
+                                ),
+                            ),
+                            array(
+                                'id'		    => 'word_count',
+                                'parent'		=> 'related_post_settings[elements][post_excerpt]',
+                                'title'		    => __('Excerpt word count','related-post'),
+                                'details'	    => __('Set custom number of word count for excerpt.','related-post'),
+                                'type'		    => 'text',
+                                'value'		=> isset($elements['post_excerpt']['word_count']) ? $elements['post_excerpt']['word_count'] : '',
+                                'default'		=> '20',
+                                'placeholder'   => '20',
+                            ),
+
+                            array(
+                                'id'		    => 'read_more_text',
+                                'parent'		=> 'related_post_settings[elements][post_excerpt]',
+                                'title'		    => __('Read more text','related-post'),
+                                'details'	    => __('Set custom raed more text for excerpt.','related-post'),
+                                'type'		    => 'text',
+                                'value'		=> isset($elements['post_excerpt']['read_more_text']) ? $elements['post_excerpt']['read_more_text'] : '',
+                                'default'		=> __('Read more', 'related-post'),
+                                'placeholder'   => __('Read more', 'related-post'),
+                            ),
+
+
+                            array(
+                                'id'		    => 'font_size',
+                                'parent'		=> 'related_post_settings[elements][post_excerpt]',
+                                'title'		    => __('Font size','related-post'),
+                                'details'	    => __('Set custom font size. ex: 14px','related-post'),
+                                'type'		    => 'text',
+                                'value'		=> isset($elements['post_excerpt']['font_size']) ? $elements['post_excerpt']['font_size'] : '',
+                                'default'		=> '13px',
+                                'placeholder'   => '14px',
+                            ),
+                            array(
+                                'id'		    => 'font_color',
+                                'css_id'		    => 'excerpt_font_color',
+                                'parent'		=> 'related_post_settings[elements][post_excerpt]',
+                                'title'		    => __('Font color','related-post'),
+                                'details'	    => __('Choose font color.','related-post'),
+                                'type'		    => 'colorpicker',
+                                'value'		=> isset($elements['post_excerpt']['font_color']) ? $elements['post_excerpt']['font_color'] : '',
+                                'default'		=> '#3f3f3f',
+                                'placeholder'   => '14px',
+                            ),
+                            array(
+                                'id'		    => 'line_height',
+                                'parent'		=> 'related_post_settings[elements][post_excerpt]',
+                                'title'		    => __('Line height','related-post'),
+                                'details'	    => __('Set line height.','related-post'),
+                                'type'		    => 'text',
+                                'value'		=> isset($elements['post_excerpt']['line_height']) ? $elements['post_excerpt']['line_height'] : '',
+                                'default'		=> '',
+                                'placeholder'   => 'normal',
+                            ),
+
+                            array(
+                                'id'		    => 'margin',
+                                'parent'		=> 'related_post_settings[elements][post_excerpt]',
+                                'title'		    => __('Margin','related-post'),
+                                'details'	    => __('Set margin. ex: 5px 10px','related-post'),
+                                'type'		    => 'text',
+                                'value'		=> isset($elements['post_excerpt']['margin']) ? $elements['post_excerpt']['margin'] : '',
+                                'default'		=> '10px 0px',
+                                'placeholder'   => '10px',
+                            ),
+
+                            array(
+                                'id'		    => 'padding',
+                                'parent'		=> 'related_post_settings[elements][post_excerpt]',
+                                'title'		    => __('Padding','related-post'),
+                                'details'	    => __('Set padding. ex: 5px 10px','related-post'),
+                                'type'		    => 'text',
+                                'value'		=> isset($elements['post_excerpt']['padding']) ? $elements['post_excerpt']['padding'] : '',
+                                'default'		=> '0px',
+                                'placeholder'   => '10px',
+                            ),
+                            array(
+                                'id'		    => 'custom_css',
+                                'parent'		=> 'related_post_settings[elements][post_excerpt]',
+                                'title'		    => __('Custom CSS','related-post'),
+                                'details'	    => __('Write custom CSS, do not write &lt;style>&lt;/style> tag, do not use selector(.class-name{})','related-post'),
+                                'type'		    => 'textarea',
+                                'value'		=> isset($elements['post_excerpt']['custom_css']) ? $elements['post_excerpt']['custom_css'] : '',
+                                'placeholder'   => 'border: 1px solid #ddddd;',
+                            ),
+
+
+
+                        ),
+                    ),
+
+                ), $elements
+                ),
+            );
+
+            $settings_tabs_field->generate_field($args);
+
+
 
 
 

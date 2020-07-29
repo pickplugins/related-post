@@ -153,6 +153,7 @@ class RelatedPost{
 		// settings-tabs framework
         wp_register_script('settings-tabs', related_post_plugin_url.'assets/settings-tabs/settings-tabs.js' , array( 'jquery' ));
         wp_register_style('settings-tabs', related_post_plugin_url.'assets/settings-tabs/settings-tabs.css');
+        //wp_register_style('jquery-ui', related_post_plugin_url.'assets/settings-tabs/jquery-ui.css');
 
 
 

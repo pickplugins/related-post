@@ -10,6 +10,15 @@ jQuery(document).ready(function($){
         collapsible: true,
     });
 
+
+
+    tabs = $(".settings-tabs .tabs" ).tabs({
+            collapsible: ture,
+            event: "click",
+            active: 0,
+        });
+
+
     $( ".settings-tabs .accordion[sortable='true']").sortable({
         axis: "y",
         handle: "h3",

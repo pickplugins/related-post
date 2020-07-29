@@ -22,7 +22,15 @@ class settings_tabs_field{
         wp_enqueue_script('jquery-ui-sortable');
         wp_enqueue_script( 'jquery-ui-core' );
         wp_enqueue_script('jquery-ui-accordion');
+        wp_enqueue_script('jquery-ui-tabs');
         wp_enqueue_style( 'jquery-ui');
+
+        wp_enqueue_script( 'jquery' );
+        wp_enqueue_script( 'jquery-ui-core' );
+        wp_enqueue_script('jquery-ui-tabs');
+        wp_enqueue_script('jquery-effects-core');
+
+        //wp_enqueue_style( 'jquery-ui' );
 
         wp_enqueue_script('wp-color-picker');
         wp_enqueue_style( 'wp-color-picker' );
@@ -112,6 +120,8 @@ class settings_tabs_field{
 
         elseif( isset($option['type']) && $option['type'] === 'option_group')	    $this->field_option_group( $option );
         elseif( isset($option['type']) && $option['type'] === 'option_group_accordion')	    $this->field_option_group_accordion( $option );
+        elseif( isset($option['type']) && $option['type'] === 'option_group_tabs')	    $this->field_option_group_tabs( $option );
+
         elseif( isset($option['type']) && $option['type'] === 'wp_editor')	    $this->field_wp_editor( $option );
         elseif( isset($option['type']) && $option['type'] === 'textarea_editor')	    $this->field_textarea_editor( $option );
 
@@ -248,6 +258,195 @@ class settings_tabs_field{
 
 
     }
+
+
+
+
+        public function field_option_group_tabs( $option ){
+
+            $id 			= isset( $option['id'] ) ? $option['id'] : "";
+            $css_id 			= isset( $option['css_id'] ) ? $option['css_id'] : $id;
+            $sortable 			= isset( $option['sortable'] ) ? $option['sortable'] : false;
+
+            $args_index 	= isset( $option['args_index'] ) ? $option['args_index'] : array();
+            $args_index_default 	= isset( $option['args_index_default'] ) ? $option['args_index_default'] : array();
+            $args_index_hide 	= isset( $option['args_index_hide'] ) ? $option['args_index_hide'] : array();
+
+            $args_index = !empty($args_index) ? $args_index : $args_index_default;
+
+            $args 	= isset( $option['args'] ) ? $option['args'] : array();
+
+            $field_template 	= isset( $option['field_template'] ) ? $option['field_template'] : $this->field_template($option);
+
+            $is_pro 	= isset( $option['is_pro'] ) ? $option['is_pro'] : false;
+            $pro_text 	= isset( $option['pro_text'] ) ? $option['pro_text'] : '';
+
+
+            $title			= isset( $option['title'] ) ? $option['title'] : "";
+            $group_details 			= isset( $option['details'] ) ? $option['details'] : "";
+
+            if($is_pro == true){
+                $group_details = '<span class="pro-feature">'.$pro_text.'</span> '.$group_details;
+            }
+
+            $nav_html = '';
+            $nav_content_html = '';
+
+            ob_start();
+            ?>
+            <div class="option-group-tabs-wrap" id="<?php echo $css_id; ?>">
+                <div class='option-group-tabs tabs'>
+                    <?php
+
+                    if(!empty($args_index))
+                        foreach( $args_index as $index ):
+
+                            //foreach( $args as $key => $value ):
+
+                            $group_title = isset($args[$index]['title']) ? $args[$index]['title'] : '';
+                            $is_hide = isset($args_index_hide[$index]) ? $args_index_hide[$index] : false;
+
+
+                            //$link = $value['link'];
+                            $options = isset($args[$index]['options']) ? $args[$index]['options'] : array();
+
+                            ?>
+
+                                <?php
+
+                                ob_start();
+                                ?>
+                                <li id="header-<?php echo $index; ?>" style="" class="tabs-nav head<?php echo $index; ?> " >
+
+                                    <a style="" class="accordions-tab-head" href="#tabs-<?php echo $index; ?>">
+
+                                        <span id="header-text-<?php echo $index; ?>" class="accordions-head-title"><?php echo do_shortcode($group_title); ?></span>
+                                    </a>
+
+                                </li>
+
+                                <?php
+                                $nav_html .= ob_get_clean();
+
+                                ob_start();
+                                ?>
+
+                                <div class="tabs-content tabs-content<?php echo $index; ?>" id="tabs-<?php echo $index;?>">
+
+                                    <?php
+
+                                    if(!empty($options)):
+                                        foreach ($options as $option):
+
+                                            $id 		= isset( $option['id'] ) ? $option['id'] : "";
+                                            $type 		= isset( $option['type'] ) ? $option['type'] : "";
+                                            $details 	= isset( $option['details'] ) ? $option['details'] : "";
+
+                                            if( isset($option['type']) && $option['type'] === 'select' ) 		        $this->field_select( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'select2')	        $this->field_select2( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'checkbox')	        $this->field_checkbox( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'radio')		        $this->field_radio( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'radio_image')	    $this->field_radio_image( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'textarea')	        $this->field_textarea( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'scripts_js')	        $this->field_scripts_js( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'scripts_css')	    $this->field_scripts_css( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'number' ) 	        $this->field_number( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'text' ) 		        $this->field_text( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'text_icon' )         $this->field_text_icon( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'text_multi' ) 	    $this->field_text_multi( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'hidden' ) 		        $this->field_hidden( $option );
+
+                                            elseif( isset($option['type']) && $option['type'] === 'range' ) 		    $this->field_range( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'colorpicker')        $this->field_colorpicker( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'colorpicker_multi')  $this->field_colorpicker_multi( $option );
+
+                                            elseif( isset($option['type']) && $option['type'] === 'datepicker')	        $this->field_datepicker( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'faq')	            $this->field_faq( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'addons_grid')	    $this->field_addons_grid( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'custom_html')	    $this->field_custom_html( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'repeatable')	        $this->field_repeatable( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'media')	            $this->field_media( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'media_url')	        $this->field_media_url( $option );
+
+                                        endforeach;
+                                    endif;
+                                    ?>
+                                </div> <!-- ..tabs-content -->
+
+                                <?php
+                                $nav_content_html .= ob_get_clean();
+
+                                ?>
+
+
+
+                        <?php
+                            //endforeach;
+
+                        endforeach;
+
+
+                    ?>
+
+
+                    <ul>
+                        <?php echo $nav_html; ?>
+                    </ul>
+                    <?php echo $nav_content_html; ?>
+
+
+
+
+
+
+                </div> <!-- .option-group-tabs -->
+            </div><!-- .option-group-tabs-wrap -->
+
+            <style type="text/css">
+                .settings-tabs .tabs ul {
+
+                }
+
+                .settings-tabs .tabs .tabs-nav {
+                    padding: 10px 20px;
+                    background: #f1f1f1;
+                    margin: 0px 0 15px 0;
+                    cursor: pointer;
+                    font-weight: normal;
+                    font-size: 14px;
+                    display: inline-block;
+                    float: left;
+                    border-right: 1px solid #ddd;
+                }
+                .settings-tabs .tabs .tabs-nav a{
+                    text-decoration: none;
+                    outline: none !important;
+                }
+                .settings-tabs .tabs .tabs-content{
+
+                }
+
+
+            </style>
+            <?php
+
+            $input_html = ob_get_clean();
+
+            echo sprintf($field_template, $title, $input_html, $group_details);
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
 
 
     public function field_option_group( $option ){
