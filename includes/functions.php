@@ -27,7 +27,6 @@ function related_post_display_auto($content){
     if($enable == 'yes'){
 
         $content_position = isset($post_types_display[$posttype]['content_position']) ? $post_types_display[$posttype]['content_position'] : array('');
-        $excerpt_position = isset($post_types_display[$posttype]['excerpt_position']) ? $post_types_display[$posttype]['excerpt_position'] : array('');
         $paragraph_positions = isset($post_types_display[$posttype]['paragraph_positions']) ? $post_types_display[$posttype]['paragraph_positions'] : '';
         $view_type = isset($post_types_display[$posttype]['view_type']) ? $post_types_display[$posttype]['view_type'] : '';
         $headline_text = isset($post_types_display[$posttype]['headline_text']) ? $post_types_display[$posttype]['headline_text'] : '';
@@ -140,7 +139,7 @@ function related_post_display_on_excerpt($excerpt){
 
     if($enable == 'yes'){
 
-        $excerpt_position = isset($post_types_display[$posttype]['excerpt_position']) ? $post_types_display[$posttype]['excerpt_position'] : 'none';
+        $excerpt_position = isset($post_types_display[$posttype]['excerpt_position']) ? $post_types_display[$posttype]['excerpt_position'] : array();
         $headline_text = isset($post_types_display[$posttype]['headline_text']) ? $post_types_display[$posttype]['headline_text'] : '';
         $view_type = isset($post_types_display[$posttype]['view_type']) ? $post_types_display[$posttype]['view_type'] : '';
 

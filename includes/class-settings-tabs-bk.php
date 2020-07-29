@@ -23,8 +23,14 @@ class settings_tabs_field{
         wp_enqueue_script( 'jquery-ui-core' );
         wp_enqueue_script('jquery-ui-accordion');
         wp_enqueue_script('jquery-ui-tabs');
-
         wp_enqueue_style( 'jquery-ui');
+
+        wp_enqueue_script( 'jquery' );
+        wp_enqueue_script( 'jquery-ui-core' );
+        wp_enqueue_script('jquery-ui-tabs');
+        wp_enqueue_script('jquery-effects-core');
+
+        //wp_enqueue_style( 'jquery-ui' );
 
         wp_enqueue_script('wp-color-picker');
         wp_enqueue_style( 'wp-color-picker' );
@@ -38,9 +44,6 @@ class settings_tabs_field{
         wp_enqueue_script( 'code-editor' );
         wp_enqueue_style( 'code-editor' );
 
-        wp_enqueue_script( 'jquery.lazy' );
-
-
         wp_enqueue_editor();
     }
 
@@ -48,100 +51,14 @@ class settings_tabs_field{
 
         $id 			= isset( $option['id'] ) ? $option['id'] : "";
         $wraper_class			= isset( $option['wraper_class'] ) ? $option['wraper_class'] : "";
-        $conditions 	= isset( $option['conditions'] ) ? $option['conditions'] : array();
 
         $is_error 			= isset( $option['is_error'] ) ? $option['is_error'] : false;
         $error_details 			= isset( $option['error_details'] ) ? $option['error_details'] : '';
 
-
-
-        if(!empty($conditions)):
-
-            $depends = '';
-
-            $field = isset($conditions['field']) ? $conditions['field'] :'';
-            $cond_value = isset($conditions['value']) ? $conditions['value']: '';
-            $type = isset($conditions['type']) ? $conditions['type'] : '';
-            $pattern = isset($conditions['pattern']) ? $conditions['pattern'] : '';
-            $modifier = isset($conditions['modifier']) ? $conditions['modifier'] : '';
-            $like = isset($conditions['like']) ? $conditions['like'] : '';
-            $strict = isset($conditions['strict']) ? $conditions['strict'] : '';
-            $empty = isset($conditions['empty']) ? $conditions['empty'] : '';
-            $sign = isset($conditions['sign']) ? $conditions['sign'] : '';
-            $min = isset($conditions['min']) ? $conditions['min'] : '';
-            $max = isset($conditions['max']) ? $conditions['max'] : '';
-
-            $depends .= "{'[name=$field]':";
-            $depends .= '{';
-
-            if(!empty($type)):
-                $depends .= "'type':";
-                $depends .= "'".$type."'";
-            endif;
-
-            if(!empty($modifier)):
-                $depends .= ",'modifier':";
-                $depends .= "'".$modifier."'";
-            endif;
-
-            if(!empty($like)):
-                $depends .= ",'like':";
-                $depends .= "'".$like."'";
-            endif;
-
-            if(!empty($strict)):
-                $depends .= ",'strict':";
-                $depends .= "'".$strict."'";
-            endif;
-
-            if(!empty($empty)):
-                $depends .= ",'empty':";
-                $depends .= "'".$empty."'";
-            endif;
-
-            if(!empty($sign)):
-                $depends .= ",'sign':";
-                $depends .= "'".$sign."'";
-            endif;
-
-            if(!empty($min)):
-                $depends .= ",'min':";
-                $depends .= "'".$min."'";
-            endif;
-
-            if(!empty($max)):
-                $depends .= ",'max':";
-                $depends .= "'".$max."'";
-            endif;
-            if(!empty($cond_value)):
-                $depends .= ",'value':";
-                if(is_array($cond_value)):
-                    $count= count($cond_value);
-                    $i = 1;
-                    $depends .= "[";
-                    foreach ($cond_value as $val):
-                        $depends .= "'".$val."'";
-                        if($i<$count)
-                            $depends .= ",";
-                        $i++;
-                    endforeach;
-                    $depends .= "]";
-                else:
-                    $depends .= "[";
-                    $depends .= "'".$cond_value."'";
-                    $depends .= "]";
-                endif;
-            endif;
-            $depends .= '}}';
-
-        endif;
-
-
-
         ob_start();
 
         ?>
-        <div <?php if(!empty($depends)) {?> data-depends="[<?php echo $depends; ?>]" <?php } ?> class="setting-field <?php if($is_error) echo 'field-error';  ?> <?php echo $wraper_class; ?> <?php if(!empty($depends)) echo 'dependency-field'; ?>">
+        <div class="setting-field <?php if($is_error) echo 'field-error';  ?> <?php echo $wraper_class; ?>">
             <div class="field-lable">%s</div>
             <div class="field-input">%s
                 <p class="description">%s</p>
@@ -343,6 +260,8 @@ class settings_tabs_field{
     }
 
 
+
+
         public function field_option_group_tabs( $option ){
 
             $id 			= isset( $option['id'] ) ? $option['id'] : "";
@@ -393,71 +312,71 @@ class settings_tabs_field{
 
                             ?>
 
-                            <?php
-
-                            ob_start();
-                            ?>
-                            <li id="header-<?php echo $index; ?>" style="" class="tabs-nav head<?php echo $index; ?> " >
-
-                                <a style="" class="accordions-tab-head" href="#tabs-<?php echo $index; ?>">
-
-                                    <span id="header-text-<?php echo $index; ?>" class="accordions-head-title"><?php echo do_shortcode($group_title); ?></span>
-                                </a>
-
-                            </li>
-
-                            <?php
-                            $nav_html .= ob_get_clean();
-
-                            ob_start();
-                            ?>
-
-                            <div class="tabs-content tabs-content<?php echo $index; ?>" id="tabs-<?php echo $index;?>">
-
                                 <?php
 
-                                if(!empty($options)):
-                                    foreach ($options as $option):
-
-                                        $id 		= isset( $option['id'] ) ? $option['id'] : "";
-                                        $type 		= isset( $option['type'] ) ? $option['type'] : "";
-                                        $details 	= isset( $option['details'] ) ? $option['details'] : "";
-
-                                        if( isset($option['type']) && $option['type'] === 'select' ) 		        $this->field_select( $option );
-                                        elseif( isset($option['type']) && $option['type'] === 'select2')	        $this->field_select2( $option );
-                                        elseif( isset($option['type']) && $option['type'] === 'checkbox')	        $this->field_checkbox( $option );
-                                        elseif( isset($option['type']) && $option['type'] === 'radio')		        $this->field_radio( $option );
-                                        elseif( isset($option['type']) && $option['type'] === 'radio_image')	    $this->field_radio_image( $option );
-                                        elseif( isset($option['type']) && $option['type'] === 'textarea')	        $this->field_textarea( $option );
-                                        elseif( isset($option['type']) && $option['type'] === 'scripts_js')	        $this->field_scripts_js( $option );
-                                        elseif( isset($option['type']) && $option['type'] === 'scripts_css')	    $this->field_scripts_css( $option );
-                                        elseif( isset($option['type']) && $option['type'] === 'number' ) 	        $this->field_number( $option );
-                                        elseif( isset($option['type']) && $option['type'] === 'text' ) 		        $this->field_text( $option );
-                                        elseif( isset($option['type']) && $option['type'] === 'text_icon' )         $this->field_text_icon( $option );
-                                        elseif( isset($option['type']) && $option['type'] === 'text_multi' ) 	    $this->field_text_multi( $option );
-                                        elseif( isset($option['type']) && $option['type'] === 'hidden' ) 		        $this->field_hidden( $option );
-
-                                        elseif( isset($option['type']) && $option['type'] === 'range' ) 		    $this->field_range( $option );
-                                        elseif( isset($option['type']) && $option['type'] === 'colorpicker')        $this->field_colorpicker( $option );
-                                        elseif( isset($option['type']) && $option['type'] === 'colorpicker_multi')  $this->field_colorpicker_multi( $option );
-
-                                        elseif( isset($option['type']) && $option['type'] === 'datepicker')	        $this->field_datepicker( $option );
-                                        elseif( isset($option['type']) && $option['type'] === 'faq')	            $this->field_faq( $option );
-                                        elseif( isset($option['type']) && $option['type'] === 'addons_grid')	    $this->field_addons_grid( $option );
-                                        elseif( isset($option['type']) && $option['type'] === 'custom_html')	    $this->field_custom_html( $option );
-                                        elseif( isset($option['type']) && $option['type'] === 'repeatable')	        $this->field_repeatable( $option );
-                                        elseif( isset($option['type']) && $option['type'] === 'media')	            $this->field_media( $option );
-                                        elseif( isset($option['type']) && $option['type'] === 'media_url')	        $this->field_media_url( $option );
-
-                                    endforeach;
-                                endif;
+                                ob_start();
                                 ?>
-                            </div> <!-- ..tabs-content -->
+                                <li id="header-<?php echo $index; ?>" style="" class="tabs-nav head<?php echo $index; ?> " >
 
-                            <?php
-                            $nav_content_html .= ob_get_clean();
+                                    <a style="" class="accordions-tab-head" href="#tabs-<?php echo $index; ?>">
 
-                            ?>
+                                        <span id="header-text-<?php echo $index; ?>" class="accordions-head-title"><?php echo do_shortcode($group_title); ?></span>
+                                    </a>
+
+                                </li>
+
+                                <?php
+                                $nav_html .= ob_get_clean();
+
+                                ob_start();
+                                ?>
+
+                                <div class="tabs-content tabs-content<?php echo $index; ?>" id="tabs-<?php echo $index;?>">
+
+                                    <?php
+
+                                    if(!empty($options)):
+                                        foreach ($options as $option):
+
+                                            $id 		= isset( $option['id'] ) ? $option['id'] : "";
+                                            $type 		= isset( $option['type'] ) ? $option['type'] : "";
+                                            $details 	= isset( $option['details'] ) ? $option['details'] : "";
+
+                                            if( isset($option['type']) && $option['type'] === 'select' ) 		        $this->field_select( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'select2')	        $this->field_select2( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'checkbox')	        $this->field_checkbox( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'radio')		        $this->field_radio( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'radio_image')	    $this->field_radio_image( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'textarea')	        $this->field_textarea( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'scripts_js')	        $this->field_scripts_js( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'scripts_css')	    $this->field_scripts_css( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'number' ) 	        $this->field_number( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'text' ) 		        $this->field_text( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'text_icon' )         $this->field_text_icon( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'text_multi' ) 	    $this->field_text_multi( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'hidden' ) 		        $this->field_hidden( $option );
+
+                                            elseif( isset($option['type']) && $option['type'] === 'range' ) 		    $this->field_range( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'colorpicker')        $this->field_colorpicker( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'colorpicker_multi')  $this->field_colorpicker_multi( $option );
+
+                                            elseif( isset($option['type']) && $option['type'] === 'datepicker')	        $this->field_datepicker( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'faq')	            $this->field_faq( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'addons_grid')	    $this->field_addons_grid( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'custom_html')	    $this->field_custom_html( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'repeatable')	        $this->field_repeatable( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'media')	            $this->field_media( $option );
+                                            elseif( isset($option['type']) && $option['type'] === 'media_url')	        $this->field_media_url( $option );
+
+                                        endforeach;
+                                    endif;
+                                    ?>
+                                </div> <!-- ..tabs-content -->
+
+                                <?php
+                                $nav_content_html .= ob_get_clean();
+
+                                ?>
 
 
 
@@ -520,7 +439,17 @@ class settings_tabs_field{
 
 
 
-        public function field_option_group( $option ){
+
+
+
+
+
+
+
+
+
+
+    public function field_option_group( $option ){
 
         $id 			= isset( $option['id'] ) ? $option['id'] : "";
         $css_id 			= isset( $option['css_id'] ) ? $option['css_id'] : $id;
@@ -751,7 +680,7 @@ class settings_tabs_field{
             </div>
             <input type="text" placeholder="<?php echo $placeholder; ?>" name="<?php echo $field_name; ?>" id="media_input_<?php echo $css_id; ?>" value="<?php echo $value; ?>" />
             <div class="media-upload button" id="media_upload_<?php echo $css_id; ?>"><?php echo __('Upload', $this->textdomain);?></div>
-            <div class="clear button" id="media_clear_<?php echo $css_id; ?>"><?php echo __('Clear','post-grid');?></div>
+            <div class="clear button" id="media_clear_<?php echo $css_id; ?>"><?php echo __('Clear','accordions');?></div>
             <div class="error-mgs"></div>
         </div>
 
@@ -852,7 +781,7 @@ class settings_tabs_field{
 
         <div id="input-wrapper-<?php echo $css_id; ?>" class=" input-wrapper field-repeatable-wrapper
             field-repeatable-wrapper-<?php echo $css_id; ?>">
-            <div add_html="<?php echo esc_attr($fieldHtml); ?>" class="add-repeat-field"><i class="far fa-plus-square"></i> <?php _e('Add','post-grid'); ?></div>
+            <div add_html="<?php echo esc_attr($fieldHtml); ?>" class="add-repeat-field"><i class="far fa-plus-square"></i> <?php _e('Add','accordions'); ?></div>
             <div class="repeatable-field-list sortable" id="<?php echo $css_id; ?>">
                 <?php
                 if(!empty($values)):
@@ -1583,20 +1512,14 @@ class settings_tabs_field{
         ob_start();
         ?>
         <textarea name="<?php echo $field_name; ?>" id="<?php echo $css_id; ?>" cols="40" rows="5" placeholder="<?php echo $placeholder; ?>"><?php echo $value; ?></textarea>
+
         <script>
-
-
             jQuery(document).ready(function($){
-
                 wp.codeEditor.initialize($('#<?php echo $css_id; ?>'), <?php echo $code_editor; ?>);
-
-
             })
-
-
-
-
         </script>
+
+
         <?php
 
         $input_html = ob_get_clean();
@@ -1765,7 +1688,7 @@ class settings_tabs_field{
                     if(!empty($thumb)):
 
                         ?>
-                        <img class="lazy"  alt="<?php echo $name; ?>" data-src="<?php echo $thumb; ?>" src="https://i.imgur.com/72Z8sfU.gif">
+                        <img  alt="<?php echo $name; ?>" src="<?php echo $thumb; ?>">
                         <div style="padding: 5px;" class="name"><?php echo $name; ?></div>
 
                         <?php
@@ -1787,6 +1710,19 @@ class settings_tabs_field{
             endforeach;
             ?>
         </div>
+        <script>
+            jQuery(document).ready(function($){
+                $(document).on("click", ".radio-img label", function () {
+                    if($(this).hasClass('disabled')){
+                        return;
+                    }
+
+                    $(this).parent().children("label").removeClass("active");
+                    $(this).addClass("active");
+
+                })
+            })
+        </script>
 
         <style type="text/css">
             .radio-img{}
@@ -1842,7 +1778,6 @@ class settings_tabs_field{
             .radio-img img{
 
                 vertical-align: top;
-                width: 100%;
             }
 
         </style>

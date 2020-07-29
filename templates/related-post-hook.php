@@ -240,9 +240,20 @@ function related_post_main_css($atts){
     $headline_text_custom_css = isset($settings['headline_text_style']['custom_css']) ? $settings['headline_text_style']['custom_css'] : '';
 
     //var_dump($item_width);
+    $custom_css = isset($settings['custom_css']) ? $settings['custom_css'] : '';
+    $custom_js = isset($settings['custom_js']) ? $settings['custom_js'] : '';
+
+
 
     ?>
 
+    <script>
+
+        <?php if(!empty($custom_js)): ?>
+            <?php echo $custom_js; ?>
+        <?php endif; ?>
+
+    </script>
     <style type="text/css">
         .related-post{}
         .related-post .post-list{
@@ -273,6 +284,11 @@ function related_post_main_css($atts){
         <?php if(!empty($headline_text_custom_css)): ?>
         <?php echo $headline_text_custom_css; ?>
         <?php endif; ?>
+
+        <?php if(!empty($custom_css)): ?>
+        <?php echo $custom_css; ?>
+        <?php endif; ?>
+
         <?php
 
 

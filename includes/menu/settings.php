@@ -49,6 +49,14 @@ $related_post_settings_tab[] = array(
     'active' => ($current_tab == 'stats') ? true : false,
 );
 
+
+$related_post_settings_tab[] = array(
+    'id' => 'scripts',
+    'title' => sprintf(__('%s Scripts','related-post'),'<i class="fas fa-code"></i>'),
+    'priority' => 6,
+    'active' => ($current_tab == 'scripts') ? true : false,
+);
+
 $related_post_settings_tab[] = array(
     'id' => 'help_support',
     'title' => sprintf(__('%s Help & Support','related-post'),'<i class="fas fa-hands-helping"></i>'),

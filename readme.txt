@@ -4,7 +4,7 @@
 	Tags: related post, related posts, related content, inline related post,  similar posts
 	Requires at least: 3.8
 	Tested up to: 5.4
-	Stable tag: 2.0.30
+	Stable tag: 2.0.31
 	License: GPLv2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -143,6 +143,12 @@ echo do_shortcode( '[related_post post_id=""]' );
 
 
 == Changelog ==
+
+	= 2.0.31 =
+    * 2020-07-29 fix - excerpt related post display issue fixed.
+    * 2020-07-29 add - added custom CSS and scripts options.
+
+
 
 	= 2.0.30 =
     * 2020-07-26 fix - headline text output issue fixed.
