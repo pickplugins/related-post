@@ -27,7 +27,7 @@ class class_related_post_functions{
 
 											array(
 												'question'=>__('How to display on archive pages ?', 'related-post'),
-												'answer_url'=>'https://pickplugins.com/docs/documentation/related-post/how-to-display-on-archive-pages/',
+												'answer_url'=>'https://www.pickplugins.com/documentation/related-post/faq/how-to-display-on-archive-pages/',
 												
 												),	
 
