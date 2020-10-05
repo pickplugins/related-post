@@ -379,12 +379,14 @@ function related_post_ajax_get_post_ids(){
 
 
 
-function get_post_ids_by_taxonomy_terms($post_id = 0){
+function get_post_ids_by_taxonomy_terms($post_id = 0, $taxonomies = array()){
 
     $post_id = !empty($post_id) ? $post_id : get_the_ID();
     $post_ids = array();
     $post_type = get_post_type( $post_id );
-    $taxonomy_terms = related_post_get_taxonomy_terms($post_id);
+    $taxonomy_terms = related_post_get_taxonomy_terms($post_id, $taxonomies);
+
+   // echo '<pre>'.var_export($taxonomies).'</pre>';
 		
     if(!empty($taxonomy_terms)) {
         foreach($taxonomy_terms as $taxonomy => $term_ids){
@@ -434,7 +436,7 @@ function get_post_ids_by_taxonomy_terms($post_id = 0){
 
 
 
-function related_post_get_taxonomy_terms($post_id){
+function related_post_get_taxonomy_terms($post_id, $taxonomies){
 
     // get post by post id
     $post = get_post($post_id);
@@ -442,8 +444,13 @@ function related_post_get_taxonomy_terms($post_id){
     // get post type by post
     $post_type = $post->post_type;
 
+    //echo '<pre>'.var_export($taxonomies).'</pre>';
+
+
     // get post type taxonomies
-    $taxonomies = get_object_taxonomies($post_type);
+    //$taxonomies = get_object_taxonomies($post_type);
+    $taxonomies = !empty($taxonomies) ? $taxonomies : get_object_taxonomies($post_type);
+
 	$post_taxonomies_terms = array();
 
 	if(!empty($taxonomies))
@@ -462,6 +469,5 @@ function related_post_get_taxonomy_terms($post_id){
 
     return $post_taxonomies_terms;
 }
-
 
 

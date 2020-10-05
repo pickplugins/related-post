@@ -58,12 +58,25 @@ if(!function_exists('related_post_settings_content_general')) {
 
 
             $post_types_list = get_post_types( '', 'names' );
+
+
+
+
+
             $post_types_array = array();
 
             foreach ( $post_types_list as $post_type ) {
 
                 $obj = get_post_type_object($post_type);
+
+                $public = $obj->public;
+
+                //echo '<pre>'.var_export($public, true).'</pre>';
+
+
                 $singular_name = $obj->labels->singular_name;
+
+                if($public)
                 $post_types_array[$post_type] = $singular_name;
             }
 
@@ -80,19 +93,16 @@ if(!function_exists('related_post_settings_content_general')) {
             <div class="templates_editor expandable">
                 <?php
 
-                //$post_types = apply_filters('wishlist_posttypes', array('post'=>'Post', 'page' => 'Page'));
-                //$post_types = $post_types_list;
+//                unset($post_types_list['nav_menu_item']);
+//                unset($post_types_list['custom_css']);
+//                unset($post_types_list['customize_changeset']);
+//                unset($post_types_list['oembed_cache']);
+//                unset($post_types_list['user_request']);
+//                unset($post_types_list['wp_block']);
+//                unset($post_types_list['revision']);
 
-                unset($post_types_list['nav_menu_item']);
-                unset($post_types_list['custom_css']);
-                unset($post_types_list['customize_changeset']);
-                unset($post_types_list['oembed_cache']);
-                unset($post_types_list['user_request']);
-                unset($post_types_list['wp_block']);
-                unset($post_types_list['revision']);
-
-                if(!empty($post_types_list))
-                    foreach($post_types_list as $post_type => $post_name){
+                if(!empty($post_types_array))
+                    foreach($post_types_array as $post_type => $post_name){
 
 
                         $enable = isset($post_types_display[$post_type]['enable']) ? $post_types_display[$post_type]['enable'] : 'no';
@@ -105,8 +115,16 @@ if(!function_exists('related_post_settings_content_general')) {
                         $paragraph_positions = isset($post_types_display[$post_type]['paragraph_positions']) ? $post_types_display[$post_type]['paragraph_positions'] : '';
                         $view_type = isset($post_types_display[$post_type]['view_type']) ? $post_types_display[$post_type]['view_type'] : '';
                         $headline_text = isset($post_types_display[$post_type]['headline_text']) ? $post_types_display[$post_type]['headline_text'] : '';
+                        $taxonomies = isset($post_types_display[$post_type]['query']['taxonomies']) ?
+                            $post_types_display[$post_type]['query']['taxonomies'] : array();
+                        $orderby = isset($post_types_display[$post_type]['query']['orderby']) ?
+                            $post_types_display[$post_type]['query']['orderby'] : array();
 
+                        $order = isset($post_types_display[$post_type]['query']['order']) ?
+                            $post_types_display[$post_type]['query']['order'] : '';
 
+                        $max_post_count = isset($post_types_display[$post_type]['query']['max_post_count']) ?
+                            $post_types_display[$post_type]['query']['max_post_count'] : array();
 
                         //echo '<pre>'.var_export($enable).'</pre>';
 
@@ -191,12 +209,6 @@ if(!function_exists('related_post_settings_content_general')) {
 
 
 
-
-
-
-
-
-
                                 $args = array(
                                     'id'		=> 'view_type',
                                     'parent'		=> 'related_post_settings[post_types_display]['.$post_type.']',
@@ -232,7 +244,7 @@ if(!function_exists('related_post_settings_content_general')) {
                                     'id'		=> 'headline_text',
                                     'parent'		=> 'related_post_settings[post_types_display]['.$post_type.']',
                                     'title'		=> __('Headline text','related-post'),
-                                    'details'	=> __('Custom text for related post headline..','related-post'),
+                                    'details'	=> __('Custom text for related post headline.','related-post'),
                                     'type'		=> 'text',
                                     'value'		=> $headline_text,
                                     'default'		=> '',
@@ -240,6 +252,95 @@ if(!function_exists('related_post_settings_content_general')) {
                                 );
 
                                 $settings_tabs_field->generate_field($args);
+
+
+                                ?>
+                                <h2><?php echo __('Post query settings','related-post'); ?></h2>
+                                <?php
+                                //echo '<pre>'.var_export(get_object_taxonomies($post_type)).'</pre>';
+
+                                $object_taxonomies = get_object_taxonomies($post_type);
+
+                                $post_tax = array();
+
+                                if(!empty($object_taxonomies))
+                                foreach ($object_taxonomies as $taxonomy){
+                                    $post_tax[$taxonomy] = $taxonomy;
+                                }
+
+                                if(!empty($post_tax)){
+                                    $args = array(
+                                        'id'		=> 'taxonomies',
+                                        'parent'		=> 'related_post_settings[post_types_display]['.$post_type.'][query]',
+                                        'title'		=> __('Select taxonomies','related-post'),
+                                        'details'	=> __('Select taxonomies to query only post .','related-post'),
+                                        'type'		=> 'checkbox',
+                                        'value'		=> $taxonomies,
+                                        'default'		=> array(),
+                                        'style'		=> array('inline' => true),
+                                        'args'		=> $post_tax,
+
+                                    );
+
+                                    $settings_tabs_field->generate_field($args);
+                                }
+
+
+
+
+                                $args = array(
+                                    'id'		=> 'orderby',
+                                    'parent'		=> 'related_post_settings[post_types_display]['.$post_type.'][query]',
+                                    'title'		=> __('Query orderby','related-post'),
+                                    'details'	=> __('Choose related post query orderby, this will override by <code>post__in</code> if manually selected post is not empty.','related-post'),
+                                    'type'		=> 'select',
+                                    'value'		=> $orderby,
+                                    'multiple'		=> true,
+                                    'default'		=> array('post__in'),
+                                    'args'		=> array(
+                                        'ID'=>__('ID','related-post'),
+                                        'date'=>__('Date','related-post'),
+                                        'rand'=>__('Random','related-post'),
+                                        'comment_count'=>__('Comment count','related-post'),
+                                        'author'=>__('Author','related-post'),
+                                        'title'=>__('Title','related-post'),
+                                        'name'=>__('Name','related-post'),
+                                        'type'=>__('Type','related-post'),
+                                        'menu_order'=>__('Menu order','related-post'),
+                                        'post__in'=>__('post__in','related-post'),
+                                    ),
+                                );
+
+                                $settings_tabs_field->generate_field($args);
+
+                                $args = array(
+                                    'id'		=> 'order',
+                                    'parent'		=> 'related_post_settings[post_types_display]['.$post_type.'][query]',
+                                    'title'		=> __('Post order','related-post'),
+                                    'details'	=> __('Choose post query order.','related-post'),
+                                    'type'		=> 'select',
+                                    'value'		=> $order,
+                                    'default'		=> 'DESC',
+                                    'args'		=> array('DESC'=>__('Descending','related-post'), 'ASC'=>__('Ascending','related-post')),
+                                );
+
+                                $settings_tabs_field->generate_field($args);
+
+
+
+                                $args = array(
+                                    'id'		=> 'max_post_count',
+                                    'parent'		=> 'related_post_settings[post_types_display]['.$post_type.'][query]',
+                                    'title'		=> __('Max number of post','related-post'),
+                                    'details'	=> __('Maximum number of post to display.','related-post'),
+                                    'type'		=> 'text',
+                                    'value'		=> $max_post_count,
+                                    'default'		=> '5',
+                                );
+
+                                $settings_tabs_field->generate_field($args);
+
+
 
 
                                 ?>

@@ -35,14 +35,35 @@ function related_post_main_post_loop($atts){
 
     $layout_type = !empty($view_type) ? $view_type :  $settings['layout_type'];
 
+    //$taxonomies = array('ad_cats');
+
+    $post_types_display = $settings['post_types_display'];
+
 
     $post_type = get_post_type( $post_id );
-    $post_ids = get_post_ids_by_taxonomy_terms($post_id);
+    $post_type_query =isset($post_types_display[$post_type]['query']) ? $post_types_display[$post_type]['query'] :
+        array();
+
+    $taxonomies = isset($post_type_query['taxonomies']) ? $post_type_query['taxonomies'] : array();
+    $post_type_max_post_count = isset($post_type_query['max_post_count']) ? $post_type_query['max_post_count'] : '';
+    $post_type_order = isset($post_type_query['max_post_count']) ? $post_type_query['max_post_count'] : '';
+    $post_type_orderby = isset($post_type_query['orderby']) ? $post_type_query['orderby'] : array();
+
+    $post_ids = get_post_ids_by_taxonomy_terms($post_id, $taxonomies);
+
+    //echo '<pre>'.var_export($taxonomies).'</pre>';
+
 
     $orderby = isset($settings['orderby']) ? $settings['orderby'] : array('post__in');
 
     $order = isset($settings['order']) ? $settings['order'] : 'DESC';
+    $order = !empty($post_type_order) ? $post_type_order : $order;
+
+
     $max_post_count= isset($settings['max_post_count']) ? $settings['max_post_count'] : 5;
+    $max_post_count = !empty($post_type_max_post_count) ? $post_type_max_post_count : $max_post_count;
+
+
 
     $related_post_ids = get_post_meta( $post_id, 'related_post_ids', true );
 
@@ -52,8 +73,7 @@ function related_post_main_post_loop($atts){
     }
 
     $orderby = (!empty($orderby) && is_array($orderby)) ? implode(' ', $orderby) : '';
-
-
+    $orderby = !empty($post_type_orderby) ? $post_type_orderby : $orderby;
 
     $args = array(
         'post_type' => !empty($related_post_ids) ? 'any' : $post_type,
