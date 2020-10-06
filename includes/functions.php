@@ -471,3 +471,8 @@ function related_post_get_taxonomy_terms($post_id, $taxonomies){
 }
 
 
+
+
+
+
+

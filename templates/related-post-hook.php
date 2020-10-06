@@ -179,7 +179,7 @@ function related_post_loop_item_element_post_title($loop_post_id, $elementData){
     <?php
 }
 
-add_action('related_post_loop_item_element_post_thumb', 'related_post_loop_item_element_post_thumb', 10, 2);
+add_action('related_post_loop_item_element_post_thumb', 'related_post_loop_item_element_post_thumb', 20, 2);
 function related_post_loop_item_element_post_thumb($loop_post_id, $elementData){
     $settings = isset($elementData['settings']) ?  $elementData['settings'] : array();
 
@@ -204,7 +204,7 @@ function related_post_loop_item_element_post_thumb($loop_post_id, $elementData){
 }
 
 
-add_action('related_post_loop_item_element_post_excerpt', 'related_post_loop_item_element_post_excerpt', 10, 2);
+add_action('related_post_loop_item_element_post_excerpt', 'related_post_loop_item_element_post_excerpt', 30, 2);
 function related_post_loop_item_element_post_excerpt($loop_post_id, $elementData){
 
     $settings = isset($elementData['settings']) ?  $elementData['settings'] : array();
