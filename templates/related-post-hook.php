@@ -3,6 +3,11 @@
 if ( ! defined('ABSPATH')) exit; // if direct access 
 
 
+
+
+
+
+
 add_action('related_post_main' ,'related_post_main_title');
 
 function related_post_main_title($atts){
