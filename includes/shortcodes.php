@@ -11,57 +11,54 @@ add_shortcode('related_post', 'related_post_display');
 function related_post_display($atts, $content = null)
 {
 
-    $atts = shortcode_atts(
-        array(
-            'post_id' => "",
-            'post_ids' => "",
+  $atts = shortcode_atts(
+    array(
+      'post_id' => "",
+      'post_ids' => "",
+      'headline' => "",
+      'view_type' => "",
+    ),
+    $atts
+  );
 
-            'headline' => "",
-            'view_type' => "",
+  $related_post_settings = get_option('related_post_settings');
 
+  $post_id = isset($atts['post_id']) ? (int) $atts['post_id'] : get_the_ID();
+  $related_post_enable = get_post_meta($post_id, 'related_post_enable', true);
 
-        ),
-        $atts
-    );
+  if ($related_post_enable == 'yes') return false;
 
-    $related_post_settings = get_option('related_post_settings');
+  $post_type = get_post_type($post_id);
 
-    $post_id = isset($atts['post_id']) ? (int) $atts['post_id'] : get_the_ID();
-    $related_post_enable = get_post_meta($post_id, 'related_post_enable', true);
+  $atts['settings'] = $related_post_settings;
+  $atts['post_type'] = $post_type;
 
-    if ($related_post_enable == 'yes') return false;
+  $atts = apply_filters('related_post_atts', $atts);
 
-    $post_type = get_post_type($post_id);
-
-    $atts['settings'] = $related_post_settings;
-    $atts['post_type'] = $post_type;
-
-    $atts = apply_filters('related_post_atts', $atts);
-
-    $view_type = isset($atts['view_type']) ?  $atts['view_type'] : 'grid';
-    $layout_type = !empty($view_type) ? $view_type :  $related_post_settings['layout_type'];
+  $view_type = isset($atts['view_type']) ?  esc_html($atts['view_type']) : 'grid';
+  $layout_type = !empty($view_type) ? $view_type :  esc_html($related_post_settings['layout_type']);
 
 
 
-    require_once(related_post_plugin_dir . 'templates/related-post-hook.php');
+  require_once(related_post_plugin_dir . 'templates/related-post-hook.php');
 
 
 
 
 
-    ob_start();
+  ob_start();
 
 ?>
-    <div class="related-post <?php echo $layout_type; ?>">
-        <?php
+  <div class="related-post <?php echo esc_attr($layout_type); ?>">
+    <?php
 
-        do_action('related_post_main', $atts);
+    do_action('related_post_main', $atts);
 
-        ?>
-    </div>
+    ?>
+  </div>
 <?php
 
 
 
-    return ob_get_clean();
+  return ob_get_clean();
 }
