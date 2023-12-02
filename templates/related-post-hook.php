@@ -578,7 +578,7 @@ function related_post_main_slider_scripts($atts)
           <?php if (!empty($slider_navigation)) : ?>
             nav: <?php echo esc_attr($slider_navigation); ?>,
             navSpeed: <?php echo esc_attr($slider_slide_speed); ?>,
-            navText: ['<?php echo esc_attr($navigation_text_prev); ?>', '<?php echo esc_attr($navigation_text_next); ?>'],
+            navText: ['<?php echo wp_kses_post($navigation_text_prev); ?>', '<?php echo wp_kses_post($navigation_text_next); ?>'],
           <?php endif; ?>
           <?php if (!empty($slider_pagination)) : ?>
             dots: <?php echo esc_attr($slider_pagination); ?>,

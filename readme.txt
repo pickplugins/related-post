@@ -4,7 +4,7 @@
 	Tags: related post, related posts, related content, inline related post,  similar posts
 	Requires at least: 3.8
 	Tested up to: 6.4
-	Stable tag: 2.0.54
+	Stable tag: 2.0.55
 	License: GPLv2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -145,6 +145,9 @@ echo do_shortcode( '[related_post post_id=""]' );
 == Changelog ==
 
 
+
+	= 2.0.55 =
+    * 2023-12-02 fix - Slider navigation icon issue fixed.
 
 	= 2.0.54 =
     * 2023-11-29 fix - minor security issue fixed.
