@@ -107,6 +107,7 @@ if (!function_exists('related_post_settings_content_general')) {
                         $inclued_taxonomies = isset($post_types_display[$post_type]['inclued_taxonomies']) ? $post_types_display[$post_type]['inclued_taxonomies'] : array();
                         $tax_realtion = isset($post_types_display[$post_type]['tax_realtion']) ? $post_types_display[$post_type]['tax_realtion'] : 'OR';
                         $manual_post = isset($post_types_display[$post_type]['manual_post']) ? $post_types_display[$post_type]['manual_post'] : 'no';
+                        $only_manual_post = isset($post_types_display[$post_type]['only_manual_post']) ? $post_types_display[$post_type]['only_manual_post'] : 'no';
 
 
 
@@ -300,6 +301,31 @@ if (!function_exists('related_post_settings_content_general')) {
                             );
 
                             $pickp_settings_tabs_field->generate_field($args);
+
+
+                            $active_plugins = get_option('active_plugins');
+                            if (in_array('related-post-pro/related-post-pro.php', (array) $active_plugins)) {
+
+
+                                $args = array(
+                                    'id'        => 'only_manual_post',
+                                    'parent'        => 'related_post_settings[post_types_display][' . $post_type . ']',
+                                    'title'        => __('Show only manual posts', 'related-post'),
+                                    'details'    => __('Enable to display only manyally selected posts.', 'related-post'),
+                                    'type'        => 'select',
+                                    'value'        => $only_manual_post,
+                                    'default'        => array('no'),
+                                    'style'        => array('inline' => true),
+                                    'args'        => array('yes' => 'Yes', 'no' => 'No'),
+
+                                );
+
+                                $pickp_settings_tabs_field->generate_field($args);
+                            }
+
+
+
+
 
 
                             ?>

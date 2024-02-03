@@ -16,7 +16,9 @@ function related_post_main_title($atts)
   $post_type = isset($atts['post_type']) ?  $atts['post_type'] : 'post';
 
   $post_type_settings = $settings['post_types_display'][$post_type];
+  $post_types_display = $settings['post_types_display'][$post_type];
 
+  $only_manual_post = isset($post_types_display['only_manual_post']) ? $post_types_display['only_manual_post'] : 'no';
 
 
   $headline_text = !empty($settings['headline_text']) ? $settings['headline_text'] : '';
@@ -24,6 +26,10 @@ function related_post_main_title($atts)
 
   $headline_text = isset($atts['headline']) ?  $atts['headline'] : $headline_text;
 
+  if ($only_manual_post == 'yes' && empty($related_post_ids)) {
+
+    return;
+  }
 
   if (!empty($headline_text)) :
 ?>
@@ -57,8 +63,9 @@ function related_post_main_post_loop($atts)
   $taxonomy_terms = related_post_get_taxonomy_terms($post_id);
 
   $tax_realtion = isset($post_types_display['tax_realtion']) ? $post_types_display['tax_realtion'] : 'OR';
+  $only_manual_post = isset($post_types_display['only_manual_post']) ? $post_types_display['only_manual_post'] : 'no';
 
-
+  //var_dump($post_types_display);
 
   $orderby = isset($settings['orderby']) ? $settings['orderby'] : array('post__in');
 
@@ -70,6 +77,11 @@ function related_post_main_post_loop($atts)
   if (!empty($related_post_ids)) {
     $post_ids = $related_post_ids;
     $orderby = array('post__in');
+  }
+
+  if ($only_manual_post == 'yes' && empty($related_post_ids)) {
+
+    return;
   }
 
   $orderby = (!empty($orderby) && is_array($orderby)) ? implode(' ', $orderby) : '';
