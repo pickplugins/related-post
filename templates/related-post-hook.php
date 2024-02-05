@@ -14,6 +14,7 @@ function related_post_main_title($atts)
 
 
   $post_type = isset($atts['post_type']) ?  $atts['post_type'] : 'post';
+  $post_id = isset($atts['post_id']) ? (int) $atts['post_id'] : get_the_ID();
 
   $post_type_settings = $settings['post_types_display'][$post_type];
   $post_types_display = $settings['post_types_display'][$post_type];
@@ -25,6 +26,12 @@ function related_post_main_title($atts)
   $headline_text = !empty($post_type_settings['headline_text']) ? $post_type_settings['headline_text'] : $headline_text;
 
   $headline_text = isset($atts['headline']) ?  $atts['headline'] : $headline_text;
+
+  $related_post_ids = get_post_meta($post_id, 'related_post_ids', true);
+
+  //echo '<pre>' . var_export($post_id, true) . '</pre>';
+  //echo '<pre>' . var_export($related_post_ids, true) . '</pre>';
+
 
   if ($only_manual_post == 'yes' && empty($related_post_ids)) {
 
@@ -123,8 +130,7 @@ function related_post_main_post_loop($atts)
 
 
 
-
-  $args['post_type'] =  $post_type;
+  $args['post_type'] = !empty($related_post_ids) ? "any" : $post_type;
   $args['post_status'] = 'publish';
 
   if (!empty($post_ids))
@@ -142,7 +148,7 @@ function related_post_main_post_loop($atts)
 
 
 
-  // echo '<pre>' . var_export($args, true) . '</pre>';
+  //echo '<pre>' . var_export($args, true) . '</pre>';
 
 
 
@@ -198,7 +204,8 @@ function related_post_main_post_loop($atts)
       $no_post_text = apply_filters('related_post_no_posts_text', __('Sorry no related post found', 'related-post'));
 
       ?>
-      <div> <?php echo esc_html($no_post_text) ?> </div>
+      <div> <?php //echo esc_html($no_post_text) 
+            ?> </div>
     <?php
 
     }
