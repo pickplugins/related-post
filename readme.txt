@@ -1,4 +1,4 @@
-=== Related Post ===
+=== Related Posts, Inline Related Posts, Contextual Related Posts, Related Content By PickPlugins ===
 	Contributors: PickPlugins
 	Donate link: http://pickplugins.com
 	Tags: related post, related posts, related content, inline related post,  similar posts
