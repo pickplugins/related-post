@@ -21,6 +21,7 @@ function related_post_main_title($atts)
 
   $only_manual_post = isset($post_types_display['only_manual_post']) ? $post_types_display['only_manual_post'] : 'no';
 
+  $headline_text_tag = isset($settings['headline_text_style']['tag']) ? $settings['headline_text_style']['tag'] : 'div';
 
   $headline_text = !empty($settings['headline_text']) ? $settings['headline_text'] : '';
   $headline_text = !empty($post_type_settings['headline_text']) ? $post_type_settings['headline_text'] : $headline_text;
@@ -40,7 +41,7 @@ function related_post_main_title($atts)
 
   if (!empty($headline_text)) :
 ?>
-    <div class="headline"><?php echo wp_kses_post($headline_text); ?></div>
+    <<?php echo esc_attr($headline_text_tag); ?> class="headline"><?php echo wp_kses_post($headline_text); ?></<?php echo esc_attr($headline_text_tag); ?>>
   <?php
   endif;
 }

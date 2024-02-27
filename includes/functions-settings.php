@@ -22,6 +22,7 @@ if (!function_exists('related_post_settings_content_general')) {
         $post_types_display = isset($related_post_settings['post_types_display']) ? $related_post_settings['post_types_display'] : array();
 
         $headline_text = isset($related_post_settings['headline_text']) ? $related_post_settings['headline_text'] : __('Related Posts', 'related-post');
+        $headline_text_tag = isset($related_post_settings['headline_text_style']['tag']) ? $related_post_settings['headline_text_style']['tag'] : 'div';
         $headline_text_font_size = isset($related_post_settings['headline_text_style']['font_size']) ? $related_post_settings['headline_text_style']['font_size'] : '';
         $headline_text_color = isset($related_post_settings['headline_text_style']['color']) ? $related_post_settings['headline_text_style']['color'] : '';
         $headline_text_custom_css = isset($related_post_settings['headline_text_style']['custom_css']) ? $related_post_settings['headline_text_style']['custom_css'] : '';
@@ -405,7 +406,16 @@ if (!function_exists('related_post_settings_content_general')) {
 border:1px solid #999;
 }',
                     ),
-
+                    array(
+                        'id'        => 'tag',
+                        'parent'        => 'related_post_settings[headline_text_style]',
+                        'title'        => __('Custom tag for headeline text', 'related-post'),
+                        'details'    => __('Set custom tag, ex: h1, h2', 'related-post'),
+                        'type'        => 'text',
+                        'value'        => $headline_text_tag,
+                        'default'        => 'div',
+                        'placeholder'   => '',
+                    ),
 
 
                 ),
